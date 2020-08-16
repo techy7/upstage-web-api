@@ -1,0 +1,130 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Listing;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Requests\ListingRequest;
+
+class ListingController extends Controller
+{
+
+    protected $exceptData = [
+        'id',
+        'hash',
+        'slug',
+        'created_at',
+        'updated_at',
+        '_method'
+    ];
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('listings.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        $user_id = $request->input('u', '');
+
+        $listing = new Listing([
+            'name' => '',
+            'description' => '',
+            "user_id" => $user_id,
+            "editor_id" => '',
+            "status" => 'pending'
+        ]);
+
+        $users = User::where('role', 'user')->select('name', 'id', 'email')->orderBy('name', 'asc')->get();
+        $editors = User::where('role', 'editor')->select('name', 'id', 'email')->orderBy('name', 'asc')->get();
+
+        return view('listings.create', compact('listing', 'users', 'editors'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Listing  $listing
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Listing $listing)
+    {
+        $listing->load(['user', 'editor']);
+        return view('listings.show', compact('listing'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Listing  $listing
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Listing $listing)
+    {
+        $users = User::where('role', 'user')->select('name', 'id', 'email')->orderBy('name', 'asc')->get();
+        $editors = User::where('role', 'editor')->select('name', 'id', 'email')->orderBy('name', 'asc')->get();
+
+        return view('listings.edit', compact('listing', 'users', 'editors'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Listing  $listing
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Listing $listing)
+    {
+        return view('listings.delete', compact('listing'));
+    }
+
+    public function api_index(Request $request)
+    {
+        $strKeywords = $request->input('q', null);
+        $strStatus = $request->input('status', null);
+        
+        $listings = Listing::ofKeywords($strKeywords)
+            ->ofStatus($strStatus)
+            ->orderBy('created_at', 'desc')
+            ->with(['user'=>function($u){
+                $u->select('id', 'name');
+            }])
+            ->paginate(20);
+            
+        return response()->json($listings);
+    }
+
+    public function api_store(ListingRequest $request)
+    {
+        $listing = Listing::create($request->except($this->exceptData));
+        return response()->json($listing, 201);
+    }
+
+    public function api_show(Listing $listing)
+    {
+        return response()->json($listing);
+    }
+
+    public function api_update(ListingRequest $request, Listing $listing)
+    {
+        $listing->update($request->except($this->exceptData));
+        return response()->json($listing, 200);
+    }
+
+    public function api_destroy(Listing $listing)
+    {
+        $listing->delete();
+        return response()->json(null, 204);
+    }
+}
