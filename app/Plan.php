@@ -33,7 +33,7 @@ class Plan extends Model
         parent::boot();
 
         self::created(function($model){
-            $hashids = new Hashids('Plan', 8, 'abcdefghijklmnopqrstuvwxyz0123456789');
+            $hashids = new Hashids('Plan', 8, 'ab1cd2ef3gh4ij5kl6mn7op8qr9st0uvwxyz');
             $strHash = $hashids->encode($model->id);
 
             $model->hash = $strHash;

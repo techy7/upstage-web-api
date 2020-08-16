@@ -18,3 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/login', 'Api\Auth\LoginController@index');
+Route::post('/register', 'Api\Auth\RegisterController@index');
+Route::post('/password/email', 'Api\Auth\ForgotPasswordController@index');
+Route::post('/password/reset', 'Api\Auth\ResetPasswordController@index'); 
+
+Route::middleware(['api'])->group(function () {
+	Route::get('profile', 'Api\ProfileController@index');
+	Route::post('profile', 'Api\ProfileController@update');
+	Route::post('profile/avatar', 'Api\ProfileController@avatar');
+	Route::post('logout', 'Api\ProfileController@logout');
+});

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserEditRequest;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -142,5 +143,15 @@ class UserController extends Controller
     {
         $user->delete();
         return response()->json(null, 204);
+    }
+
+    public function verify(User $user)
+    { 
+        if(!$user || $user->email_verified_at) {
+            return redirect('/404');
+        }
+
+        $user->update(['email_verified_at' => Carbon::now()]); 
+        return view('verified');
     }
 }
