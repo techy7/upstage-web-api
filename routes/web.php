@@ -43,6 +43,8 @@ Route::prefix('/')->middleware(['auth'])->group(function () {
 	Route::get('listings/{listing}', 'ListingController@show'); 
 	Route::get('listings/{listing}/edit', 'ListingController@edit'); 
 	Route::get('listings/{listing}/delete', 'ListingController@delete'); 
+
+	Route::get('listings/{listing}/items/new', 'ItemController@create'); 
 });
 
 // psuedo API for admin purposes so web auth session can be used
@@ -67,4 +69,6 @@ Route::prefix('/admin_api')->middleware(['auth'])->group(function () {
 	Route::get('listings/{listing}', 'ListingController@api_show'); 
 	Route::put('listings/{listing}', 'ListingController@api_update'); 
 	Route::delete('listings/{listing}', 'ListingController@api_destroy'); 
+
+	Route::post('listings/{listing}/items', 'ItemController@api_store'); 
 });

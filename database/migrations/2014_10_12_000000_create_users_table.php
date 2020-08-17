@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('contact_num')->nullable();
             $table->string('avatar')->nullable();
-            $table->string('role')->default('user');
+            $table->string('role')->default('user')->comment('user | editor | admin');
             $table->string('hash')->nullable();
             $table->string('slug')->nullable(); 
             $table->string('verify_token')->nullable();

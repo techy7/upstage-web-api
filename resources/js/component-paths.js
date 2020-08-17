@@ -15,3 +15,8 @@ require('./components/listings/show');
 require('./components/listings/form'); 
 require('./components/listings/delete'); 
 
+require('./components/items/list'); 
+require('./components/items/show'); 
+require('./components/items/form'); 
+require('./components/items/delete'); 
+

@@ -60,7 +60,7 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        $listing->load(['user', 'editor']);
+        $listing->load(['user', 'editor', 'rawItems']);
         return view('listings.show', compact('listing'));
     }
 

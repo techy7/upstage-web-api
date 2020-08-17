@@ -37,6 +37,7 @@ Item
 	- id
 	- label
 	- descriptions
+	- filename
 	- type (img | video)
 	- status (raw | edited)
 	- listing_id

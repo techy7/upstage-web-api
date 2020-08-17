@@ -12,6 +12,10 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <style>
+        .item-card-title { padding: 5px; background-color: rgba(0,0,0,0.5); border-radius: 4px 4px 0 0; }
+    </style>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

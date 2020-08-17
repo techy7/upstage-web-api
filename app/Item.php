@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Hashids\Hashids;
 
-class Listing extends Model
+class Item extends Model
 {
     protected $guarded = ['id'];
 
@@ -18,11 +18,6 @@ class Listing extends Model
     public function editor() 
     {
         return $this->belongsTo(\App\User::class, 'editor_id');
-    }
-
-    public function rawItems() 
-    {
-        return $this->hasMany(\App\Item::class)->where('status', 'raw');
     }
 
     public function scopeOfKeywords($query, $strKeywords)
@@ -56,7 +51,7 @@ class Listing extends Model
         parent::boot();
 
         self::created(function($model){
-            $hashids = new Hashids('Listing', 8, 'ab1cd2ef3gh4ij5kl6mn7op8qr9st0uvwxyz');
+            $hashids = new Hashids('Item', 8, 'ab1cd2ef3gh4ij5kl6mn7op8qr9st0uvwxyz');
             $strHash = $hashids->encode($model->id);
 
             $model->hash = $strHash;

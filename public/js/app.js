@@ -50420,6 +50420,14 @@ __webpack_require__(/*! ./components/listings/form */ "./resources/js/components
 
 __webpack_require__(/*! ./components/listings/delete */ "./resources/js/components/listings/delete.js");
 
+__webpack_require__(/*! ./components/items/list */ "./resources/js/components/items/list.js");
+
+__webpack_require__(/*! ./components/items/show */ "./resources/js/components/items/show.js");
+
+__webpack_require__(/*! ./components/items/form */ "./resources/js/components/items/form.js");
+
+__webpack_require__(/*! ./components/items/delete */ "./resources/js/components/items/delete.js");
+
 /***/ }),
 
 /***/ "./resources/js/components/ExampleComponent.vue":
@@ -50488,6 +50496,234 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/items/delete.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/items/delete.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+Vue.component('items-delete', {
+  props: ['objitem'],
+  data: function data() {
+    return {
+      item: {},
+      isLoading: false,
+      msgSuccess: ''
+    };
+  },
+  mounted: function mounted() {
+    this.item = this.objitem;
+  },
+  computed: {},
+  methods: {
+    deleteItem: function deleteItem() {
+      var _this = this;
+
+      if (this.isLoading) {
+        return false;
+      }
+
+      this.isLoading = true;
+      axios["delete"]('/admin_api/items/' + this.item.hash).then(function (response) {
+        _this.msgError = '';
+        _this.msgSuccess = 'item has been successfully deleted.';
+        _this.isLoading = false;
+        setTimeout(function () {
+          window.location = '/items/';
+        }, 500);
+      })["catch"](function (error) {
+        _this.msgError = 'Error in deleting item';
+        _this.msgSuccess = '';
+        _this.isLoading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/items/form.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/items/form.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+Vue.component('items-form', {
+  props: ['objitem', 'url', 'action', 'redirect_url'],
+  data: function data() {
+    return {
+      item: {},
+      isLoading: false,
+      errors: [],
+      msgError: '',
+      msgSuccess: '',
+      objform: null,
+      arrFileFields: []
+    };
+  },
+  mounted: function mounted() {
+    this.item = this.objitem;
+    this.objform = new FormData();
+  },
+  computed: {},
+  methods: {
+    submitItem: function submitItem() {
+      var _this = this;
+
+      if (this.isLoading) {
+        return false;
+      }
+
+      this.isLoading = true; // construct the formdata
+
+      for (var key in this.item) {
+        // if(!this.arrFileFields.includes(key)) {
+        //     this.objform.delete(key);
+        //     this.objform.append(key, this.item[key] + '');
+        // }
+        if (!this.arrFileFields.includes(key)) {
+          this.objform["delete"](key);
+
+          if (this.item[key]) {
+            this.objform.append(key, this.item[key] + '');
+          }
+        }
+      }
+
+      var headers = {
+        'Content-Type': 'application/json;charset=utf-8'
+      };
+      axios.post(this.url, this.objform, {
+        headers: headers
+      }).then(function (response) {
+        _this.errors = [];
+        _this.msgSuccess = 'Item details has been successfully saved.';
+        _this.msgError = '';
+        _this.isLoading = false; // redirect to item page after creating
+
+        if (_this.action == 'post') {
+          setTimeout(function () {
+            window.location = _this.redirect_url;
+          }, 500);
+        }
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors;
+        _this.msgError = 'Error in saving item details.';
+        _this.msgSuccess = '';
+        _this.isLoading = false;
+      });
+    },
+    updateFile: function updateFile(ev, imageFile, imageFieldName) {
+      console.log('#preview_' + imageFile);
+
+      if (ev.target.files && ev.target.files[0]) {
+        var blobImageFile = ev.target.files[0];
+        console.log(imageFile, Math.ceil(ev.target.files[0].size / 1024 / 1024) + "MB"); // img convert to base64 string  for preview thumbnail
+        // let reader = new FileReader(); 
+        // reader.onload = function(e) {
+        //     $('#preview_'+imageFile).attr('src', e.target.result);
+        //     console.log($('#preview_'+imageFile))
+        // } 
+        // reader.readAsDataURL(ev.target.files[0]); 
+
+        this.objform["delete"](imageFieldName);
+        this.objform.append(imageFieldName, blobImageFile); // add this field to the array of excluded formdata conversion
+
+        this.arrFileFields.push(imageFieldName);
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/items/list.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/items/list.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+Vue.component('items-list', {
+  props: [],
+  data: function data() {
+    return {
+      items: {
+        data: [],
+        per_page: 3,
+        total: 0,
+        current_page: 1
+      },
+      filters: {
+        page: 1,
+        q: ''
+      },
+      isLoading: false
+    };
+  },
+  mounted: function mounted() {
+    this.getList(1);
+  },
+  computed: {},
+  methods: {
+    getList: function getList(page) {
+      var _this = this;
+
+      if (this.isLoading) {
+        return false;
+      }
+
+      this.isLoading = true;
+      this.filters.page = page;
+      axios.get('/admin_api/items/', {
+        params: this.filters
+      }).then(function (response) {
+        if (response && response.data) {
+          _this.items = response.data;
+          _this.isLoading = false;
+          $("html, body").animate({
+            scrollTop: 0
+          });
+        }
+      })["catch"](function (error) {
+        _this.isLoading = false;
+      });
+    },
+    getPage: function getPage(page) {
+      this.getList(page);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/items/show.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/items/show.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+Vue.component('items-show', {
+  props: ['objitem'],
+  data: function data() {
+    return {
+      item: {},
+      isLoading: false
+    };
+  },
+  mounted: function mounted() {
+    console.log(this.objitem);
+    this.item = this.objitem;
+  },
+  computed: {},
+  methods: {}
+});
 
 /***/ }),
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListingsTable extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateListingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('listings', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('status')->default('pending')->comment('pending | in-progress | completed');
+        Schema::create('items', function (Blueprint $table) {
+            $table->id();
+            $table->string('label');
+            $table->text('description')->nullable();  
+            $table->string('filename')->nullable();
+            $table->string('mimetype')->nullable();
+            $table->string('status')->comment('raw | edited'); 
+            $table->unsignedInteger('listing_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('editor_id')->nullable();
             $table->string('hash')->nullable();
@@ -26,6 +29,7 @@ class CreateListingsTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('editor_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('listing_id')->references('id')->on('listings')->onDelete('set null');
         });
     }
 
@@ -36,6 +40,6 @@ class CreateListingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('listings');
+        Schema::dropIfExists('items');
     }
 }
