@@ -22,6 +22,10 @@ Auth::routes(['register' => false]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('email-verify/{user}', 'UserController@verify');
 
+Route::get('/apidocs', function(){
+	return view('apidocs.index');
+});
+
 Route::get('/image/{folder}/{width}/{height}/{img_name}', 'ImageController@crop');
 Route::get('/image/{folder}/{img_name}', 'ImageController@full');
 

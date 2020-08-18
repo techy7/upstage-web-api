@@ -94,7 +94,8 @@ class UserController extends Controller
         $strKeywords = $request->input('q', null);
         
         $users = User::ofKeywords($strKeywords)
-            ->orderBy('created_at', 'desc')
+            ->where('role', 'user')
+            ->orderBy('name', 'asc')
             ->paginate(20);
             
         return response()->json($users);

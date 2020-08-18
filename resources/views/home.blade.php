@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <a href="{{url('apidocs')}}">Check the API docs</a>
                 </div>
             </div>
         </div>
