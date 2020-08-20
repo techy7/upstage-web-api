@@ -28,4 +28,10 @@ Route::middleware(['api'])->group(function () {
 	Route::post('profile', 'Api\ProfileController@update');
 	Route::post('profile/avatar', 'Api\ProfileController@avatar');
 	Route::post('logout', 'Api\ProfileController@logout');
+
+	Route::get('listings', 'Api\ListingController@index');
+	Route::post('listings', 'Api\ListingController@store');
+	Route::get('listings/{listing}', 'Api\ListingController@show');
+	Route::post('listings/{listing}', 'Api\ListingController@update');
+	Route::delete('listings/{listing}', 'Api\ListingController@destroy');
 });
