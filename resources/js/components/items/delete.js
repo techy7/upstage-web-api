@@ -1,5 +1,5 @@
 Vue.component('items-delete', {
-    props: ['objitem'],
+    props: ['objitem', 'listing_hash', 'redirect_url'],
 
     data() {
         return {
@@ -25,14 +25,14 @@ Vue.component('items-delete', {
 
             this.isLoading = true;
             
-            axios.delete('/admin_api/items/'+this.item.hash)
+            axios.delete('/admin_api/listings/'+this.listing_hash+'/items/'+this.item.hash)
                 .then((response)=>{ 
                     this.msgError = '';
                     this.msgSuccess = 'item has been successfully deleted.';
                     this.isLoading = false;
 
                     setTimeout(()=>{
-                        window.location = '/items/';
+                        window.location = this.redirect_url;
                     }, 500)
                 }).catch((error)=>{ 
                     this.msgError = 'Error in deleting item';

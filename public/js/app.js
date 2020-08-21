@@ -50507,7 +50507,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 Vue.component('items-delete', {
-  props: ['objitem'],
+  props: ['objitem', 'listing_hash', 'redirect_url'],
   data: function data() {
     return {
       item: {},
@@ -50528,12 +50528,12 @@ Vue.component('items-delete', {
       }
 
       this.isLoading = true;
-      axios["delete"]('/admin_api/items/' + this.item.hash).then(function (response) {
+      axios["delete"]('/admin_api/listings/' + this.listing_hash + '/items/' + this.item.hash).then(function (response) {
         _this.msgError = '';
         _this.msgSuccess = 'item has been successfully deleted.';
         _this.isLoading = false;
         setTimeout(function () {
-          window.location = '/items/';
+          window.location = _this.redirect_url;
         }, 500);
       })["catch"](function (error) {
         _this.msgError = 'Error in deleting item';

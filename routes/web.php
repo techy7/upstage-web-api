@@ -28,6 +28,8 @@ Route::get('/apidocs', function(){
 
 Route::get('/image/{folder}/{width}/{height}/{img_name}', 'ImageController@crop');
 Route::get('/image/{folder}/{img_name}', 'ImageController@full');
+Route::get('/video/{folder}/{filename}', 'VideoController@show');
+Route::get('/video/{folder}/{filename}/watch', 'VideoController@watch');
 
 Route::prefix('/')->middleware(['auth'])->group(function () {
 	Route::get('users', 'UserController@index'); 
@@ -49,6 +51,9 @@ Route::prefix('/')->middleware(['auth'])->group(function () {
 	Route::get('listings/{listing}/delete', 'ListingController@delete'); 
 
 	Route::get('listings/{listing}/items/new', 'ItemController@create'); 
+	Route::get('listings/{listing}/items/{item}', 'ItemController@show'); 
+	Route::get('listings/{listing}/items/{item}/edit', 'ItemController@edit'); 
+	Route::get('listings/{listing}/items/{item}/delete', 'ItemController@delete'); 
 });
 
 // psuedo API for admin purposes so web auth session can be used
@@ -75,4 +80,6 @@ Route::prefix('/admin_api')->middleware(['auth'])->group(function () {
 	Route::delete('listings/{listing}', 'ListingController@api_destroy'); 
 
 	Route::post('listings/{listing}/items', 'ItemController@api_store'); 
+	Route::post('listings/{listing}/items/{item}', 'ItemController@api_update'); 
+	Route::delete('listings/{listing}/items/{item}', 'ItemController@api_destroy'); 
 });

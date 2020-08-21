@@ -62,33 +62,44 @@
                     </div>
                     
                     <div class="card-body">
-                        <div class="row">
-                            @foreach($listing->rawItems as $raw)
-                            <div class="col-sm-6 col-lg-4 mb-3">
-                                <div class="card text-white">
-                                    @if(strpos($raw->mimetype, 'image') !== false)
-                                        <img src="{{url('/image/items/100/100/'.$raw->filename)}}" class="card-img" />
-                                    @else
-                                        <img src='/img/photo.png' class="card-img" alt="...">
-                                    @endif
-                                    <div class="card-img-overlay pt-0 pl-0 pr-0">
-                                        <h5 class="card-title item-card-title">
-                                            {{$raw->label}}
-                                        </h5>  
-                                        <p class="d-none">
-                                            <a href="#" class="btn-sm btn-primary">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-sm btn-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>        
+                        @if($listing->rawItems->count())
+                            <div class="row">
+                                @foreach($listing->rawItems as $raw)
+                                <div class="col-sm-6 col-lg-4 mb-3">
+                                    <div class="card text-white">
+                                        @if(strpos($raw->mimetype, 'image') !== false)
+                                            <img src="{{url('/image/items/100/100/'.$raw->filename)}}" class="card-img" />
+                                        @else
+                                            <img src='/img/photo.png' class="card-img" alt="...">
+                                        @endif
+                                        <div class="card-img-overlay pt-0 pl-0 pr-0">
+                                            <h5 class="card-title item-card-title m-0">
+                                                {{$raw->label}}
+                                            </h5>  
+                                            <p class="p-1">
+                                                <a href="{{url('listings/'.$listing->hash.'/items/'.$raw->hash.'/edit')}}" 
+                                                    class="btn btn-sm btn-primary"
+                                                >
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="{{url('listings/'.$listing->hash.'/items/'.$raw->hash.'/delete')}}" 
+                                                    class="btn btn-sm btn-danger"
+                                                >
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>        
+                                </div>
+                                @endforeach
                             </div>
-                            @endforeach
-                        </div>
-                        
+                        @else
+                            <div class="row">
+                                <div class="col-md-12">
+                                    No items for this listing
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

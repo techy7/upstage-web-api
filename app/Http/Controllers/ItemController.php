@@ -6,7 +6,9 @@ use App\Item;
 use App\Listing;
 use Illuminate\Http\Request;
 use App\Http\Requests\ItemRequest;
+use App\Http\Requests\ItemEditRequest;
 use Illuminate\Support\Str; 
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
@@ -33,18 +35,7 @@ class ItemController extends Controller
         ]);
 
         return view('items.create', compact('item','listing'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Plan  $plan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Plan $plan)
-    {
-        return view('plans.show', compact('plan'));
-    }
+    } 
 
     /**
      * Show the form for editing the specified resource.
@@ -52,9 +43,9 @@ class ItemController extends Controller
      * @param  \App\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Plan $plan)
+    public function edit(Listing $listing, Item $item)
     {
-        return view('plans.edit', compact('plan'));
+        return view('items.edit', compact('listing', 'item'));
     }
 
     /**
@@ -63,9 +54,9 @@ class ItemController extends Controller
      * @param  \App\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function delete(Plan $plan)
+    public function delete(Listing $listing, Item $item)
     {
-        return view('plans.delete', compact('plan'));
+        return view('items.delete', compact('item', 'listing'));
     }
 
     public function api_index(Request $request)
@@ -104,20 +95,32 @@ class ItemController extends Controller
         return response()->json($item, 201);
     }
 
-    public function api_show(Plan $plan)
+    public function api_update(ItemEditRequest $request, Listing $listing, Item $item)
     {
-        return response()->json($plan);
+        $item->update([
+            'label' => $request->label,
+            'description' => $request->description
+        ]);
+
+        // save avatar
+        if($request->file('file'))
+        {
+            $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
+            $file_stamp = $listing->hash . time() . '_file_' . $filename; 
+            $request->file->storeAs('items', $file_stamp); 
+            $item->update([
+                'filename'=>$file_stamp,
+                'mimetype'=>$request->file->getMimeType(),
+            ]);
+        } 
+
+        return response()->json($item, 200);
     }
 
-    public function api_update(PlanRequest $request, Plan $plan)
+    public function api_destroy(Listing $listing, Item $item)
     {
-        $plan->update($request->except($this->exceptData));
-        return response()->json($plan, 200);
-    }
-
-    public function api_destroy(Plan $plan)
-    {
-        $plan->delete();
+        Storage::delete('items/'.$item->filename);
+        $item->delete();
         return response()->json(null, 204);
     }
 }

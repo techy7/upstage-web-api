@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<plans-delete 
-    :objplan="{{$plan}}"
+<items-delete 
+    :objitem="{{$item}}"
+    listing_hash="{{$listing->hash}}"
+    redirect_url="{{url('/listings/'.$listing->hash)}}"
     inline-template
 >
     <div class="container">
@@ -11,15 +13,15 @@
                 <div class="card mb-3">
                     <div class="card-header clearfix">
                         <div class="float-right ml-1" role="group">
-                            <a :href="'/plans/'" class="btn-sm btn btn-secondary">Back</a> 
+                            <a :href="'/items/'" class="btn-sm btn btn-secondary">Back</a> 
                         </div> 
-                        <span v-html="plan.name"></span>
+                        <span v-html="item.label"></span>
                     </div>
 
                     <div class="card-body">
                         <div v-cloak v-if="!msgSuccess" class="alert alert-danger text-center">
-                            <h4>Are you sure you want to delete this plan?</h4>
-                            <button class="btn-danger btn" :disabled="isLoading" @click="deletePlan">Yes, Delete</button>
+                            <h4>Are you sure you want to delete this item?</h4>
+                            <button class="btn-danger btn" :disabled="isLoading" @click="deleteItem">Yes, Delete</button>
                         </div>
 
                         <div v-cloak v-if="msgSuccess" class="alert alert-success text-center">
@@ -30,5 +32,5 @@
             </div>
         </div>
     </div>
-</plans-delete>
+</items-delete>
 @endsection

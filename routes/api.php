@@ -34,4 +34,10 @@ Route::middleware(['api'])->group(function () {
 	Route::get('listings/{listing}', 'Api\ListingController@show');
 	Route::post('listings/{listing}', 'Api\ListingController@update');
 	Route::delete('listings/{listing}', 'Api\ListingController@destroy');
+
+	Route::get('listings/{listing}/items', 'Api\ItemController@index');
+	Route::post('listings/{listing}/items', 'Api\ItemController@store'); 
+	Route::get('listings/{listing}/items/{item}', 'Api\ItemController@show'); 
+	Route::post('listings/{listing}/items/{item}', 'Api\ItemController@update');
+	Route::delete('listings/{listing}/items/{item}', 'Api\ItemController@destroy');
 });

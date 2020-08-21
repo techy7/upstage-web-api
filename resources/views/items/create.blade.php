@@ -3,8 +3,8 @@
 @section('content')
 <items-form 
     :objitem="{{$item}}"
-    url="{{url('/admin_api/listings/g298k9wx/items')}}"
-    redirect_url="{{url('/listings/g298k9wx')}}"
+    url="{{url('/admin_api/listings/'.$listing->hash.'/items')}}"
+    redirect_url="{{url('/listings/'.$listing->hash)}}"
     action="post"
     inline-template
 >
@@ -14,7 +14,9 @@
                 <div class="card mb-3">
                     <div class="card-header clearfix">
                         <div class="float-right ml-1" role="group">
-                            <a :href="'/listings/g298k9wx/'" class="btn-sm btn btn-secondary">Back</a> 
+                            <a href="{{url('/listings/'.$listing->hash)}}" 
+                                class="btn-sm btn btn-secondary"
+                            >Back</a> 
                         </div>
                         Add New item
                     </div>

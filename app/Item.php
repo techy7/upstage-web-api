@@ -24,7 +24,7 @@ class Item extends Model
     {
         if($strKeywords)
         {
-            return $query->orWhere('name', 'like', '%'.$strKeywords.'%')
+            return $query->orWhere('label', 'like', '%'.$strKeywords.'%')
                     ->orWhere('description', 'like', '%'.$strKeywords.'%');
         }
 
@@ -55,7 +55,7 @@ class Item extends Model
             $strHash = $hashids->encode($model->id);
 
             $model->hash = $strHash;
-            $model->slug = Str::slug($model->name, '-') . '-' . $strHash;
+            $model->slug = Str::slug($model->label, '-') . '-' . $strHash;
             $model->save();
         });
     }

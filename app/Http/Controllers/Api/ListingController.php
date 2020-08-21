@@ -35,6 +35,7 @@ class ListingController extends Controller
         $listings = Listing::ofKeywords($strKeywords)
             ->where('user_id', $user['id'])
             ->ofStatus($strStatus)
+            ->withCount(['items'])
             ->orderBy('created_at', 'desc')
             ->paginate(20);
             
@@ -96,7 +97,30 @@ class ListingController extends Controller
             ], 401);
         }
 
-        $listing->load(['user']);
+        $listing->load(['user', 'items']);
+        $listingItems = [];
+
+        foreach ($listing->items as $key => $item) {
+            $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
+            $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+
+            array_push($listingItems, array(
+                "label" => $item->label,
+                "description" => $item->description, 
+                "status" => $item->status,
+                "hash" => $item->hash,
+                "slug" => $item->slug,
+                "created_at" => $item->created_at,
+                "updated_at" => $item->updated_at,
+                "file" => array(
+                    "filename" => $item->filename,
+                    "mimetype" => $item->mimetype,
+                    "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+                    "thumbnail_url" => $thumb
+                )
+            ));
+        }
+
         
         return response()->json(array(
             "name" => $listing->name,
@@ -108,7 +132,8 @@ class ListingController extends Controller
             "user" => array(
                 "name" => $listing->user->name, 
                 "hash" => $listing->user->hash
-            )
+            ),
+            "items" => $listingItems
         ));
     }
 

@@ -15,13 +15,11 @@ class ImageController extends Controller
         try 
         {
             $path = storage_path().'/app/'. $folder .'/' . $name;
-            // dd($path);
             $img = InterImage::make($path)->fit($width, $height); 
         }
         catch(\Exception $e)
         {
-            $imgPath = '/trash/noimg.png';
-            $path = base_path() . $imgPath;  
+            $path = storage_path().'/app/public/nophoto.png';
             $img = InterImage::make($path)->fit($width, $height);
         }
 
@@ -40,7 +38,7 @@ class ImageController extends Controller
         }
         catch(\Exception $e)
         {
-            $img = InterImage::make(storage_path().'/app/noimg.png');
+            $img = InterImage::make(storage_path().'/app/public/nophoto.png');
         }
 
         return $img->response('jpg');
@@ -56,15 +54,7 @@ class ImageController extends Controller
         catch(\Exception $e)
         { 
 
-            $imgPath = '/trash/noimg.png';
-            if($folder == 'groups') 
-            {
-                $imgPath = '/trash/group.png';
-            } 
-
-            $path = base_path() . $imgPath;  
-
-            $img = InterImage::make($path);
+            $img = InterImage::make(storage_path().'/app/public/nophoto.png');
         }
 
         return $img->response('jpg');

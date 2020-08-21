@@ -25,6 +25,11 @@ class Listing extends Model
         return $this->hasMany(\App\Item::class)->where('status', 'raw');
     }
 
+    public function items() 
+    {
+        return $this->hasMany(\App\Item::class)->where('status', 'raw');
+    }
+
     public function scopeOfKeywords($query, $strKeywords)
     {
         if($strKeywords)
