@@ -230,6 +230,7 @@
             <div class="mb-5">
               <h5 class="m0">Description</h5>
               <p class="mb-1">Endpoint for retrieving listing details where <strong class="text-primary">{listing_hash}</strong> is the HASH of the listing that you want to view.</p>
+              <p>This also includes <strong class="text-primary">items/gallery</strong> of the listings. Refer to Items section of this doc for more item/gallery info</p>
             </div>
 
             <div class="mb-5">
@@ -253,9 +254,15 @@
     "created_at": "2020-08-20T14:23:54.000000Z",
     "updated_at": "2020-08-20T14:23:54.000000Z",
     "user": {
-        "name": "User1 One",
-        "hash": "4n5qn"
-    }
+      "name": "User1 One",
+      "hash": "4n5qn"
+    },
+    "items": [
+      {
+        "label": "item1",
+        .....
+      }
+    ]
 }
 </pre> 
 

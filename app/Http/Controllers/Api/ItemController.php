@@ -39,27 +39,53 @@ class ItemController extends Controller
             ->where('listing_id', $listing->id)
             ->ofStatus($strStatus) 
             ->orderBy('created_at', 'desc')
-            ->paginate(20)
-            ->map(function($model) {
-                $folderUrl = strpos($model->mimetype, 'image') !== false ? 'image' : 'video';
-                $thumb = strpos($model->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$model->filename : null;
+            ->paginate(20); 
 
-                return array(
-                    "label" => $model->label,
-                    "description" => $model->description, 
-                    "status" => $model->status,
-                    "hash" => $model->hash,
-                    "slug" => $model->slug,
-                    "created_at" => $model->created_at,
-                    "updated_at" => $model->updated_at,
-                    "file" => array(
-                        "filename" => $model->filename,
-                        "mimetype" => $model->mimetype,
-                        "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$model->filename,
-                        "thumbnail_url" => $thumb
-                    )
-                );
-            });
+        $items->getCollection()->transform(function ($item) {
+            $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
+            $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+
+            return array(
+                "label" => $item->label,
+                "description" => $item->description, 
+                "status" => $item->status,
+                "hash" => $item->hash,
+                "slug" => $item->slug,
+                "created_at" => $item->created_at,
+                "updated_at" => $item->updated_at,
+                "file" => array(
+                    "filename" => $item->filename,
+                    "mimetype" => $item->mimetype,
+                    "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+                    "thumbnail_url" => $thumb
+                )
+            );
+
+            // return $item;
+        });
+
+
+        // $items->getCollection()->transform((function($model) {
+        //     return $model;
+        //     $folderUrl = strpos($model->mimetype, 'image') !== false ? 'image' : 'video';
+        //     $thumb = strpos($model->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$model->filename : null;
+
+        //     // return array(
+        //     //     "label" => $model->label,
+        //     //     "description" => $model->description, 
+        //     //     "status" => $model->status,
+        //     //     "hash" => $model->hash,
+        //     //     "slug" => $model->slug,
+        //     //     "created_at" => $model->created_at,
+        //     //     "updated_at" => $model->updated_at,
+        //     //     "file" => array(
+        //     //         "filename" => $model->filename,
+        //     //         "mimetype" => $model->mimetype,
+        //     //         "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$model->filename,
+        //     //         "thumbnail_url" => $thumb
+        //     //     )
+        //     // );
+        // });
             
         return response()->json($items);
     }

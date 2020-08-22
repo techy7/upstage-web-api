@@ -12,8 +12,12 @@
                 @include('apidocs.includes.profile')
             </div>
 
-            <div class="card">
+            <div class="card mb-5">
                 @include('apidocs.includes.listing')
+            </div>
+
+            <div class="card mb-5">
+                @include('apidocs.includes.item')
             </div>
         </div>
     </div>
