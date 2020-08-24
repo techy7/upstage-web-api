@@ -53,6 +53,10 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    protected $appends = [
+        'full_name'
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -76,12 +80,18 @@ class User extends Authenticatable implements JWTSubject
     {
         if($strKeywords)
         {
-            return $query->orWhere('name', 'like', '%'.$strKeywords.'%')
+            return $query->orWhere('first_name', 'like', '%'.$strKeywords.'%')
+                    ->orWhere('last_name', 'like', '%'.$strKeywords.'%')
                     ->orWhere('email', 'like', '%'.$strKeywords.'%')
                     ->orWhere('contact_num', 'like', '%'.$strKeywords.'%');
         }
 
         return $query;
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     // we will use the hash column for type-hinting

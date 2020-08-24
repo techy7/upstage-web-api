@@ -24,6 +24,8 @@ Route::post('/register', 'Api\Auth\RegisterController@index');
 // Route::post('/password/reset', 'Api\Auth\ResetPasswordController@index'); 
 
 Route::middleware(['api'])->group(function () {
+	Route::get('logout', 'Api\ProfileController@logout');
+
 	Route::get('profile', 'Api\ProfileController@index');
 	Route::post('profile', 'Api\ProfileController@update');
 	Route::post('profile/avatar', 'Api\ProfileController@avatar');

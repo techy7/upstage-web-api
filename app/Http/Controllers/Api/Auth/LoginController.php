@@ -47,7 +47,9 @@ class LoginController extends Controller
             'token_type' => 'bearer',
             'profile' => [ 
                 'hash' => $user->hash,
-                'name' => $user->name,
+                'full_name' => $user->full_name,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
                 'email' => $user->email, 
                 'contact_num' => $user->contact_num,
                 'avatar' => $user->avatar,

@@ -16,34 +16,39 @@ class UsersTableSeeder extends Seeder
  
             if($user->id == 1)
             {
-                $user->name = 'Admin';
+                $user->first_name = 'Admin';
+                $user->last_name = 'Super';
                 $user->email = 'admin@upstage.com';
                 $user->role = 'admin';
             } 
 
             if($user->id == 2)
             { 
-                $user->name = 'Editor1 One';
+                $user->first_name = 'Editor1';
+                $user->last_name = 'One';
                 $user->email = 'editor1@upstage.com';
                 $user->role = 'editor';
             }
 
             if($user->id == 3)
             { 
-                $user->name = 'Editor2 Two';
+                $user->first_name = 'Editor2';
+                $user->last_name = 'Two';
                 $user->email = 'editor2@upstage.com';
                 $user->role = 'editor';
             }
 
             if($user->id == 4)
             { 
-                $user->name = 'User1 One';
+                $user->first_name = 'User1';
+                $user->last_name = 'One';
                 $user->email = 'one@user.com';
             }
 
             if($user->id == 5)
             { 
-                $user->name = 'User2 Two';
+                $user->first_name = 'User2';
+                $user->last_name = 'Two';
                 $user->email = 'two@user.com';
                 $user->email_verified_at = null;
             }

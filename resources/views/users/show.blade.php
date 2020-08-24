@@ -15,10 +15,20 @@
                             <a :href="'/users/'+user.hash+'/edit'" class="btn-sm btn btn-primary">Edit</a>
                             <a :href="'/users/'+user.hash+'/delete'" class="btn-sm btn btn-danger">Delete</a>
                         </div> 
-                        <span v-html="user.name"></span>
+                        <span v-html="user.full_name"></span>
                     </div>
 
                     <div class="card-body">
+                        <div> 
+                            <p class='m-0'><strong>First Name:</strong></p>
+                            <p v-html='user.first_name || "n/a"'>N/A</p>
+                        </div>
+
+                        <div> 
+                            <p class='m-0'><strong>Last Name:</strong></p>
+                            <p v-html='user.last_name || "n/a"'>N/A</p>
+                        </div>
+
                         <div> 
                             <p class='m-0'><strong>Email:</strong></p>
                             <p v-html='user.email || "n/a"'>N/A</p>

@@ -69,13 +69,15 @@
   "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjksImlzcyI6Imh0dHA6XC9cL2...",
   "token_type": "bearer",
   "profile": {
-      "hash": "4n5qn",
-      "name": "User1 One",
-      "email": "one@user.com",
-      "contact_num": "+1.828.451.2447",
-      "avatar": null,
-      "slug": "orvallakin.4n5qn",
-      "is_verified": true
+    "hash": "4n5qn",
+    "full_name": "User1 One",
+    "first_name": "User1",
+    "last_name": "One",
+    "email": "one@user.com",
+    "contact_num": "+1.828.451.2447",
+    "avatar": null,
+    "slug": "orvallakin.4n5qn",
+    "is_verified": true
   }
 }
 </pre> 
@@ -133,11 +135,25 @@
                 </thead>
                 <tbody>
                   <tr> 
-                    <td>name</td>
+                    <td>first_name</td>
                     <td>required</td>
                     <td>String</td>
                     <td></td>
                     <td>John</td>
+                  </tr>
+                  <tr> 
+                    <td>last_name</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>Doe</td>
+                  </tr>
+                  <tr> 
+                    <td>contact_num</td>
+                    <td>optional</td>
+                    <td>Contact number</td>
+                    <td></td>
+                    <td>john@doe.com</td>
                   </tr>
                   <tr> 
                     <td>email</td>
@@ -232,6 +248,56 @@
         <div id="collapseAuthForgotPass" class="collapse" aria-labelledby="headingAuthForgotPass" data-parent="#accordionExample">
           <div class="card-body">
             Soon...
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header px-2 py-1" id="headingAuthLogout">
+          <h2 class="mb-0">
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseAuthLogout" aria-expanded="false" aria-controls="collapseAuthLogout">
+              Logout
+            </button>
+          </h2>
+        </div>
+        <div id="collapseAuthLogout" class="collapse" aria-labelledby="headingAuthLogout" data-parent="#accordionExample">
+          <div class="card-body">
+            <div class="mb-5">
+              <h5 class="m0">Resource URL</h5>
+              <p class="text-primary">GET base_url/api/logout</p> 
+            </div>
+
+            <div class="mb-5">
+              <h5 class="m0">Description</h5>
+              <p class="m-0">Endpoint to logout and invalidate token</p> 
+            </div> 
+
+            <div class="mb-5">
+              <h4 class="m0">Parameters</h4>
+              <p>None</p>
+            </div>
+
+            <div class="mb-5">
+              <h4 class="m0">Headers</h4>
+              <p>Authorization : Bearer {token}</p>
+            </div>
+
+            <div class="mb-5">
+<h5 class="m0">Example Response : Success</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Successfully logged out",
+    "status_code": 200
+}
+</pre> 
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "error": "Invalid Session",
+    "status_code": 401
+}
+</pre>  
+            </div>
           </div>
         </div>
       </div>

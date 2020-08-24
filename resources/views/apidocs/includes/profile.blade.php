@@ -42,7 +42,9 @@
 <pre class="text-danger mb-5">
 {
     "hash": "4n5qn",
-    "name": "User1 One",
+    "full_name": "User1 One",
+    "first_name": "User1",
+    "last_name": "One",
     "email": "one@user.com",
     "contact_num": "+1.828.451.2447",
     "avatar": null,
@@ -97,7 +99,14 @@
                 </thead>
                 <tbody>
                   <tr> 
-                    <td>name</td>
+                    <td>first_name</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>John</td>
+                  </tr> 
+                  <tr> 
+                    <td>last_name</td>
                     <td>required</td>
                     <td>String</td>
                     <td></td>
@@ -216,7 +225,9 @@
 <pre class="text-danger mb-5">
 {
     "hash": "4n5qn",
-    "name": "User1 One",
+    "full_name": "User1 One",
+    "first_name": "User1",
+    "last_name": "One",
     "email": "one@user.com",
     "contact_num": "+1.828.451.2447",
     "avatar": "1597759699_avatar_screen-shot-2020-08-13-at-13526-pmpng.png"

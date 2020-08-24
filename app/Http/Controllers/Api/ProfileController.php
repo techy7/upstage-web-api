@@ -31,11 +31,14 @@ class ProfileController extends Controller
 
         return response()->json([
             'hash' => $user['hash'],
-            'name' => $user['name'],
+            'full_name' => $user['full_name'],
+            'first_name' => $user['first_name'],
+            'last_name' => $user['last_name'],
             'email' => $user['email'], 
             'contact_num' => $user['contact_num'],
             'avatar' => $user['avatar'],
-            'slug' => $user['slug']
+            'slug' => $user['slug'],
+            'is_verified' => $user['email_verified_at'] ? true : false
         ]);
     } 
 
@@ -46,8 +49,21 @@ class ProfileController extends Controller
      */
     public function logout()
     {
+        $user = auth('api')->user();
+
+        if(!isset($user['id']))
+        {
+            return response()->json([
+                'error'   =>'Invalid Session',
+                'status_code' => 401
+            ], 401);
+        }
+
         auth()->guard('api')->logout();
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json([
+                'message'   =>'Successfully logged out',
+                'status_code' => 200
+            ], 200);
     }
 
     /**
@@ -85,7 +101,8 @@ class ProfileController extends Controller
 
         // update user 
         $user->update([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'contact_num' => $request->contact_num,
         ]);
 

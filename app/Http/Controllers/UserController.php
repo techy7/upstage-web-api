@@ -19,7 +19,8 @@ class UserController extends Controller
         'slug',
         'email_verified_at',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'full_name'
     ];
 
     /**
@@ -42,7 +43,8 @@ class UserController extends Controller
         $plans = Plan::get();
         
         $user = new User([
-            'name' => "",
+            'first_name' => "",
+            'last_name' => "",
             "email" => "",
             "password" => "",
             "avatar" => "",
@@ -95,7 +97,7 @@ class UserController extends Controller
         
         $users = User::ofKeywords($strKeywords)
             ->where('role', 'user')
-            ->orderBy('name', 'asc')
+            ->orderBy('first_name', 'asc')
             ->paginate(20);
             
         return response()->json($users);

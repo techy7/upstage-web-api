@@ -3,17 +3,36 @@
     <div class="col-md-12 mb-3">
         <label class='clearfix d-block'>
             <small class='float-right'>* required</small>
-            Name
+            First Name
         </label>
         <input type='text' 
-            v-model='user.name' 
+            v-model='user.first_name' 
             class='form-control' 
-            :class="{'is-invalid': errors.name}"
+            :class="{'is-invalid': errors.first_name}"
         >
         <small v-cloak 
             class='text-danger' 
-            v-if='errors.name' 
-            v-for='err in errors.name'
+            v-if='errors.first_name' 
+            v-for='err in errors.first_name'
+        >
+            @{{err}}
+        </small>
+    </div>
+
+    <div class="col-md-12 mb-3">
+        <label class='clearfix d-block'>
+            <small class='float-right'>* required</small>
+            Last Name
+        </label>
+        <input type='text' 
+            v-model='user.last_name' 
+            class='form-control' 
+            :class="{'is-invalid': errors.last_name}"
+        >
+        <small v-cloak 
+            class='text-danger' 
+            v-if='errors.last_name' 
+            v-for='err in errors.last_name'
         >
             @{{err}}
         </small>

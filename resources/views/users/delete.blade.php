@@ -13,7 +13,7 @@
                         <div class="float-right ml-1" role="group">
                             <a :href="'/users/'" class="btn-sm btn btn-secondary">Back</a> 
                         </div> 
-                        <span v-html="user.name"></span>
+                        <span v-html="user.full_name"></span>
                     </div>
 
                     <div class="card-body">

@@ -33,7 +33,7 @@
                                 <a :href="'/users/'+user.hash+'/edit'" class="btn-sm btn btn-primary">Edit</a>
                                 <a :href="'/users/'+user.hash+'/delete'" class="btn-sm btn btn-danger">Delete</a>
                             </div>
-                            <span class="mr-3">@{{user.name}} </span>
+                            <span class="mr-3">@{{user.full_name}} </span>
                             <small class="text-muted mr-3">@{{user.email}}</small>
                             <small class="text-muted mr-3">@{{user.role}}</small>
                         </li> 
