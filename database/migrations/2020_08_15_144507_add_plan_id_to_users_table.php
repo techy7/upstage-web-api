@@ -28,7 +28,7 @@ class AddPlanIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign(['plan_id']);
-            $table->dropColumn(['plan_id', 'contact_number']);
+            $table->dropColumn(['plan_id']);
         });
     }
 }
