@@ -223,7 +223,7 @@
           </div>
         </div>
       </div>
-      <div class="card">
+      <div class="card d-none">
         <div class="card-header px-2 py-1" id="headingAuthGoogle">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseAuthGoogle" aria-expanded="false" aria-controls="collapseAuthGoogle">
@@ -241,13 +241,182 @@
         <div class="card-header px-2 py-1" id="headingAuthForgotPass">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseAuthForgotPass" aria-expanded="false" aria-controls="collapseAuthForgotPass">
-              Forgot Password (soon)
+              Forgot Password
             </button>
           </h2>
         </div>
         <div id="collapseAuthForgotPass" class="collapse" aria-labelledby="headingAuthForgotPass" data-parent="#accordionExample">
           <div class="card-body">
-            Soon...
+            <div class="mb-5">
+              <h5 class="m0">Resource URL</h5>
+              <p class="text-primary">POST base_url/api/password/email</p> 
+            </div>
+
+            <div class="mb-5">
+              <h5 class="m0">Description</h5>
+              <p>Endpoint for requesting a password reset. When request is success, it will send an email to the user with the CODE. This endpoint does not reset his password immediately, please refer to the <strong class="text-primary">Reset Password</strong> section.</p>
+            </div>
+
+            <div class="mb-5">
+              <h4 class="m0">Parameters</h4>
+              <table class="table table-bordered table-hover font12">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                    <th>Default Value</th>
+                    <th>Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr> 
+                    <td>email</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>one@user.com</td>
+                  </tr> 
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mb-5">
+<h5 class="m0">Example Response : Success</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Reset code was sent to ff1@f.f",
+    "status": "success",
+    "status_code": 200
+}
+</pre> 
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Missing field.",
+    "errors": {
+        "email": [
+            "The email field is required."
+        ]
+    },
+    "status": "error",
+    "status_code": 422
+}
+</pre>  
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header px-2 py-1" id="headingAuthResetPass">
+          <h2 class="mb-0">
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseAuthResetPass" aria-expanded="false" aria-controls="collapseAuthResetPass">
+              Reset Password
+            </button>
+          </h2>
+        </div>
+        <div id="collapseAuthResetPass" class="collapse" aria-labelledby="headingAuthResetPass" data-parent="#accordionExample">
+          <div class="card-body">
+            <div class="mb-5">
+              <h5 class="m0">Resource URL</h5>
+              <p class="text-primary">POST base_url/api/password/reset</p> 
+            </div>
+
+            <div class="mb-5">
+              <h5 class="m0">Description</h5>
+              <p>Endpoint for the actual changing of password. This endpoint requires a token CODE which was emailed to the user. Please refer to <strong class="text-primary">Forgot Password</strong> section on how to request for CODE</p>
+            </div>
+
+            <div class="mb-5">
+              <h4 class="m0">Parameters</h4>
+              <table class="table table-bordered table-hover font12">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                    <th>Default Value</th>
+                    <th>Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr> 
+                    <td>email</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>one@user.com</td>
+                  </tr> 
+                  <tr> 
+                    <td>code</td>
+                    <td>required</td>
+                    <td>Token code which was email to the user</td>
+                    <td></td>
+                    <td>a12bc3</td>
+                  </tr> 
+                  <tr> 
+                    <td>password</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>secretpass</td>
+                  </tr> 
+                  <tr> 
+                    <td>password_confirmation</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>secretpass</td>
+                  </tr> 
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mb-5">
+<h5 class="m0">Example Response : Success</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Password has been reset",
+    "status": "success",
+    "status_code": 200
+}
+</pre> 
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Missing field.",
+    "errors": {
+        "email": [
+            "The email field is required."
+        ],
+        "code": [
+            "The code field is required."
+        ],
+        "password": [
+            "The password field is required."
+        ]
+    },
+    "status": "error",
+    "status_code": 422
+}
+</pre>  
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Unable to reset password",
+    "errors": {
+        "code": [
+            "The code is invalid or expired"
+        ]
+    },
+    "status": "error",
+    "status_code": 422
+}
+</pre>  
+            </div>
           </div>
         </div>
       </div>
