@@ -3,13 +3,14 @@ Vue.component('users-show', {
 
     data() {
         return {
-            user: {},
+            user: {
+                plan: {}
+            },
             isLoading: false,
         }
     }, 
 
-    mounted() {  
-        console.log(this.objuser)
+    mounted() {
         this.user = this.objuser;
     },  
 

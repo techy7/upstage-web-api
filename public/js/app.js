@@ -51356,12 +51356,13 @@ Vue.component('users-show', {
   props: ['objuser'],
   data: function data() {
     return {
-      user: {},
+      user: {
+        plan: {}
+      },
       isLoading: false
     };
   },
   mounted: function mounted() {
-    console.log(this.objuser);
     this.user = this.objuser;
   },
   computed: {},

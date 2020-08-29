@@ -12,10 +12,21 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    <i class="flaticon-map-location"></i> Plan Details
+                    <i class="flaticon-interface-8"></i> Plan Details
                 </h3>
             </div>
             <div>
+                <a :href="'/plans/'" 
+                    class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
+                >
+                    <span> 
+                        <span class="m--font-dark">Back</span>
+                        <span class="btn btn-dark m-btn m-btn--icon btn-sm m-btn--icon-only  m-btn--pill ml-1">
+                            <i class="la la-angle-left m--font-light m--font-light"></i>
+                        </span> 
+                    </span>
+                </a> 
+
                 <a :href="'/plans/'+plan.hash+'/edit'"
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
@@ -35,7 +46,7 @@
                             <i class="la la-trash m--font-light m--font-light"></i>
                         </span> 
                     </span>
-                </a> 
+                </a>  
             </div>
         </div>
     </div>

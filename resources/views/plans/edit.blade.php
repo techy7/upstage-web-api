@@ -14,11 +14,11 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    <i class="flaticon-map-location"></i> Edit Plan
+                    <i class="flaticon-interface-8"></i> Edit Plan
                 </h3>
             </div>
             <div>
-                <a :href="'/plans/'"
+                <a :href="'/plans/'+plan.hash"
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
                     <span> 

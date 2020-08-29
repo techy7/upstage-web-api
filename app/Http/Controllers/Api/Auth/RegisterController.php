@@ -49,7 +49,8 @@ class RegisterController extends Controller
                 'first_name' => $request->first_name,  
                 'last_name' => $request->last_name,  
                 'contact_num' => $request->contact_num,  
-                'password' => bcrypt($request->password)
+                'password' => bcrypt($request->password),
+                'plan_id' => 1
             ]); 
         } catch (Exception $e) {
             return Response::json(['message' => 'Something went wrong.'], 422); 

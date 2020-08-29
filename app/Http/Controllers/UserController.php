@@ -65,6 +65,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user->load(['plan', 'listings']);
+        // dd($user);
         return view('users.show', compact('user'));
     }
 
@@ -97,6 +98,8 @@ class UserController extends Controller
         
         $users = User::ofKeywords($strKeywords)
             ->where('role', 'user')
+            ->with(['plan'])
+            ->withCount(['listings'])
             ->orderBy('first_name', 'asc')
             ->paginate(20);
             

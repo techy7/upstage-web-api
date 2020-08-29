@@ -40,7 +40,9 @@
 					<i class="la la-close"></i>
 				</button>
 				<div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark "  >
-					<ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
+					
+
+					<ul class="m-menu__nav  m-menu__nav--submenu-arrow d-none">
 						<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" data-redirect="true" aria-haspopup="true">
 							<a  href="#" class="m-menu__link m-menu__toggle">
 								<i class="m-menu__link-icon flaticon-add"></i>
@@ -624,6 +626,7 @@
 							</div>
 						</li>
 					</ul>
+
 				</div>
 				<!-- END: Horizontal Menu -->
 				<!-- BEGIN: Topbar -->
@@ -664,6 +667,9 @@
 									</div>
 								</div>
 							</li>
+
+							{{--
+							<!-- NOTIFICATION BELL -->
 							<li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center 	m-dropdown--mobile-full-width" data-dropdown-toggle="click" data-dropdown-persistent="true">
 								<a href="#" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
 									<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>
@@ -873,6 +879,10 @@
 									</div>
 								</div>
 							</li>
+							--}}
+
+							{{--
+							<!-- QUICK ACTION MENU -->
 							<li class="m-nav__item m-topbar__quick-actions m-topbar__quick-actions--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push m-dropdown--mobile-full-width m-dropdown--skin-light"  data-dropdown-toggle="click">
 								<a href="#" class="m-nav__link m-dropdown__toggle">
 									<span class="m-nav__link-badge m-badge m-badge--dot m-badge--info m--hide"></span>
@@ -930,28 +940,31 @@
 									</div>
 								</div>
 							</li>
+							--}}
+
+							<!-- PROFILE POPUP -->
 							<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="click">
 								<a href="#" class="m-nav__link m-dropdown__toggle">
 									<span class="m-topbar__userpic">
 										<img src="{{ asset('metronic/media/img/users/user4.jpg') }}" class="m--img-rounded m--marginless m--img-centered" alt=""/>
 									</span>
 									<span class="m-topbar__username m--hide">
-										Nick
+										{{ Auth::user()->full_name }}
 									</span>
 								</a>
 								<div class="m-dropdown__wrapper">
 									<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
 									<div class="m-dropdown__inner">
-										<div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
+										<div class="m-dropdown__header m--align-center" style="background: url({{ asset('metronic/media/img/misc/user_profile_bg.jpg')}}); background-size: cover;">
 											<div class="m-card-user m-card-user--skin-dark">
 												<div class="m-card-user__pic">
 													<img src="{{ asset('metronic/media/img/users/user4.jpg') }}" class="m--img-rounded m--marginless" alt=""/>
 												</div>
 												<div class="m-card-user__details">
-													<span class="m-card-user__name text-dark text-capitalize m--font-weight-500">
-														{{Auth::user()->name}}
+													<span class="m-card-user__name text-white text-capitalize m--font-weight-500">
+														{{Auth::user()->full_name}}
 													</span>
-													<a href="" class="m-card-user__email m--font-weight-300 m-link">
+													<a class="m-card-user__email m--font-weight-300 m-link">
 														{{Auth::user()->email}}
 													</a>
 												</div>
@@ -959,63 +972,7 @@
 										</div>
 										<div class="m-dropdown__body">
 											<div class="m-dropdown__content">
-												<ul class="m-nav m-nav--skin-light">
-													<li class="m-nav__section m--hide">
-														<span class="m-nav__section-text">
-															Section
-														</span>
-													</li>
-													<li class="m-nav__item">
-														<a href="header/profile.html" class="m-nav__link">
-															<i class="m-nav__link-icon flaticon-profile-1"></i>
-															<span class="m-nav__link-title">
-																<span class="m-nav__link-wrap">
-																	<span class="m-nav__link-text">
-																		My Profile
-																	</span>
-																	<span class="m-nav__link-badge">
-																		<span class="m-badge m-badge--success">
-																			2
-																		</span>
-																	</span>
-																</span>
-															</span>
-														</a>
-													</li>
-													<li class="m-nav__item">
-														<a href="header/profile.html" class="m-nav__link">
-															<i class="m-nav__link-icon flaticon-share"></i>
-															<span class="m-nav__link-text">
-																Activity
-															</span>
-														</a>
-													</li>
-													<li class="m-nav__item">
-														<a href="header/profile.html" class="m-nav__link">
-															<i class="m-nav__link-icon flaticon-chat-1"></i>
-															<span class="m-nav__link-text">
-																Messages
-															</span>
-														</a>
-													</li>
-													<li class="m-nav__separator m-nav__separator--fit"></li>
-													<li class="m-nav__item">
-														<a href="header/profile.html" class="m-nav__link">
-															<i class="m-nav__link-icon flaticon-info"></i>
-															<span class="m-nav__link-text">
-																FAQ
-															</span>
-														</a>
-													</li>
-													<li class="m-nav__item">
-														<a href="header/profile.html" class="m-nav__link">
-															<i class="m-nav__link-icon flaticon-lifebuoy"></i>
-															<span class="m-nav__link-text">
-																Support
-															</span>
-														</a>
-													</li>
-													<li class="m-nav__separator m-nav__separator--fit"></li>
+												<ul class="m-nav m-nav--skin-light"> 
 													<li class="m-nav__item">
 														<a class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder"
 															onclick="event.preventDefault();
@@ -1033,6 +990,9 @@
 									</div>
 								</div>
 							</li>
+
+							{{--
+							<!-- SIDEBAR POPUP -->
 							<li id="m_quick_sidebar_toggle" class="m-nav__item">
 								<a href="#" class="m-nav__link m-dropdown__toggle">
 									<span class="m-nav__link-icon">
@@ -1040,6 +1000,7 @@
 									</span>
 								</a>
 							</li>
+							--}}
 						</ul>
 					</div>
 				</div>

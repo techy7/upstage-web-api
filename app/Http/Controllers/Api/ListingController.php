@@ -81,7 +81,11 @@ class ListingController extends Controller
             "slug" => $listing->slug,
             "created_at" => $listing->created_at,
             "updated_at" => $listing->updated_at,
-            "user" => array("name" => $user["name"], "hash" => $user["hash"])
+            "user" => array(
+                "first_name" => $user["first_name"],  
+                "last_name" => $user["last_name"],
+                "hash" => $user["hash"]
+            )
         ), 201);
     }
 
