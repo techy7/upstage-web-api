@@ -46,8 +46,14 @@ class ListingController extends Controller
             "status" => 'pending'
         ]);
 
-        $users = User::where('role', 'user')->select('name', 'id', 'email')->orderBy('name', 'asc')->get();
-        $editors = User::where('role', 'editor')->select('name', 'id', 'email')->orderBy('name', 'asc')->get();
+        $users = User::where('role', 'user')
+                    ->select('first_name', 'last_name', 'id', 'email')
+                    ->orderBy('first_name', 'asc')
+                    ->get();
+        $editors = User::where('role', 'editor')
+                    ->select('first_name', 'last_name', 'id', 'email')
+                    ->orderBy('first_name', 'asc')
+                    ->get();
 
         return view('listings.create', compact('listing', 'users', 'editors'));
     }
@@ -72,8 +78,14 @@ class ListingController extends Controller
      */
     public function edit(Listing $listing)
     {
-        $users = User::where('role', 'user')->select('name', 'id', 'email')->orderBy('name', 'asc')->get();
-        $editors = User::where('role', 'editor')->select('name', 'id', 'email')->orderBy('name', 'asc')->get();
+        $users = User::where('role', 'user')
+                    ->select('first_name', 'last_name', 'id', 'email')
+                    ->orderBy('first_name', 'asc')
+                    ->get();
+        $editors = User::where('role', 'editor')
+                    ->select('first_name', 'last_name', 'id', 'email')
+                    ->orderBy('first_name', 'asc')
+                    ->get();
 
         return view('listings.edit', compact('listing', 'users', 'editors'));
     }
@@ -98,7 +110,7 @@ class ListingController extends Controller
             ->ofStatus($strStatus)
             ->orderBy('created_at', 'desc')
             ->with(['user'=>function($u){
-                $u->select('id', 'name');
+                $u->select('id', 'first_name', 'last_name');
             }])
             ->paginate(20);
             
@@ -118,7 +130,10 @@ class ListingController extends Controller
 
     public function api_update(ListingRequest $request, Listing $listing)
     {
-        $listing->update($request->except($this->exceptData));
+        $data = $request->except($this->exceptData);
+        $data['editor_id'] = $data['editor_id'] == 'null' ? null : $data['editor_id']; 
+        
+        $listing->update($data);
         return response()->json($listing, 200);
     }
 

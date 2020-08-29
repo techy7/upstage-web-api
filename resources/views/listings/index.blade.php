@@ -1,80 +1,147 @@
-@extends('layouts.app')
+@extends('layouts.metronic.classic.app')
 
 @section('content')
 <listings-list inline-template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <div class="card mb-3">
-                    <div class="card-header clearfix">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                Listings
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-6 pr-1">
-                                        <input type="text" 
-                                            class="form-control form-control-sm" 
-                                            v-model="filters.q" 
-                                            placeholder="Type keywords here..."
-                                        >
-                                    </div>
-                                    <div class="col-sm-4 pl-1 pr-1">
-                                        <select v-model='filters.status' 
-                                            class="form-control form-control-sm"
-                                        >
-                                            <option value="">All Status</option>
-                                            <option value="pending">Pending</option>
-                                            <option value="in-progress">In Progress</option>
-                                            <option value="completed">Completed</option>
-                                        </select> 
-                                    </div>
-                                    <div class="col-sm-2 pl-1">
-                                        <button class="btn btn-secondary btn-block btn-sm" 
-                                            @click="getList(1)" 
-                                            type="button"
-                                        >
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <a href="{{url('listings/new')}}" class="btn btn-primary btn-sm btn-block">Add</a>
-                            </div>
-                        </div> 
-                    </div>
 
-                    <ul v-cloak class="list-group list-group-flush"  v-if="listings.total">
-                        <li v-for="(listing, index) in listings.data" class="list-group-item clearfix">
-                            <div class="float-right" role="group">
-                                <a :href="'/listings/'+listing.hash" class="btn-sm btn btn-info">View</a>
-                                <a :href="'/listings/'+listing.hash+'/edit'" class="btn-sm btn btn-primary">Edit</a>
-                                <a :href="'/listings/'+listing.hash+'/delete'" class="btn-sm btn btn-danger">Delete</a>
-                            </div>
-                            <span class="mr-3">@{{listing.name}} </span>
-                            <small class="text-muted mr-3">@{{listing.user.name}}</small>
-                            <small class="text-muted mr-3">@{{listing.status}}</small>
-                        </li> 
-                    </ul> 
-
-                    <ul v-cloak class="list-group list-group-flush" v-if="!listings.total && !isLoading">
-                        <li class="list-group-item clearfix text-center">
-                            There are no listings found. 
-                        </li> 
-                    </ul> 
-
-                    <ul class="list-group list-group-flush" v-if="!listings.total && isLoading">
-                        <li class="list-group-item clearfix text-center">
-                            loading...
-                        </li> 
-                    </ul> 
-                </div>
-
-                <pagination :data="listings" @pagination-change-page="getPage"></pagination>
+<div>
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <h3 class="m-subheader__title ">
+                    <i class="flaticon-interface-8"></i> Listings
+                </h3>
+            </div>
+            <div>
+                <a href="{{url('listings/new')}}" 
+                    class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
+                >
+                    <span> 
+                        <span class="m--font-primary">Add</span>
+                        <span class="btn btn-primary m-btn m-btn--icon btn-sm m-btn--icon-only  m-btn--pill ml-1">
+                            <i class="la la-plus m--font-light m--font-light"></i>
+                        </span> 
+                    </span>
+                </a> 
             </div>
         </div>
     </div>
+    <!-- END: Subheader -->
+
+    <div class="m-content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="m-portlet" v-cloak>
+                    <div class="m-portlet__head"> 
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    All listings
+                                    <small>@{{listings.total}} listings found</small>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="m-portlet__head-tools">
+                            <!-- 
+                            <div class="col-sm-4 pl-1 pr-1">
+                                <select v-model='filters.status' 
+                                    class="form-control form-control-sm"
+                                >
+                                    <option value="">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                </select> 
+                            </div>
+                             -->
+                            <ul class="m-portlet__nav">
+                                <li class="m-portlet__nav-item">
+                                    <form @submit.prevent="getList(1)" class="m-input-icon m-input-icon--right m-0">
+                                        <input type="text" 
+                                            class="form-control m-input" 
+                                            v-model="filters.q" 
+                                            placeholder="Type keywords here..."
+                                        >
+                                        <span class="m-input-icon__icon m-input-icon__icon--right" 
+                                            @click="getList(1)"
+                                        >
+                                            <span>
+                                                <i class="flaticon-search-1"></i>
+                                            </span>
+                                        </span>
+                                    </form>
+                                </li>
+                            </ul> 
+                        </div>
+                    </div>
+                    <div class="m-portlet__body py-0">
+                        <div class="m-widget4" v-cloak v-if="listings.total">
+                            <div class="m-widget4__item" v-for="(listing, index) in listings.data"> 
+                                <div class="m-widget4__info pl-0">
+                                    <span class="m-widget4__title">
+                                        @{{listing.name}}
+                                    </span>
+                                    <br class="">
+                                    <span class="m-widget4__sub ">
+                                        @{{listing.user.full_name}}
+                                    </span>
+                                </div> 
+                                <span class="m-widget4__info">
+                                    <span class="d-inline-block w-150 text-center"> 
+                                        <span class="m-widget4__title">
+                                            @{{listing.items_count}}
+                                        </span>
+                                        <br class="">
+                                        <span class="m-widget4__sub ">
+                                            Items 
+                                        </span>
+                                    </span> 
+                                </span>
+                                <span class="m-widget4__info">
+                                    <span class="d-inline-block w-150 text-center"> 
+                                        <span class="m-widget4__title">
+                                            @{{listing.status}}
+                                        </span>
+                                        <br class="">
+                                        <span class="m-widget4__sub ">
+                                            Status 
+                                        </span>
+                                    </span> 
+                                </span>
+                                <span class="m-widget4__ext">
+                                    <span class="d-inline-block w-150 text-right"> 
+                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="View " :href="'/listings/'+listing.hash"> 
+                                            <i class="la la-external-link-square"></i>
+                                        </a> 
+                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " :href="'/listings/'+listing.hash+'/edit'"> 
+                                            <i class="la la-pencil-square"></i>
+                                        </a>  
+                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" :href="'/listings/'+listing.hash+'/delete'"> 
+                                            <i class="la la-trash"></i>
+                                        </a>   
+                                    </span> 
+                                </span>
+                            </div> 
+                        </div>
+
+                        <div v-cloak class="text-center p-5" v-if="!listings.total && !isLoading"> 
+                                There are no listings found.  
+                        </div> 
+
+                        <div class="text-center p-5" v-if="!listings.total && isLoading"> 
+                                loading... 
+                        </div> 
+                    </div>
+                    <div class="m-portlet__foot">
+                        <pagination :data="listings" @pagination-change-page="getPage"></pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
 </listings-list>
 @endsection

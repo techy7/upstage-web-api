@@ -29,6 +29,7 @@
 		<link rel="shortcut icon" href="{{ asset('metronic/media/img/logo/favicon.ico') }}" />
 
 		<style>
+			.w-30 { width: 30px !important; }
 			.w-50 { width: 50px !important; }
 			.w-100 { width: 100px !important; }
 			.w-200 { width: 200px !important; }
