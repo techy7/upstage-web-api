@@ -12,4 +12,16 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    // .sass('resources/sass/app.scss', 'public/css');
+
+mix.autoload({
+    'jquery': ['$', 'window.jQuery', 'jquery']
+})
+
+mix.scripts([
+        'resources/assets/metronic/scripts.bundle.js'
+    ], 'metronic/base/scripts.bundle.js')
+    .scripts([
+        'resources/assets/metronic/vendors.bundle.js'
+    ], 'metronic/vendors/vendors.bundle.js');
+

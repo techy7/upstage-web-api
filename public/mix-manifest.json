@@ -1,4 +1,5 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/metronic/base/scripts.bundle.js": "/metronic/base/scripts.bundle.js",
+    "/metronic/vendors/vendors.bundle.js": "/metronic/vendors/vendors.bundle.js"
 }
