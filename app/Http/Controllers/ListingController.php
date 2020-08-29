@@ -112,6 +112,7 @@ class ListingController extends Controller
             ->with(['user'=>function($u){
                 $u->select('id', 'first_name', 'last_name');
             }])
+            ->withCount(['items'])
             ->paginate(20);
             
         return response()->json($listings);
@@ -132,7 +133,7 @@ class ListingController extends Controller
     {
         $data = $request->except($this->exceptData);
         $data['editor_id'] = $data['editor_id'] == 'null' ? null : $data['editor_id']; 
-        
+
         $listing->update($data);
         return response()->json($listing, 200);
     }

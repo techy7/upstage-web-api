@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.metronic.classic.app')
 
 @section('content')
 <items-form 
@@ -8,25 +8,40 @@
     action="post"
     inline-template
 >
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card mb-3">
-                    <div class="card-header clearfix">
-                        <div class="float-right ml-1" role="group">
-                            <a href="{{url('/listings/'.$listing->hash)}}" 
-                                class="btn-sm btn btn-secondary"
-                            >Back</a> 
-                        </div>
-                        Add New item
-                    </div>
-
-                    <div class="card-body">
-                        @include('items.form')
-                    </div>
-                </div>
+<div>
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <h3 class="m-subheader__title ">
+                    <i class="flaticon-interface-8"></i> Create New Item
+                </h3>
+            </div>
+            <div>
+                <a href="{{url('/listings/'.$listing->hash)}}" 
+                    class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
+                >
+                    <span> 
+                        <span class="m--font-secondary">Cancel</span>
+                        <span class="btn btn-secondary m-btn m-btn--icon btn-sm m-btn--icon-only  m-btn--pill ml-1">
+                            <i class="flaticon-close m--font-secondary"></i>
+                        </span> 
+                    </span>
+                </a>  
             </div>
         </div>
     </div>
+    <!-- END: Subheader -->
+
+    <div class="m-content">
+        <div class="row">
+            <div class="col-md-12">
+                @include('items.form')
+            </div>
+        </div>
+    </div>
+</div> 
+
+     
 </items-form>
 @endsection

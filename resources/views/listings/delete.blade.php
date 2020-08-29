@@ -12,7 +12,7 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    <i class="flaticon-interface-8"></i> Delete Listing
+                    <i class="flaticon-squares-1"></i> Delete Listing
                 </h3>
             </div>
             <div>

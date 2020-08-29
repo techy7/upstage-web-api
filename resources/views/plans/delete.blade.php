@@ -60,6 +60,9 @@
                                 </button>
                             </div>
                         </div>
+                        <div v-cloak v-if="msgSuccess" class="alert alert-success text-center">
+                            <p class="mb-0">@{{msgSuccess}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
