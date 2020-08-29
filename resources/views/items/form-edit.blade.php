@@ -17,7 +17,7 @@
                         </div>
                         <div class="mb-3">
                             <label class='clearfix d-block'> 
-                                Listing
+                                Listing 
                             </label>
                             <input type='text' 
                                 class='form-control' 
@@ -33,11 +33,19 @@
                                 Image File
                             </label>
                             <img src="{{url('/image/items/100/100/'.$item->filename)}}" class="w-100" />
-                        @else
+                        @endif
+
+                        @if(strpos($item->mimetype, 'video') !== false)
                             <label class='clearfix d-block'> 
                                 Video File
                             </label>
-                            <img src='/img/photo.png'  class="w-100">
+                            <video controls width="250" class="w-100">
+
+                                <source src="{{url('/video/items/'.$item->filename.'/watch')}}"
+                                        type="{{$item->mimetype}}"> 
+
+                                Sorry, your browser doesn't support embedded videos.
+                            </video>
                         @endif
                     </div>        
                 </div>

@@ -31,7 +31,7 @@
 		<style>
 			.w-30 { width: 30px !important; }
 			.w-50 { width: 50px !important; }
-			.w-100 { width: 100px !important; }
+			.w-99 { width: 99px !important; }
 			.w-200 { width: 200px !important; }
 			.w-150 { width: 150px !important; }
 			.w-101 { width: 100px !important; }

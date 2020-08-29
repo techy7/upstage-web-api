@@ -291,6 +291,7 @@
               <p class="m-0">
                 This is done by assembling <strong>baseurl/image/items/</strong> + <strong>/{width}/{heigth}/</strong> + <strong>{file.filename}</strong>
               </p>
+              <p class="m-0">Add <strong class="text-primary">/watch</strong> at the end of video URL if you want the streamable video (<small class="text-muted">http://localhost/video/items/video_item.mp4/watch</small>)</p>
               <p class="m-0"><span class="text-danger">No thumbnail for video yet</span></p>
             </div>
 
