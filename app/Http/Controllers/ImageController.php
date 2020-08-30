@@ -59,6 +59,15 @@ class ImageController extends Controller
 
         return $img->response('jpg');
     }
+
+    public function download(Request $request, $folder, $name)
+    {   
+        if(Storage::exists($folder .'/' . $name)) {
+            return Storage::download($folder .'/' . $name);    
+        } else {
+            return 'File not found';
+        } 
+    }
 }
 
  

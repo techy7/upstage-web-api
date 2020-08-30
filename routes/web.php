@@ -28,8 +28,10 @@ Route::get('/apidocs', function(){
 
 Route::get('/image/{folder}/{width}/{height}/{img_name}', 'ImageController@crop');
 Route::get('/image/{folder}/{img_name}', 'ImageController@full');
+Route::get('/image/{folder}/{img_name}/download', 'ImageController@download');
 Route::get('/video/{folder}/{filename}', 'VideoController@show');
 Route::get('/video/{folder}/{filename}/watch', 'VideoController@watch');
+Route::get('/video/{folder}/{filename}/download', 'VideoController@download');
 
 Route::prefix('/')->middleware(['auth'])->group(function () {
 	Route::get('users', 'UserController@index'); 

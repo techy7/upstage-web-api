@@ -69,6 +69,15 @@ class VideoController extends Controller
                 fclose($stream);
             }, $status, $headers);
     }
+
+    public function download(Request $request, $folder, $name)
+    {   
+        if(Storage::exists($folder .'/' . $name)) {
+            return Storage::download($folder .'/' . $name, 'ssss');    
+        } else {
+            return 'File not found';
+        } 
+    }
 }
 
  

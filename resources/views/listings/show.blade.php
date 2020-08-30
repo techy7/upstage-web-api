@@ -176,7 +176,16 @@
                                         </span>
                                     </div> 
 
-                                    <span class="m-widget4__ext w-100 d-inline-block text-right">
+                                    <span class="m-widget4__ext w-150 d-inline-block text-right">
+                                        @if(strpos($raw->mimetype, 'image') !== false)
+                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="Download " href="{{url('/image/items/'.$raw->filename.'/download')}}" target="_blank"> 
+                                            <i class="la la-download"></i>
+                                        </a>  
+                                        @else
+                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="Download " href="{{url('/video/items/'.$raw->filename.'/download')}}" target="_new"> 
+                                            <i class="la la-download"></i>
+                                        </a>  
+                                        @endif
                                         <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " href="{{url('listings/'.$listing->hash.'/items/'.$raw->hash.'/edit')}}"> 
                                             <i class="la la-pencil-square"></i>
                                         </a>  
