@@ -70,7 +70,7 @@
                 <div class="title m-b-md">
                     UPSTAGE
                 </div> 
-                <p>Account has been verified, you can now login.</p>
+                <p>Account has been verified, you can now login on app.</p>
             </div>
         </div>
     </body>

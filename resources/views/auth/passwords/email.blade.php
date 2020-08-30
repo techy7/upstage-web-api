@@ -36,6 +36,12 @@
                 </span>
             @enderror 
         </div> 
+
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
          
         <div class="m-login__form-action mt-3">
             <button id="m_login_signin_submit" class="btn btn-primary m-btn m-btn--custom m-btn--air  m-login__btn m-login__btn--info">
