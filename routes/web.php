@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+	if(Auth::user()){
+		return redirect('/home');
+	}
     return view('welcome');
 });
 
@@ -21,10 +24,6 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('email-verify/{user}', 'UserController@verify');
-
-Route::get('/apidocs', function(){
-	return view('apidocs.index');
-});
 
 Route::get('/image/{folder}/{width}/{height}/{img_name}', 'ImageController@crop');
 Route::get('/image/{folder}/{img_name}', 'ImageController@full');
@@ -34,6 +33,10 @@ Route::get('/video/{folder}/{filename}/watch', 'VideoController@watch');
 Route::get('/video/{folder}/{filename}/download', 'VideoController@download');
 
 Route::prefix('/')->middleware(['auth'])->group(function () {
+	Route::get('/apidocs', function(){
+		return view('apidocs.index');
+	});
+
 	Route::get('users', 'UserController@index'); 
 	Route::get('users/new', 'UserController@create'); 
 	Route::get('users/{user}', 'UserController@show'); 
