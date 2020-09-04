@@ -50429,6 +50429,8 @@ __webpack_require__(/*! ./components/items/form */ "./resources/js/components/it
 
 __webpack_require__(/*! ./components/items/delete */ "./resources/js/components/items/delete.js");
 
+__webpack_require__(/*! ./components/notifications */ "./resources/js/components/notifications.js");
+
 /***/ }),
 
 /***/ "./resources/js/components/ExampleComponent.vue":
@@ -50933,6 +50935,39 @@ Vue.component('listings-show', {
 
 /***/ }),
 
+/***/ "./resources/js/components/notifications.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/notifications.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+Vue.component('notifications', {
+  props: [],
+  data: function data() {
+    return {
+      newusers: [],
+      totalNotifs: 0
+    };
+  },
+  mounted: function mounted() {
+    this.fetchNewUserNotif();
+    console.log('yeah');
+  },
+  computed: {},
+  methods: {
+    fetchNewUserNotif: function fetchNewUserNotif() {
+      axios.get('/notifications/unread').then(function (response) {
+        console.log(response.data);
+
+        if (response && response.data) {}
+      })["catch"](function (error) {});
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/components/plans/delete.js":
 /*!*************************************************!*\
   !*** ./resources/js/components/plans/delete.js ***!
@@ -51378,7 +51413,7 @@ Vue.component('users-show', {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/edwardsonsarenas/Projects/laravel7/upstage/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\upstage7\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

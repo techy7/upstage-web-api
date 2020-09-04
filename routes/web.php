@@ -59,6 +59,11 @@ Route::prefix('/')->middleware(['auth'])->group(function () {
 	Route::get('listings/{listing}/items/{item}', 'ItemController@show'); 
 	Route::get('listings/{listing}/items/{item}/edit', 'ItemController@edit'); 
 	Route::get('listings/{listing}/items/{item}/delete', 'ItemController@delete'); 
+
+	Route::get('notifications', 'NotificationController@notifications');
+	Route::get('notifications/unread', 'NotificationController@unreadnotifications');
+	Route::get('notifications/all', 'NotificationController@allnotifications');
+	Route::get('notifications/index', 'NotificationController@indexnotifications');
 });
 
 // psuedo API for admin purposes so web auth session can be used

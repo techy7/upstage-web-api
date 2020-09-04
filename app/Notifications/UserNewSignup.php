@@ -8,10 +8,10 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\User;
 
-class VerifyEmail extends Notification
+class UserNewSignup extends Notification
 {
     use Queueable;
-    protected $user; 
+    protected $user;
 
     /**
      * Create a new notification instance.
@@ -31,23 +31,24 @@ class VerifyEmail extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
+ 
 
     /**
-     * Get the mail representation of the notification.
+     * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return array
      */
-    public function toMail($notifiable)
+    public function toArray($notifiable)
     {
-        $signedURL = env('APP_URL').'/email-verify/'.$this->user->hash;
-
-        return (new MailMessage)
-                    ->subject('Welcome to '.env('APP_NAME'))
-                    ->line('Please click the button below to verify your email address.')
-                    ->action('Verify Email Address', $signedURL)
-                    ->line('If you did not create an account, no further action is required.');
+        return [
+            'first_name'=>$this->user['first_name'],
+            'last_name'=>$this->user['last_name'],
+            'id'=>$this->user['id'],
+            'hash'=>$this->user['hash'],
+            'email'=>$this->user['email']
+        ];
     }
 }

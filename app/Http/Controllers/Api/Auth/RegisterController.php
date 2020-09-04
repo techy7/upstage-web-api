@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\User; 
 use App\Notifications\VerifyEmail;
+use App\Notifications\UserNewSignup;
 use Notification;
 use Illuminate\Validation\Rule;
 
@@ -55,10 +56,13 @@ class RegisterController extends Controller
         } catch (Exception $e) {
             return Response::json(['message' => 'Something went wrong.'], 422); 
         }
+ 
+        // Notification::route('mail', $request->email) 
+        //         ->notify(new VerifyEmail($user, $request->email));
 
-        // $user->sendEmailVerificationNotification();
-        Notification::route('mail', $request->email) 
-                ->notify(new VerifyEmail($user, $request->email)); 
+        // get admin and notify
+        $admins = User::where('role', 'admin')->get();
+        Notification::send($admins, new UserNewSignup($user)); 
 
         return response()->json([
             'message' => 'Account Created! Check your email and verify your account',
