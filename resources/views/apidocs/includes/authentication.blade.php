@@ -213,13 +213,119 @@
         <div class="card-header px-2 py-1" id="headingAuthFB">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseAuthFB" aria-expanded="false" aria-controls="collapseAuthFB">
-              Facebook Login (soon)
+              Facebook Login 
             </button>
           </h2>
         </div>
         <div id="collapseAuthFB" class="collapse" aria-labelledby="headingAuthFB" data-parent="#accordionExample">
           <div class="card-body">
-            Soon...
+            <div class="mb-5">
+              <h5 class="m0">Resource URL</h5>
+              <p class="text-primary">POST base_url/api/login/facebook</p> 
+            </div>
+
+            <div class="mb-5">
+              <h4 class="m0">Parameters</h4>
+              <table class="table table-bordered table-hover font12">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                    <th>Default Value</th>
+                    <th>Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr> 
+                    <td>id</td>
+                    <td>required</td>
+                    <td>String, user's facebook id</td>
+                    <td></td>
+                    <td>12334456778844</td>
+                  </tr>
+                  <tr> 
+                    <td>name</td>
+                    <td>required</td>
+                    <td>User's facebook name</td>
+                    <td></td>
+                    <td>John Doe</td>
+                  </tr>
+                  <tr> 
+                    <td>email</td>
+                    <td>required</td>
+                    <td>User's facebook email</td>
+                    <td></td>
+                    <td>john@doe.com</td>
+                  </tr> 
+                  <tr> 
+                    <td>access_token</td>
+                    <td>optional</td>
+                    <td>User's facebook access_token</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr> 
+                    <td>picture</td>
+                    <td>optional</td>
+                    <td>Url of user's facebook avatar</td>
+                    <td></td>
+                    <td>https://graph.facebook.com/123131312/picture</td>
+                  </tr> 
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mb-5">
+<h5 class="m0">Example Response : Success</h5> 
+<pre class="text-danger mb-5">
+{
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9sb2dpblwvZmFjZWJvb2siLCJpYXQiOjE1OTkyMzk1OTEsIm5iZiI6MTU5OTIzOTU5MSwianRpIjoiVmZmTTNjVjFKRFV0RmRibSIsInN1YiI6NTEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.ROjbIyHjACelCaiTy_ro7i6j1l_DndcO4lr3rRtqMxs",
+    "token_type": "bearer",
+    "profile": {
+        "hash": "rkv4l",
+        "full_name": "kk kamote",
+        "first_name": "kk",
+        "last_name": "kamote",
+        "email": "kk@kk.kk",
+        "contact_num": null,
+        "avatar": null,
+        "fb_profile": {
+            "fb_id": "1233",
+            "fb_token": "abbbb",
+            "fb_avatar": "http://localhost:8000/img/user1.png",
+            "fb_email": "kk@kk.kk",
+            "fb_name": "kk kamote"
+        },
+        "slug": ".rkv4l",
+        "is_verified": true
+    }
+}
+</pre> 
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Login to facebook failed.",
+    "errors": {
+        "access_token": [
+            "The access token field is required."
+        ],
+        "id": [
+            "The id field is required."
+        ],
+        "email": [
+            "The email field is required."
+        ],
+        "name": [
+            "The name field is required."
+        ]
+    },
+    "status": "error",
+    "status_code": 422
+}
+</pre>  
+            </div>
           </div>
         </div>
       </div>
