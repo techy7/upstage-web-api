@@ -64,6 +64,10 @@ Vue.component('items-form', {
                         setTimeout(()=>{
                             window.location = this.redirect_url;
                         }, 500)
+                    } else { 
+                        setTimeout(()=>{
+                            location.reload();
+                        }, 500)
                     }
 
                 }).catch((error)=>{ 

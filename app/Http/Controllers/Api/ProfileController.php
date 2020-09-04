@@ -38,6 +38,13 @@ class ProfileController extends Controller
             'contact_num' => $user['contact_num'],
             'avatar' => $user['avatar'],
             'slug' => $user['slug'],
+            'fb_profile' => [
+                'fb_id' => data_get($user, 'fb_id', ''),
+                'fb_token' => data_get($user, 'fb_token', ''),
+                'fb_avatar' => data_get($user, 'fb_avatar', ''),
+                'fb_email' => data_get($user, 'fb_email', ''),
+                'fb_name' => data_get($user, 'fb_name', ''),
+            ],
             'is_verified' => $user['email_verified_at'] ? true : false
         ]);
     } 

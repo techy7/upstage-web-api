@@ -103,16 +103,24 @@
                             </div> 
                             <div class="m-widget1__item">
                                 <div class="row m-row--no-padding align-items-center">
-                                    <div class="col">
-                                        <span class="m-widget1__desc">
+                                    <div class="col-6">
+                                        <span class="m-widget1__desc d-block">
                                             Avatar
                                         </span> 
-                                        <p v-if='user.avatar'>
+                                        <p v-if='user.avatar' class="d-inline-block">
                                             <img :src="'/image/avatars/100/100/'+user.avatar" width='100' />
                                         </p>
-                                        <p v-else>
+                                        <p v-else class="d-inline-block">
                                             <img src='/img/photo.png' width='100' />
-                                        </p>
+                                        </p> 
+                                    </div> 
+                                    <div class="col-6" v-if='user.fb_avatar'>
+                                        <span class="m-widget1__desc d-block">
+                                            Facebook Avatar
+                                        </span>  
+                                        <p>
+                                            <img :src="user.fb_avatar" width='100' />
+                                        </p> 
                                     </div> 
                                 </div>
                             </div> 

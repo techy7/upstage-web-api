@@ -42,6 +42,18 @@ class LoginController extends Controller
             ], 401);
         }
 
+        if($user->fb_token){
+            $fb_profile = [
+                'fb_id' => data_get($user, 'fb_id', ''),
+                'fb_token' => data_get($user, 'fb_token', ''),
+                'fb_avatar' => data_get($user, 'fb_avatar', ''),
+                'fb_email' => data_get($user, 'fb_email', ''),
+                'fb_name' => data_get($user, 'fb_name', ''),
+            ];
+        } else {
+            $fb_profile = null;
+        }
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
@@ -54,7 +66,8 @@ class LoginController extends Controller
                 'contact_num' => $user->contact_num,
                 'avatar' => $user->avatar,
                 'slug' => $user->slug,
-                'is_verified' => $user->email_verified_at ? true : false
+                'is_verified' => $user->email_verified_at ? true : false,
+                'fb_profile' => $fb_profile,
             ]
         ]);
     }

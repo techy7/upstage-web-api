@@ -22,6 +22,7 @@ Route::post('/login', 'Api\Auth\LoginController@index');
 Route::post('/register', 'Api\Auth\RegisterController@index');
 Route::post('/password/email', 'Api\Auth\ForgotPasswordController@index');
 Route::post('/password/reset', 'Api\Auth\ResetPasswordController@index'); 
+Route::post('/login/facebook', 'Api\Auth\SocialController@facebook');  
 
 Route::middleware(['api'])->group(function () {
 	Route::get('logout', 'Api\ProfileController@logout');

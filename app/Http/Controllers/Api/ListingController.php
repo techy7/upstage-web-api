@@ -84,6 +84,18 @@ class ListingController extends Controller
             Notification::send($admins, new ListingAdded($listing, $user)); 
         }
 
+        if($user->fb_token){
+            $fb_profile = [
+                'fb_id' => data_get($user, 'fb_id', ''),
+                'fb_token' => data_get($user, 'fb_token', ''),
+                'fb_avatar' => data_get($user, 'fb_avatar', ''),
+                'fb_email' => data_get($user, 'fb_email', ''),
+                'fb_name' => data_get($user, 'fb_name', ''),
+            ];
+        } else {
+            $fb_profile = null;
+        }
+
         return response()->json(array(
             "name" => $listing->name,
             "description" => $listing->description,
@@ -94,7 +106,9 @@ class ListingController extends Controller
             "user" => array(
                 "first_name" => $user["first_name"],  
                 "last_name" => $user["last_name"],
-                "hash" => $user["hash"]
+                "hash" => $user["hash"],
+                "avatar" => $user["avatar"],  
+                "fb_profile" => $fb_profile
             )
         ), 201);
     }
@@ -135,6 +149,18 @@ class ListingController extends Controller
             ));
         }
 
+        if($listing->user->fb_token){
+            $fb_profile = [
+                'fb_id' => data_get($listing->user, 'fb_id', ''),
+                'fb_token' => data_get($listing->user, 'fb_token', ''),
+                'fb_avatar' => data_get($listing->user, 'fb_avatar', ''),
+                'fb_email' => data_get($listing->user, 'fb_email', ''),
+                'fb_name' => data_get($listing->user, 'fb_name', ''),
+            ];
+        } else {
+            $fb_profile = null;
+        }
+
         
         return response()->json(array(
             "name" => $listing->name,
@@ -145,7 +171,9 @@ class ListingController extends Controller
             "updated_at" => $listing->updated_at,
             "user" => array(
                 "name" => $listing->user->name, 
-                "hash" => $listing->user->hash
+                "hash" => $listing->user->hash,
+                "avatar" => $listing->user->avatar,  
+                "fb_profile" => $fb_profile
             ),
             "items" => $listingItems
         ));

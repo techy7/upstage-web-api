@@ -50613,6 +50613,10 @@ Vue.component('items-form', {
           setTimeout(function () {
             window.location = _this.redirect_url;
           }, 500);
+        } else {
+          setTimeout(function () {
+            location.reload();
+          }, 500);
         }
       })["catch"](function (error) {
         _this.errors = error.response.data.errors;

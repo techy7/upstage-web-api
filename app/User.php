@@ -83,6 +83,7 @@ class User extends Authenticatable implements JWTSubject
             return $query->orWhere('first_name', 'like', '%'.$strKeywords.'%')
                     ->orWhere('last_name', 'like', '%'.$strKeywords.'%')
                     ->orWhere('email', 'like', '%'.$strKeywords.'%')
+                    ->orWhere('fb_name', 'like', '%'.$strKeywords.'%')
                     ->orWhere('contact_num', 'like', '%'.$strKeywords.'%');
         }
 
@@ -91,6 +92,10 @@ class User extends Authenticatable implements JWTSubject
 
     public function getFullNameAttribute()
     {
+        if($this->fb_name) {
+            return $this->fb_name;
+        }
+
         return $this->first_name . ' ' . $this->last_name;
     }
 
