@@ -24,9 +24,7 @@
 
                             <div class="m-widget1__item">
                                 <a href="{{url('apidocs')}}">Check the API docs</a>
-                            </div>
-
-                             
+                            </div> 
                         </div>
                     </div>
                 </div> 

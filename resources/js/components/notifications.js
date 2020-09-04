@@ -1,5 +1,5 @@
 Vue.component('notifications', {
-    props: [],
+    // props: [],
 
     data() {
         return {

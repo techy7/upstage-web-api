@@ -50943,7 +50943,7 @@ Vue.component('listings-show', {
 /***/ (function(module, exports) {
 
 Vue.component('notifications', {
-  props: [],
+  // props: [],
   data: function data() {
     return {
       newusers: [],
@@ -51413,7 +51413,7 @@ Vue.component('users-show', {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\wamp64\www\upstage7\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/edwardsonsarenas/Projects/laravel7/upstage/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

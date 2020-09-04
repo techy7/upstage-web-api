@@ -233,6 +233,8 @@ return [
         'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
         'InterImage' => Intervention\Image\Facades\Image::class,
 
+        'HelpNotif' => App\Helpers\Notifications::class
+
     ],
 
 ];
