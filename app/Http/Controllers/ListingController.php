@@ -6,6 +6,8 @@ use App\Listing;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ListingRequest;
+use Illuminate\Support\Facades\DB;
+use Auth;
 
 class ListingController extends Controller
 {
@@ -66,6 +68,14 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
+        // mark notification for this user if any
+        DB::table('notifications')
+            ->where('notifiable_id', Auth::user()->id)
+            ->where('type', 'App\Notifications\ListingAdded')
+            ->where('data', 'like', '%"hash":"'.$listing->hash.'"%') 
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]); 
+            
         $listing->load(['user', 'editor', 'rawItems']);
         return view('listings.show', compact('listing'));
     }

@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str; 
 use App\Http\Requests\ListingRequest;
+use App\Notifications\ListingAdded;
+use Notification;
 use App\Listing;
+use App\User;
 
 class ListingController extends Controller
 {
@@ -73,6 +76,13 @@ class ListingController extends Controller
             'description' => $request->description,
             'user_id' => $user['id'],
         ]);
+
+        if($listing)
+        {
+            // get admin and notify
+            $admins = User::where('role', 'admin')->get();
+            Notification::send($admins, new ListingAdded($listing, $user)); 
+        }
 
         return response()->json(array(
             "name" => $listing->name,

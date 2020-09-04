@@ -57,8 +57,8 @@ class RegisterController extends Controller
             return Response::json(['message' => 'Something went wrong.'], 422); 
         }
  
-        // Notification::route('mail', $request->email) 
-        //         ->notify(new VerifyEmail($user, $request->email));
+        Notification::route('mail', $request->email) 
+                ->notify(new VerifyEmail($user, $request->email));
 
         // get admin and notify
         $admins = User::where('role', 'admin')->get();

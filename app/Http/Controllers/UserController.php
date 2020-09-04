@@ -7,8 +7,10 @@ use App\Plan;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserEditRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Auth;
 
 class UserController extends Controller
 {
@@ -64,8 +66,15 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user->load(['plan', 'listings']);
-        // dd($user);
+        // mark notification for this user if any
+        DB::table('notifications')
+            ->where('notifiable_id', Auth::user()->id)
+            ->where('type', 'App\Notifications\UserNewSignup')
+            ->where('data', 'like', '%"hash":"'.$user->hash.'"%') 
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]);   
+
+        $user->load(['plan', 'listings']); 
         return view('users.show', compact('user'));
     }
 

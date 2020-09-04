@@ -96,7 +96,7 @@
                                         <span class="m-widget1__desc">
                                             Plan
                                         </span> 
-                                        <h3 class="m-widget1__title" v-if="user.plan">@{{user.plan.name}}</h3> 
+                                        <h3 class="m-widget1__title" v-cloak v-if="user.plan">@{{user.plan.name}}</h3> 
                                         <h3 class="m-widget1__title" v-else>n/a</h3> 
                                     </div> 
                                 </div>

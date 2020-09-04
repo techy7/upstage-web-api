@@ -66,6 +66,27 @@
 					</span>
 				</a>
 			</li> 
+
+			<li class="m-menu__section">
+				<h4 class="m-menu__section-text">
+					Others
+				</h4>
+				<i class="m-menu__section-icon flaticon-more-v3"></i>
+			</li>
+			<li class="m-menu__item @if(Request::is('apidocs', 'apidocs/*')) m-menu__item--active @endif" 
+				aria-haspopup="true" 
+			>
+				<a  href="{{url('/apidocs')}}" class="m-menu__link ">
+					<i class="m-menu__link-icon la la-code-fork" style="font-size: 27px;"></i>
+					<span class="m-menu__link-title">
+						<span class="m-menu__link-wrap">
+							<span class="m-menu__link-text">
+								API Docs
+							</span> 
+						</span>
+					</span>
+				</a>
+			</li> 
 			
 		</ul>
 	</div>
