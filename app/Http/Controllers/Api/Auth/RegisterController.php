@@ -142,6 +142,14 @@ class RegisterController extends Controller
             ->whereNotNull('verify_code')
             ->whereNull('email_verified_at')
             ->first();
+
+        if(!$user) {
+            return response()->json([
+                'message' => 'Error. Email not found or the account is already verified', 
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }
  
         $resetCode = Hashids::connection('resetcode')
             ->encode($user->id . Carbon::now()->format('His')); 

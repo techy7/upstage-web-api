@@ -209,6 +209,169 @@
           </div>
         </div>
       </div>
+      <div class="card ">
+        <div class="card-header px-2 py-1" id="headingAuthVerifyCode">
+          <h2 class="mb-0">
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseAuthVerifyCode" aria-expanded="false" aria-controls="collapseAuthVerifyCode">
+              Verify Account
+            </button>
+          </h2>
+        </div>
+        <div id="collapseAuthVerifyCode" class="collapse" aria-labelledby="headingAuthVerifyCode" data-parent="#accordionExample">
+          <div class="card-body">
+            <div class="mb-5">
+              <h5 class="m0">Resource URL</h5>
+              <p class="text-primary">POST base_url/api/register/verify</p> 
+            </div>
+
+            <div class="mb-5">
+              <h5 class="m0">Description</h5>
+              <p>Endpoint to verify account</p>
+            </div>
+
+            <div class="mb-5">
+              <h4 class="m0">Parameters</h4>
+              <table class="table table-bordered table-hover font12">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                    <th>Default Value</th>
+                    <th>Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr> 
+                    <td>code</td>
+                    <td>required</td>
+                    <td>String, generated code and sent in the email of the user upon registration</td>
+                    <td></td>
+                    <td>P0PY421</td>
+                  </tr> 
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mb-5">
+<h5 class="m0">Example Response : Success</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Account has been verified",
+    "status": "success",
+    "status_code": 200
+}
+</pre> 
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Missing fields",
+    "errors": {
+        "code": [
+            "The code field is required."
+        ]
+    },
+    "status": "error",
+    "status_code": 422
+}
+</pre>  
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Unable to verify account",
+    "errors": {
+        "code": [
+            "The code is invalid or expired"
+        ]
+    },
+    "status": "error",
+    "status_code": 422
+}
+</pre>  
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card d-none">
+        <div class="card-header px-2 py-1" id="headingAuthGoogle">
+          <h2 class="mb-0">
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseAuthGoogle" aria-expanded="false" aria-controls="collapseAuthGoogle">
+              Re-send Verification Code
+            </button>
+          </h2>
+        </div>
+        <div id="collapseAuthGoogle" class="collapse" aria-labelledby="headingAuthGoogle" data-parent="#accordionExample">
+          <div class="card-body">
+            <div class="mb-5">
+              <h5 class="m0">Resource URL</h5>
+              <p class="text-primary">POST base_url/api/register/verify/resend</p> 
+            </div>
+
+            <div class="mb-5">
+              <h5 class="m0">Description</h5>
+              <p>Endpoint to request another verification code. When success, it will send the verify code to the user's email</p>
+            </div>
+
+            <div class="mb-5">
+              <h4 class="m0">Parameters</h4>
+              <table class="table table-bordered table-hover font12">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                    <th>Default Value</th>
+                    <th>Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr> 
+                    <td>email</td>
+                    <td>required</td>
+                    <td>String, the user's email</td>
+                    <td></td>
+                    <td>one@user.com</td>
+                  </tr> 
+                </tbody>
+              </table>
+            </div>
+            <div class="mb-5">
+<h5 class="m0">Example Response : Success</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Code sent! Check your email and verify your account",
+    "status": "success"
+}
+</pre> 
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Error. Email not found or the account is already verified",
+    "status": "error",
+    "status_code": 422
+}
+</pre>  
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "message": "Could not resend verification code.",
+    "errors": {
+        "email": [
+            "The email field is required."
+        ]
+    },
+    "status": "error",
+    "status_code": 422
+}
+</pre>  
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="card">
         <div class="card-header px-2 py-1" id="headingAuthFB">
           <h2 class="mb-0">
