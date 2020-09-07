@@ -61,7 +61,7 @@ class RegisterController extends Controller
         }
  
         $resetCode = Hashids::connection('resetcode')
-            ->encode($user->id . Carbon::now()->format('His')); 
+            ->encode($user->id . rand(10,99)); 
  
         $user->update(['verify_code'=>Str::upper($resetCode)]);
  
@@ -152,7 +152,7 @@ class RegisterController extends Controller
         }
  
         $resetCode = Hashids::connection('resetcode')
-            ->encode($user->id . Carbon::now()->format('His')); 
+            ->encode($user->id . rand(10,99));  
  
         $user->update(['verify_code'=>Str::upper($resetCode)]);
  

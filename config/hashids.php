@@ -54,9 +54,9 @@ return [
         ],
 
         'resetcode' => [
-            'salt' => 'upstage-project-user-hash-salt',
+            'salt' => 'upstage-project-reset-hash-salt',
             'length' => 6,
-            'alphabet' => 'abcdefghijklmnopqrstuvwxyz1234567890'
+            'alphabet' => 'abcdefghjkmnpqrstuvwxyz23456789'
         ],
 
     ],
