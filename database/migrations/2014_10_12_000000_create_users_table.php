@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('hash')->nullable();
             $table->string('slug')->nullable(); 
             $table->string('verify_token')->nullable();
+            $table->string('verify_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

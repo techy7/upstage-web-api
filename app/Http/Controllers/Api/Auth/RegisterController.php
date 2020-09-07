@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use App\User; 
-use App\Notifications\VerifyEmail;
+use App\Notifications\VerifyAccountWithCode;
 use App\Notifications\UserNewSignup;
 use Notification;
+use Hashids;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
@@ -57,8 +60,13 @@ class RegisterController extends Controller
             return Response::json(['message' => 'Something went wrong.'], 422); 
         }
  
+        $resetCode = Hashids::connection('resetcode')
+            ->encode($user->id . Carbon::now()->format('His')); 
+ 
+        $user->update(['verify_code'=>Str::upper($resetCode)]);
+ 
         Notification::route('mail', $request->email) 
-                ->notify(new VerifyEmail($user, $request->email));
+                ->notify(new VerifyAccountWithCode(Str::upper($resetCode), $request->email));
 
         // get admin and notify
         $admins = User::where('role', 'admin')->get();
@@ -68,5 +76,49 @@ class RegisterController extends Controller
             'message' => 'Account Created! Check your email and verify your account',
             'status' => 'success'
         ]);
+    }
+
+    public function verify(Request $request) 
+    {
+        $validator = Validator::make($request->all(), [ 
+            'code' => 'required|string',
+            // 'email' => 'email|required|string'
+        ]);
+
+        if ($validator->fails()) {  
+            return response()->json([
+                'message' => 'Missing fields',
+                'errors' => $validator->errors(),
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }
+
+        $resetErr = [
+            'message' => 'Unable to verify account',
+            'errors' => ['code' => ['The code is invalid or expired']],
+            'status' => 'error',
+            'status_code' => 422
+        ]; 
+        
+        // get the user
+        $user = User::where('verify_code', $request->code)->first();
+
+        if(!$user)
+        {
+            return response()->json($resetErr, 422);  
+        }  
+
+        // verify user
+        $user->update([
+            'email_verified_at' => now(),
+            'verify_code' => null
+        ]); 
+
+        return response()->json([
+            'message' => 'Account has been verified',
+            'status' => 'success',
+            'status_code' => 200
+        ], 200); 
     }
 }
