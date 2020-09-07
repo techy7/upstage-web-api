@@ -100,7 +100,7 @@ class RegisterController extends Controller
             'status' => 'error',
             'status_code' => 422
         ]; 
-        
+
         // get the user
         $user = User::where('verify_code', $request->code)->first();
 
@@ -120,5 +120,44 @@ class RegisterController extends Controller
             'status' => 'success',
             'status_code' => 200
         ], 200); 
+    }
+
+    public function reverify(Request $request) 
+    {  
+        $validator = Validator::make($request->all(), [
+            'email' => 'email|required|string'
+        ]);
+
+        if ($validator->fails()) {  
+            return response()->json([
+                'message' => 'Could not resend verification code.',
+                'errors' => $validator->errors(),
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }
+
+        // get the user
+        $user = User::where('email', $request->email)
+            ->whereNotNull('verify_code')
+            ->whereNull('email_verified_at')
+            ->first();
+ 
+        $resetCode = Hashids::connection('resetcode')
+            ->encode($user->id . Carbon::now()->format('His')); 
+ 
+        $user->update(['verify_code'=>Str::upper($resetCode)]);
+ 
+        Notification::route('mail', $request->email) 
+                ->notify(new VerifyAccountWithCode(Str::upper($resetCode), $request->email));
+
+        // get admin and notify
+        $admins = User::where('role', 'admin')->get();
+        Notification::send($admins, new UserNewSignup($user)); 
+
+        return response()->json([
+            'message' => 'Code sent! Check your email and verify your account',
+            'status' => 'success'
+        ]);
     }
 }

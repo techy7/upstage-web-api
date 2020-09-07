@@ -43,7 +43,7 @@ class VerifyAccountWithCode extends Notification
     {
         return (new MailMessage)
                     ->subject('Welcome to '.env('APP_NAME'))
-                    ->line('Reset Code: ' . $this->code)
+                    ->line('Verify Code: ' . $this->code)
                     ->line('Use this code to verify your account. ')
                     ->line('If you did not create an account, no further action is required.');
     } 
