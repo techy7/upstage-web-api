@@ -247,7 +247,7 @@
                     <td>required</td>
                     <td>String, generated code and sent in the email of the user upon registration</td>
                     <td></td>
-                    <td>P0PY421</td>
+                    <td>P4PY42</td>
                   </tr> 
                 </tbody>
               </table>

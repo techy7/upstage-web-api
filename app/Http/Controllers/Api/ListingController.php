@@ -70,7 +70,16 @@ class ListingController extends Controller
             ], 422); 
         }
 
-        // dd($request->all(), $request->description, $user);
+        $user->load(['plan'])->loadCount(['listings']);
+
+        if($user->plan->limit_list <= $user->listings_count) {
+            return response()->json([
+                'message' => 'Reached maximum number of listings for your plan', 
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }
+
         $listing = Listing::create([
             'name' => $request->name,
             'description' => $request->description,

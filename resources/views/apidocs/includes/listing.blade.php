@@ -204,6 +204,15 @@
 <h5 class="m0">Example Response : Error</h5> 
 <pre class="text-danger">
 {
+    "message": "Reached maximum number of listings for your plan",
+    "status": "error",
+    "status_code": 422
+}
+</pre> 
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger">
+{
     "error": "Unauthorized",
     "status_code": 401
 }
