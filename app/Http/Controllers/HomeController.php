@@ -27,10 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $newUsers = User::where('created_at', '>', Carbon::now()->subDays(1))->count();
+        $newUsers = User::where('created_at', '>', Carbon::now()->subDays(7))->count();
         $allUsers = User::count();
 
-        $newListings = Listing::where('created_at', '>', Carbon::now()->subDays(1))->count();
+        $newListings = Listing::where('created_at', '>', Carbon::now()->subDays(7))->count();
         $allListings = Listing::count(); 
 
         $latestUsers = User::limit(5)->orderBy('created_at', 'desc')->with(['plan'])->get();
