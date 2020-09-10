@@ -111,12 +111,12 @@ class User extends Authenticatable implements JWTSubject
         parent::boot();
 
         self::created(function($model){
-            $userhash = new Hashids('user', 5, 'ab1cd2ef3gh4ij5kl6mn7op8qr9st0uvwxyz'); 
-            $verifyhash = new Hashids('verify', 20, 'ab1cd2ef3gh4ij5kl6mn7op8qr9st0uvwxyz'); 
+            $userhash = new Hashids('user', 5, 'abcd2ef3gh4j5k6mn7p8qr9stuvwxyz'); 
+            $verifyhash = new Hashids('verify', 20, 'abcd2ef3gh4j5k6mn7p8qr9stuvwxyz'); 
             $strHash = $userhash->encode($model->id); 
 
             $model->hash = $strHash;
-            $model->slug = Str::slug($model->name, '') . '.' . $strHash;  
+            $model->slug = Str::slug(str_replace(' ', '', $model->first_name . ' ' . $model->last_name), '') . '.' . $strHash;  
             $model->verify_token = $verifyhash->encode($model->id);
             $model->save();
         });

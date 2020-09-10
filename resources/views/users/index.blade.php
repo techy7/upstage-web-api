@@ -74,7 +74,7 @@
                                         @{{user.email}}
                                     </span>
                                 </div> 
-                                <span class="m-widget4__info">
+                                <span class="m-widget4__info md-none sm-none">
                                     <span class="d-inline-block w-150 text-center"> 
                                         <span class="m-widget4__title" v-if="user.plan">
                                             @{{user.plan.name}}
@@ -88,7 +88,7 @@
                                         </span>
                                     </span> 
                                 </span>
-                                <span class="m-widget4__info">
+                                <span class="m-widget4__info md-none sm-none">
                                     <span class="d-inline-block w-150 text-center"> 
                                         <span class="m-widget4__title">
                                             @{{user.listings_count}}

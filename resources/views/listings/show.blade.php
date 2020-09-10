@@ -94,13 +94,13 @@
 
                             <div class="m-widget1__item">
                                 <div class="row m-row--no-padding align-items-center">
-                                    <div class="col">
+                                    <div class="col" v-cloak>
                                         <span class="m-widget1__desc">
                                             User: 
                                         </span>
-                                        <h3 class="m-widget1__title" v-if='listing.user'>
+                                        <h3 class="m-widget1__title" v-cloak v-if='listing.user'>
                                             @{{listing.user.full_name}}
-                                            <small>(@{{listing.user.email}}) </small>
+                                            <small v-cloak>(@{{listing.user.email}}) </small>
                                         </h3>  
                                         <h3 class="m-widget1__title" v-else>
                                             n/a

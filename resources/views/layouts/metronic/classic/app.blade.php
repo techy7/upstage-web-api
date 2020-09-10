@@ -45,6 +45,24 @@
 			.super-light.m-widget4__item { border-bottom: .07rem dashed #ccc; background-color: #efefef; opacity: 0.7 }
 			.m-subheader__breadcrumbs .m-nav__separator { color: #ccc !important; }
 			.dash-header-logo { height: 30px; }
+			.md-none .sm-none {}
+
+			/*.responsive visibility */
+			@media (max-width: 1600px) {
+			     
+			}
+			@media (max-width: 1200px) {
+			    .lg-none {display: none !important;}
+			}
+			@media (max-width: 992px) {
+			    .md-none {display: none !important;}
+			}
+			@media (max-width: 768px) {
+			    .sm-none {display: none !important;}
+			}
+			@media (max-width: 480px) {
+			    .xs-none {display: none !important;}
+			}
 		</style>
 	</head>
 	<!-- end::Head -->

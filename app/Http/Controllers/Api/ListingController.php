@@ -38,9 +38,68 @@ class ListingController extends Controller
         $listings = Listing::ofKeywords($strKeywords)
             ->where('user_id', $user['id'])
             ->ofStatus($strStatus)
+            ->with(['firstItem', 'user'])
             ->withCount(['items'])
             ->orderBy('created_at', 'desc')
             ->paginate(20);
+
+        $listings->getCollection()->transform(function ($list) {  
+            // dd( $list->firstItem->filename);
+            // $thumb = env('APP_URL').'/image/items/150/150/'.$list->firstItem->filename;
+            // return $list;
+
+            $firstItem = null;
+
+            if($list->firstItem) {
+                $firstItem = array(
+                    "label" => $list->firstItem->label,
+                    "description" => $list->firstItem->description, 
+                    "status" => $list->firstItem->status,
+                    "hash" => $list->firstItem->hash,
+                    "slug" => $list->firstItem->slug,
+                    "created_at" => $list->firstItem->created_at,
+                    "updated_at" => $list->firstItem->updated_at,
+                    "file" => array(
+                        "filename" => $list->firstItem->filename,
+                        "mimetype" => $list->firstItem->mimetype,
+                        "file_url" => env('APP_URL').'/image/items/'.$list->firstItem->filename,
+                        "thumbnail_url" => env('APP_URL').'/image/items/150/150/'.$list->firstItem->filename
+                    )
+                );
+            }
+
+            if($list->user->fb_token){
+                $fb_profile = [
+                    'fb_id' => data_get($list->user, 'fb_id', ''),
+                    'fb_token' => data_get($list->user, 'fb_token', ''),
+                    'fb_avatar' => data_get($list->user, 'fb_avatar', ''),
+                    'fb_email' => data_get($list->user, 'fb_email', ''),
+                    'fb_name' => data_get($list->user, 'fb_name', ''),
+                ];
+            } else {
+                $fb_profile = null;
+            }
+
+            return array(
+                "name" => $list->name,
+                "description" => $list->description,
+                "status" => $list->status,
+                "created_at" => $list->created_at,
+                "updated_at" => $list->updated_at,
+                "hash" => $list->hash,
+                "slug" => $list->slug,
+                "items_count" => $list->items_count,
+                "first_item" => $firstItem,
+                "user" => array(
+                    "name" => $list->user->name, 
+                    "hash" => $list->user->hash,
+                    "avatar" => $list->user->avatar,  
+                    "fb_profile" => $fb_profile
+                ),
+            );
+
+            // return $item;
+        }); 
             
         return response()->json($listings);
     }

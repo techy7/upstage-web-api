@@ -78,13 +78,17 @@
           "description": "This is list 1",
           "status": "pending", 
           "hash": "vdzpnl17",
+          "first_item": {...},
+          "user": {...}
           ....
       },
       {
-          "name": "Listing One",
-          "description": "This is list 1",
+          "name": "Listing Two",
+          "description": "This is list 2",
           "status": "pending", 
-          "hash": "vdzpnl17",
+          "hash": "vdzpnl18",
+          "first_item": {...},
+          "user": {...}
           ....
       },
     ],
