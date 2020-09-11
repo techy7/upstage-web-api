@@ -5,7 +5,7 @@
 <style>
 .login-box {
     padding: 20px;
-    background-color: #D6E7EE; 
+    background-color: #f4dcce; 
     border-radius: 10px;
     /*background-image: url({{ asset('metronic/media/img/bg/bg-1.jpg')}});*/
     

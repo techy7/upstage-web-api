@@ -8,8 +8,8 @@
             <a href="{{url('login')}}" class="text-white">Login</a>
         </h3>
     </div>
-    
+
 </div>
- 
-  
+
+
 @endsection

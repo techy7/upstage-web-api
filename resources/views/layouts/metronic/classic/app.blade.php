@@ -26,7 +26,7 @@
 		<link href="{{ asset('metronic/vendors/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('metronic/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
-		<link rel="shortcut icon" href="{{ asset('metronic/media/img/logo/favicon.ico') }}" />
+		<link rel="shortcut icon" href="{{ asset('img/icon.png') }}" />
 
 		<style>
 			.w-30 { width: 30px !important; }
