@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,17 +10,17 @@ use App\User;
 
 class LoginController extends Controller
 {
-    public function index(Request $request) 
+    public function index(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        if (! $token = auth()->guard('api')->attempt($credentials)) 
+        if (! $token = auth()->guard('api')->attempt($credentials))
         {
             return response()->json([
                 'error'   =>'Invalid credentials',
                 'status_code' => 422
             ], 422);
-        } 
+        }
 
         $user = User::where('email', $request->email)
             ->where('role', 'user')
@@ -38,8 +38,8 @@ class LoginController extends Controller
         {
             return response()->json([
                 'error'   =>'Email not verified',
-                'status_code' => 401
-            ], 401);
+                'status_code' => 200
+            ], 200);
         }
 
         if($user->fb_token){
@@ -57,12 +57,12 @@ class LoginController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'profile' => [ 
+            'profile' => [
                 'hash' => $user->hash,
                 'full_name' => $user->full_name,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
-                'email' => $user->email, 
+                'email' => $user->email,
                 'contact_num' => $user->contact_num,
                 'avatar' => $user->avatar,
                 'slug' => $user->slug,
