@@ -101,8 +101,11 @@
                                 </span>
                                 <span class="m-widget4__ext">
                                     <span class="d-inline-block w-150 text-right"> 
+                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="View " :href="'/user/'+user.slug" target="new"> 
+                                            <i class="la la-user"></i>
+                                        </a> 
                                         <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="View " :href="'/users/'+user.hash"> 
-                                            <i class="la la-external-link-square"></i>
+                                            <i class="la la-file"></i>
                                         </a> 
                                         <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " :href="'/users/'+user.hash+'/edit'"> 
                                             <i class="la la-pencil-square"></i>

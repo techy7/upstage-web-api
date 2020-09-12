@@ -31,6 +31,8 @@ Route::get('/image/{folder}/{img_name}/download', 'ImageController@download');
 Route::get('/video/{folder}/{filename}', 'VideoController@show');
 Route::get('/video/{folder}/{filename}/watch', 'VideoController@watch');
 Route::get('/video/{folder}/{filename}/download', 'VideoController@download');
+Route::get('/user/{slug}', 'UserController@profile_public');
+Route::get('/user/{slug}/{list}', 'UserController@profile_listing');
 
 Route::prefix('/')->middleware(['auth'])->group(function () {
 	Route::get('/apidocs', function(){

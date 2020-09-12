@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Plan;
+use App\Listing;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserEditRequest;
@@ -168,5 +169,32 @@ class UserController extends Controller
 
         $user->update(['email_verified_at' => Carbon::now()]); 
         return view('verified');
+    }
+
+    public function profile_public($slug) {
+        $profile = User::where('slug', $slug)->with(['listings.firstItem'])->first();
+
+        if(!$profile) {
+            return redirect('404');
+        }
+
+        return view('profile.index', compact('profile'));
+    }
+    public function profile_listing($slug, $list) {
+        $profile = User::where('slug', $slug)->first();
+        if(!$profile) {
+            return redirect('404');
+        }
+
+        $listing = Listing::where('hash', $list)
+                    ->where('user_id', $profile->id)
+                    ->with(['items'])
+                    ->first();
+        
+        if(!$listing) {
+            return redirect('404');
+        }
+
+        return view('profile.listing', compact('profile', 'listing'));
     }
 }

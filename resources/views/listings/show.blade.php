@@ -101,6 +101,9 @@
                                         <h3 class="m-widget1__title" v-cloak v-if='listing.user'>
                                             @{{listing.user.full_name}}
                                             <small v-cloak>(@{{listing.user.email}}) </small>
+                                            <a :href="'/users/'+listing.user.hash">
+                                                <i class="la la-external-link-square"></i>
+                                            </a>
                                         </h3>  
                                         <h3 class="m-widget1__title" v-else>
                                             n/a

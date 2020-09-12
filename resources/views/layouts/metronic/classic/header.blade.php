@@ -6,7 +6,7 @@
 				<div class="m-stack m-stack--ver m-stack--general">
 					<div class="m-stack__item m-stack__item--middle m-brand__logo">
 						<a href="/home" class="m-brand__logo-wrapper">
-							<img alt="" src="{{ asset('/img/upstage-logo.png') }}" class="dash-header-logo" />
+							<img alt="" src="{{ asset('/img/logo.png') }}" class="dash-header-logo" />
 						</a>
 					</div>
 					<div class="m-stack__item m-stack__item--middle m-brand__tools">
