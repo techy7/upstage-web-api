@@ -15,6 +15,7 @@ use Hashids;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use JWTAuth;
 
 class RegisterController extends Controller
 {
@@ -72,14 +73,46 @@ class RegisterController extends Controller
         $admins = User::where('role', 'admin')->get();
         Notification::send($admins, new UserNewSignup($user)); 
 
+        $token = JWTAuth::fromUser($user); 
+
         return response()->json([
-            'message' => 'Account Created! Check your email and verify your account',
-            'status' => 'success'
+            "message" => "Account Created! Check your email and verify your account",
+            "status" => "success",
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'profile' => [
+                'hash' => $user->hash,
+                'full_name' => $user->full_name,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'contact_num' => $user->contact_num,
+                'avatar' => $user->avatar,
+                'slug' => $user->slug,
+                'is_verified' => $user->email_verified_at ? true : false,
+                'fb_profile' => null,
+            ]
         ]);
+
+        // return response()->json([
+        //     'message' => 'Account Created! Check your email and verify your account',
+        //     'status' => 'success',
+        //     'token' => $token
+        // ]);
     }
 
     public function verify(Request $request) 
     {
+        $userApi = auth('api')->user();
+
+        if(!isset($userApi['id']))
+        {
+            return response()->json([
+                'error'   =>'Unauthorized',
+                'status_code' => 401
+            ], 401);
+        }
+
         $validator = Validator::make($request->all(), [ 
             'code' => 'required|string',
             // 'email' => 'email|required|string'
@@ -102,7 +135,9 @@ class RegisterController extends Controller
         ]; 
 
         // get the user
-        $user = User::where('verify_code', $request->code)->first();
+        $user = User::where('verify_code', $request->code)
+                    ->where('email', $userApi['email'])
+                    ->first();
 
         if(!$user)
         {
@@ -124,6 +159,16 @@ class RegisterController extends Controller
 
     public function reverify(Request $request) 
     {  
+        $user = auth('api')->user();
+
+        if(!isset($user['id']))
+        {
+            return response()->json([
+                'error'   =>'Unauthorized',
+                'status_code' => 401
+            ], 401);
+        }
+
         $validator = Validator::make($request->all(), [
             'email' => 'email|required|string'
         ]);

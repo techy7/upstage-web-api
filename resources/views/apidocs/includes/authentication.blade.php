@@ -184,8 +184,22 @@
 <h5 class="m0">Example Response : Success</h5> 
 <pre class="text-danger mb-5">
 {
-    "message": "Account Created! Check your email and verify your account",
-    "status": "success"
+    "status": "success",
+    "message": "Account Created! Check your email and verify your account", 
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTU5OTkxODY4NCwibmJmIjoxNTk5OTE4Njg0LCJqdGkiOiJrTGRFTXd6U1dQWm9pbVVkIiwic3ViIjo1NSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.ESmd-0EBn1KotWqwKcgh8P9QGI8gvbVO9AZ0YgyDvmE",
+    "token_type": "bearer",
+    "profile": {
+        "hash": "xjn4x",
+        "full_name": "ff ff",
+        "first_name": "ff",
+        "last_name": "ff",
+        "email": "ff7@f.f",
+        "contact_num": null,
+        "avatar": null,
+        "slug": "ffff.xjn4x",
+        "is_verified": false,
+        "fb_profile": null
+    }
 }
 </pre> 
 
@@ -254,6 +268,11 @@
             </div>
 
             <div class="mb-5">
+              <h4 class="m0">Headers</h4>
+              <p>Authorization : Bearer {token}</p>
+            </div>
+
+            <div class="mb-5">
 <h5 class="m0">Example Response : Success</h5> 
 <pre class="text-danger mb-5">
 {
@@ -262,6 +281,14 @@
     "status_code": 200
 }
 </pre> 
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "error": "Unauthorized",
+    "status_code": 401
+}
+</pre>  
 
 <h5 class="m0">Example Response : Error</h5> 
 <pre class="text-danger mb-5">
@@ -294,15 +321,15 @@
           </div>
         </div>
       </div>
-      <div class="card d-none">
-        <div class="card-header px-2 py-1" id="headingAuthGoogle">
+      <div class="card">
+        <div class="card-header px-2 py-1" id="headingVerifyResendCode">
           <h2 class="mb-0">
-            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseAuthGoogle" aria-expanded="false" aria-controls="collapseAuthGoogle">
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseVerifyResendCode" aria-expanded="false" aria-controls="collapseVerifyResendCode">
               Re-send Verification Code
             </button>
           </h2>
         </div>
-        <div id="collapseAuthGoogle" class="collapse" aria-labelledby="headingAuthGoogle" data-parent="#accordionExample">
+        <div id="collapseVerifyResendCode" class="collapse" aria-labelledby="headingVerifyResendCode" data-parent="#accordionExample">
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
@@ -338,6 +365,10 @@
               </table>
             </div>
             <div class="mb-5">
+              <h4 class="m0">Headers</h4>
+              <p>Authorization : Bearer {token}</p>
+            </div>
+            <div class="mb-5">
 <h5 class="m0">Example Response : Success</h5> 
 <pre class="text-danger mb-5">
 {
@@ -345,6 +376,14 @@
     "status": "success"
 }
 </pre> 
+
+<h5 class="m0">Example Response : Error</h5> 
+<pre class="text-danger mb-5">
+{
+    "error": "Unauthorized",
+    "status_code": 401
+}
+</pre>  
 
 <h5 class="m0">Example Response : Error</h5> 
 <pre class="text-danger mb-5">
