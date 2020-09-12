@@ -34,13 +34,13 @@ class LoginController extends Controller
             ], 401);
         }
 
-        if(!$user->email_verified_at)
-        {
-            return response()->json([
-                'error'   =>'Email not verified',
-                'status_code' => 200
-            ], 200);
-        }
+        // if(!$user->email_verified_at)
+        // {
+        //     return response()->json([
+        //         'error'   =>'Email not verified',
+        //         'status_code' => 200
+        //     ], 200);
+        // }
 
         if($user->fb_token){
             $fb_profile = [
