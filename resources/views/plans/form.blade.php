@@ -118,5 +118,8 @@
     <button class="btn btn-primary" 
         :disabled="isLoading" 
         @click="submitPlan"
-    >Submit</button>
+    >
+        <span v-if="isLoading"><i class="fa fa-cog fa-spin"></i> Submitting...</span>
+        <span v-else>Submit</span>
+    </button>
 </p>
