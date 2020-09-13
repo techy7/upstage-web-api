@@ -50,6 +50,7 @@
                 tabindex="-1" 
                 aria-labelledby="itemModal{{$item->hash}}Label" 
                 aria-hidden="true"
+                data-videoid="videoModal{{$item->hash}}" 
             >
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -67,7 +68,7 @@
                             @endif
 
                             @if(strpos($item->mimetype, 'video') !== false) 
-                                <video controls width="250" class="w-100">
+                                <video controls width="250" class="w-100 video-item-player" id="videoModal{{$item->hash}}" >
 
                                     <source src="{{url('/video/items/'.$item->filename.'/watch')}}"
                                             type="{{$item->mimetype}}"> 

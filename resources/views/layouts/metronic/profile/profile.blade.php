@@ -46,9 +46,7 @@
 			.m-subheader__breadcrumbs .m-nav__separator { color: #ccc !important; }
 			.dash-header-logo { height: 30px; }
 			.md-none .sm-none {}
-			.profile-head-dllinks a {
-				text-decoration: none;
-			}
+			.profile-head-dllinks a { text-decoration: none; }
 			.pubprofile-header img {
 				width: 100px;
 				border-radius: 50%;
@@ -56,6 +54,7 @@
 			}
 			.listing-box, .listing-wrap {position: relative;}
 			.listing-name { position: absolute; bottom: 0px; left: 0px; background: rgba(0,0,0,0.3); }
+			video:focus { outline: none; }
 
 			/*.responsive visibility */
 			@media (max-width: 1600px) {
@@ -100,6 +99,18 @@
 		<script src="{{ mix('js/app.js') }}"></script>
 		<script src="{{ mix('metronic/vendors/vendors.bundle.js') }}"></script>
 		<script src="{{ mix('metronic/base/scripts.bundle.js') }}"></script>
+
+		<script>
+			console.log('listinng js')
+			// pause video when closing modal
+			$('.modal').on('hidden.bs.modal', function (e) {
+				let elVideo = $(this).find('video.video-item-player');
+				
+				if(elVideo && elVideo.length) { 
+					elVideo.get(0).pause();
+				}
+			})
+		</script>	
 	 
 	</body>
 	<!-- end::Body -->
