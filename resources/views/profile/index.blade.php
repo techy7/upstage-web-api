@@ -26,8 +26,8 @@
                                         class="listing-box m-portlet p-3 d-block"
                                     >
                                         <div class="listing-wrap">
-                                            @if($list->firstItem)
-                                                <img src='{{url("/image/items/300/300/".$list->firstItem->filename)}}' class="w-100" alt="...">
+                                            @if($list->first_item)
+                                                <img src='{{url("/image/items/300/300/".$list->first_item->filename)}}' class="w-100" alt="...">
                                             @else
                                                 <img src='/img/default.png' class="w-100" alt="...">
                                             @endif

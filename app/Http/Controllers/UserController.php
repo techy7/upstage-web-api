@@ -172,7 +172,13 @@ class UserController extends Controller
     }
 
     public function profile_public($slug) {
-        $profile = User::where('slug', $slug)->with(['listings.firstItem'])->first();
+        $profile = User::where('slug', $slug)->with(['listings.first_item'])->first(); 
+        // dd($profile);
+
+        // $listingx = Listing::with(['first_item', 'items'])
+        //             // ->where('hash', 'm806w1pg')
+        //             ->get();
+        // dd($listingx->toArray());
 
         if(!$profile) {
             return redirect('404');

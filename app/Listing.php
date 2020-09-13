@@ -25,9 +25,12 @@ class Listing extends Model
         return $this->hasMany(\App\Item::class)->where('status', 'raw');
     }
 
-    public function firstItem() 
+    public function first_item() 
     {
-        return $this->hasOne(\App\Item::class)->orderBy('id', 'asc')->limit(1)->where('mimetype', 'like', '%image%');
+        return $this->hasOne(\App\Item::class, 'listing_id', 'id')
+            ->orderBy('id', 'asc')
+            // ->limit(1)
+            ->where('mimetype', 'like', '%image%');
     }
 
     public function items() 

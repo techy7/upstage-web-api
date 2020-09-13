@@ -38,32 +38,29 @@ class ListingController extends Controller
         $listings = Listing::ofKeywords($strKeywords)
             ->where('user_id', $user['id'])
             ->ofStatus($strStatus)
-            ->with(['firstItem', 'user'])
+            ->with(['first_item', 'user'])
             ->withCount(['items'])
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
         $listings->getCollection()->transform(function ($list) {  
-            // dd( $list->firstItem->filename);
-            // $thumb = env('APP_URL').'/image/items/150/150/'.$list->firstItem->filename;
-            // return $list;
 
-            $firstItem = null;
+            $first_item = null;
 
-            if($list->firstItem) {
-                $firstItem = array(
-                    "label" => $list->firstItem->label,
-                    "description" => $list->firstItem->description, 
-                    "status" => $list->firstItem->status,
-                    "hash" => $list->firstItem->hash,
-                    "slug" => $list->firstItem->slug,
-                    "created_at" => $list->firstItem->created_at,
-                    "updated_at" => $list->firstItem->updated_at,
+            if($list->first_item) {
+                $first_item = array(
+                    "label" => $list->first_item->label,
+                    "description" => $list->first_item->description, 
+                    "status" => $list->first_item->status,
+                    "hash" => $list->first_item->hash,
+                    "slug" => $list->first_item->slug,
+                    "created_at" => $list->first_item->created_at,
+                    "updated_at" => $list->first_item->updated_at,
                     "file" => array(
-                        "filename" => $list->firstItem->filename,
-                        "mimetype" => $list->firstItem->mimetype,
-                        "file_url" => env('APP_URL').'/image/items/'.$list->firstItem->filename,
-                        "thumbnail_url" => env('APP_URL').'/image/items/150/150/'.$list->firstItem->filename
+                        "filename" => $list->first_item->filename,
+                        "mimetype" => $list->first_item->mimetype,
+                        "file_url" => env('APP_URL').'/image/items/'.$list->first_item->filename,
+                        "thumbnail_url" => env('APP_URL').'/image/items/150/150/'.$list->first_item->filename
                     )
                 );
             }
@@ -89,9 +86,9 @@ class ListingController extends Controller
                 "hash" => $list->hash,
                 "slug" => $list->slug,
                 "items_count" => $list->items_count,
-                "first_item" => $firstItem,
+                "first_item" => $first_item,
                 "user" => array(
-                    "name" => $list->user->name, 
+                    "name" => $list->user->full_name, 
                     "hash" => $list->user->hash,
                     "avatar" => $list->user->avatar,  
                     "fb_profile" => $fb_profile
@@ -238,7 +235,7 @@ class ListingController extends Controller
             "created_at" => $listing->created_at,
             "updated_at" => $listing->updated_at,
             "user" => array(
-                "name" => $listing->user->name, 
+                "name" => $listing->user->full_name, 
                 "hash" => $listing->user->hash,
                 "avatar" => $listing->user->avatar,  
                 "fb_profile" => $fb_profile
