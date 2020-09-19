@@ -44,17 +44,21 @@
                         <div class="m-portlet__head-tools">
                             <!-- 
                             <div class="col-sm-4 pl-1 pr-1">
-                                <select v-model='filters.status' 
-                                    class="form-control form-control-sm"
-                                >
-                                    <option value="">All Status</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="in-progress">In Progress</option>
-                                    <option value="completed">Completed</option>
-                                </select> 
+                                
                             </div>
                              -->
                             <ul class="m-portlet__nav">
+                                <li class="m-portlet__nav-item">
+                                    <select v-model='filters.status' 
+                                        class="form-control"
+                                         @change="getList(1)"
+                                    >
+                                        <option value="">All Status</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="in-progress">In Progress</option>
+                                        <option value="completed">Completed</option>
+                                    </select> 
+                                </li>
                                 <li class="m-portlet__nav-item">
                                     <form @submit.prevent="getList(1)" class="m-input-icon m-input-icon--right m-0">
                                         <input type="text" 

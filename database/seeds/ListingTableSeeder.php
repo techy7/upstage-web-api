@@ -15,7 +15,7 @@ class ListingTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {  
-        factory(App\Listing::class, 30)->create()->each(function ($list) use($faker) { 
+        factory(App\Listing::class, 10)->create()->each(function ($list) use($faker) { 
  			$numOfItems = rand(2,6);
 
  			for ($i=0; $i < $numOfItems; $i++) { 

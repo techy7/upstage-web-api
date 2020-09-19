@@ -76,7 +76,7 @@ class ListingController extends Controller
             ->whereNull('read_at')
             ->update(['read_at' => now()]); 
             
-        $listing->load(['user', 'editor', 'rawItems']);
+        $listing->load(['user', 'editor', 'rawItems.editedItem']);
         return view('listings.show', compact('listing'));
     }
 

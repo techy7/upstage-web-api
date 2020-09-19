@@ -94,4 +94,5 @@ Route::prefix('/admin_api')->middleware(['auth'])->group(function () {
 	Route::post('listings/{listing}/items', 'ItemController@api_store'); 
 	Route::post('listings/{listing}/items/{item}', 'ItemController@api_update'); 
 	Route::delete('listings/{listing}/items/{item}', 'ItemController@api_destroy'); 
+	Route::post('listings/{listing}/items/{item}/edited', 'ItemController@api_store_edited'); 
 });

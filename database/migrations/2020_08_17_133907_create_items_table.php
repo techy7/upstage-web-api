@@ -14,7 +14,7 @@ class CreateItemsTable extends Migration
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('label');
             $table->text('description')->nullable();  
             $table->string('filename')->nullable();

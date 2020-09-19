@@ -17,6 +17,7 @@ Vue.component('listings-form', {
     mounted() {  
         this.listing = this.objlisting; 
         this.objform = new FormData();
+        this.listing.editor_id = this.listing.editor_id ? this.listing.editor_id : '';
 
         
     },  

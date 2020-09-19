@@ -28,8 +28,8 @@ class VideoController extends Controller
     public static function watch(Request $request, $folder, $filename) 
     {
         $path = storage_path("app/$folder/") . $filename; 
-        $file = Storage::disk('local')->get('items/'.$filename); 
-        $size = Storage::disk('local')->size('items/'.$filename);
+        $file = Storage::disk('local')->get($folder.'/'.$filename); 
+        $size = Storage::disk('local')->size($folder.'/'.$filename);
         $stream = fopen($path, "r");
 
         $type = File::mimeType($path);

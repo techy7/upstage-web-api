@@ -27,7 +27,17 @@
                                     >
                                         <div class="listing-wrap">
                                             @if($list->first_item)
-                                                <img src='{{url("/image/items/300/300/".$list->first_item->filename)}}' class="w-100" alt="...">
+                                                @if($list->first_item->editedItem)
+                                                    <img src='{{url("/image/editeditems/300/300/".$list->first_item->editedItem->filename)}}' 
+                                                        class="w-100" 
+                                                        alt="..."
+                                                    >
+                                                @else
+                                                    <img src='{{url("/image/items/300/300/".$list->first_item->filename)}}' 
+                                                        class="w-100" 
+                                                        alt="..."
+                                                    >
+                                                @endif
                                             @else
                                                 <img src='/img/default.png' class="w-100" alt="...">
                                             @endif

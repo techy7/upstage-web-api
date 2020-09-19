@@ -67,6 +67,7 @@
                     :class="{'is-invalid': errors.file}"
                     @change='updateFile($event, "file_upload_item", "file")' 
                     id='file_upload_item'
+                    accept="image/*, video/*"
                 >
                 <small v-cloak 
                     class='text-danger' 

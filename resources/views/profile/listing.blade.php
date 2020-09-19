@@ -22,10 +22,20 @@
                                     class="listing-box m-portlet p-3 d-block"
                                 > 
                                     <div class="listing-wrap">
-                                        @if(strpos($item->mimetype, 'image') !== false) 
-                                            <img src='{{url("/image/items/300/300/".$item->filename)}}' class="w-100">  
-                                        @else 
-                                            <img src='/img/video.png' class="w-100" alt="...">  
+                                        @if($item->editedItem)
+                                            @if(strpos($item->editedItem->mimetype, 'image') !== false) 
+                                                <img src='{{url("/image/editeditems/300/300/".$item->editedItem->filename)}}' 
+                                                    class="w-100"
+                                                >  
+                                            @else 
+                                                <img src='/img/video.png' class="w-100" alt="...">  
+                                            @endif
+                                        @else
+                                            @if(strpos($item->mimetype, 'image') !== false) 
+                                                <img src='{{url("/image/items/300/300/".$item->filename)}}' class="w-100">  
+                                            @else 
+                                                <img src='/img/video.png' class="w-100" alt="...">  
+                                            @endif
                                         @endif
                                         <span class="listing-name text-white p-1 w-100 d-block">
                                             {{$item->label}}
@@ -63,18 +73,34 @@
                             </button>
                         </div>
                         <div class="modal-body p-0">
-                            @if(strpos($item->mimetype, 'image') !== false) 
-                                <img src="{{url('/image/items/'.$item->filename)}}" class="w-100" />
-                            @endif
+                            @if($item->editedItem)
+                                @if(strpos($item->editedItem->mimetype, 'image') !== false) 
+                                    <img src="{{url('/image/editeditems/'.$item->editedItem->filename)}}" class="w-100" />
+                                @endif
 
-                            @if(strpos($item->mimetype, 'video') !== false) 
-                                <video controls width="250" class="w-100 video-item-player" id="videoModal{{$item->hash}}" >
+                                @if(strpos($item->editedItem->mimetype, 'video') !== false) 
+                                    <video controls width="250" class="w-100 video-item-player" id="videoModal{{$item->hash}}" >
 
-                                    <source src="{{url('/video/items/'.$item->filename.'/watch')}}"
-                                            type="{{$item->mimetype}}"> 
+                                        <source src="{{url('/video/editeditems/'.$item->editedItem->filename.'/watch')}}"
+                                                type="{{$item->editedItem->mimetype}}"> 
 
-                                    Sorry, your browser doesn't support embedded videos.
-                                </video>
+                                        Sorry, your browser doesn't support embedded videos.
+                                    </video>
+                                @endif
+                            @else
+                                @if(strpos($item->mimetype, 'image') !== false) 
+                                    <img src="{{url('/image/items/'.$item->filename)}}" class="w-100" />
+                                @endif
+
+                                @if(strpos($item->mimetype, 'video') !== false) 
+                                    <video controls width="250" class="w-100 video-item-player" id="videoModal{{$item->hash}}" >
+
+                                        <source src="{{url('/video/items/'.$item->filename.'/watch')}}"
+                                                type="{{$item->mimetype}}"> 
+
+                                        Sorry, your browser doesn't support embedded videos.
+                                    </video>
+                                @endif
                             @endif
                         </div> 
                         @if($item->description)

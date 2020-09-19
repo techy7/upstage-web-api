@@ -47,6 +47,14 @@
 			.dash-header-logo { height: 30px; }
 			.md-none .sm-none {}
 
+			.editor-upload-box { position: relative; cursor: pointer; margin-right: 3px; }
+			.editor-upload-box .upicon { position: absolute; top: 15px; left: 15px; z-index: 5; display: none; border: 1px solid #333; background: #333; color: #fff; border-radius: 2px; }
+			.editor-upload-box img { position: relative; z-index: 2; border: 1px solid #333; }
+			.editor-upload-box:hover .upicon { display: block;}
+			.editor-upload-box:hover img { opacity: 0.5 }
+			.editor-uploadform {position: relative; padding-left: 60px; }
+			.editor-uploadform-preview { position: absolute; top: 5px; left: 0px; }
+
 			/*.responsive visibility */
 			@media (max-width: 1600px) {
 			     

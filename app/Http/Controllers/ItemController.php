@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\EditedItem;
 use App\Listing;
 use Illuminate\Http\Request;
 use App\Http\Requests\ItemRequest;
 use App\Http\Requests\ItemEditRequest;
 use Illuminate\Support\Str; 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class ItemController extends Controller
 {
@@ -45,6 +48,7 @@ class ItemController extends Controller
      */
     public function edit(Listing $listing, Item $item)
     {
+        $item->load(['editedItem']); 
         return view('items.edit', compact('listing', 'item'));
     }
 
@@ -122,5 +126,52 @@ class ItemController extends Controller
         Storage::delete('items/'.$item->filename);
         $item->delete();
         return response()->json(null, 204);
+    }
+
+    public function api_store_edited(Listing $listing, Item $item, Request $request)
+    { 
+        $validator = Validator::make($request->all(), [ 
+            'file' => 'required|file'
+        ]);
+
+        if ($validator->fails()) {  
+            return response()->json([
+                'message' => 'Could not add new listing.',
+                'errors' => $validator->errors(),
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }
+
+        $filename = null;
+        $mimetype = null; 
+
+        // save avatar
+        if($request->file('file'))
+        {
+            $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
+            $file_stamp = $item->hash . time() . '_file_' . $filename; 
+            $request->file->storeAs('editeditems', $file_stamp);  
+            $filename = $file_stamp;
+            $mimetype = $request->file->getMimeType();
+        } 
+
+        if(!$filename || !$mimetype) { 
+            return response()->json([
+                'error'   =>'Unauthorized',
+                'status_code' => 401
+            ], 401);
+        }
+
+        $editedItem = EditedItem::create([ 
+            'filename' => $filename,
+            'mimetype' => $mimetype,
+            'listing_id' => $listing->id,
+            'user_id' => $listing->user_id,
+            'item_id' => $item->id,
+            'editor_id' => Auth::user()->id,
+        ]);
+
+        return response()->json($editedItem, 201);
     }
 }

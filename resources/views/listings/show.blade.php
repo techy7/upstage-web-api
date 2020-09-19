@@ -163,6 +163,32 @@
                             @foreach($listing->rawItems as $raw)
                                 <div class="m-widget4__item"> 
                                     <div class="m-widget4__img m-widget4__img">
+                                        @if($raw->editedItem) 
+                                            @if(strpos($raw->editedItem->mimetype, 'image') !== false)
+                                                <div class="editor-upload-box" 
+                                                    @click="openEditorModal('{{url('/image/items/100/100/'.$raw->filename)}}', 'img', '{{$raw->hash}}')"
+                                                >
+                                                    <img src="{{url('/image/editeditems/100/100/'.$raw->editedItem->filename)}}" class="w-50" alt="...">
+                                                    <i class="upicon la la-upload"></i>
+                                                </div>
+                                            @else
+                                                <div class="editor-upload-box" 
+                                                    @click="openEditorModal('{{url('/image/items/100/100/'.$raw->filename)}}', 'video', '{{$raw->hash}}')"
+                                                >
+                                                    <img src='/img/video.png' class="w-50" alt="...">
+                                                    <i class="upicon la la-upload"></i>
+                                                </div>
+                                            @endif
+                                        @else
+                                            <div class="editor-upload-box" 
+                                                @click="openEditorModal('{{url('/image/items/100/100/'.$raw->filename)}}', 'video', '{{$raw->hash}}')"
+                                            >
+                                                <img src='/img/uped.png' class="w-50" alt="...">
+                                                <i class="upicon la la-upload"></i>
+                                            </div>
+                                        @endif
+                                    </div> 
+                                    <div class="m-widget4__img m-widget4__img">
                                         @if(strpos($raw->mimetype, 'image') !== false)
                                             <img src="{{url('/image/items/100/100/'.$raw->filename)}}" class="w-50" />
                                         @else
@@ -175,7 +201,7 @@
                                         </span>
                                         <br class="">
                                         <span class="m-widget4__sub ">
-                                            {{$raw->description}}
+                                            {{$raw->mimetype}}
                                         </span>
                                     </div> 
 
@@ -195,7 +221,7 @@
                                         <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" href="{{url('listings/'.$listing->hash.'/items/'.$raw->hash.'/delete')}}"> 
                                             <i class="la la-trash"></i>
                                         </a>   
-                                    </span>
+                                    </span> 
                                 </div> 
                             @endforeach
                             </div>  
@@ -204,6 +230,43 @@
                         @endif
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editorUploadModal" tabindex="-1" aria-labelledby="editorUploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editorUploadModalLabel">Upload Edited Version</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="editor-uploadform clearfix mb-3">
+                        <img id='' :src='rawItem.url'  class='w-50 editor-uploadform-preview' />
+                    
+                        <div class='alert border clearfix mb-0'>
+                            <button type="button" class="btn btn-primary float-right" 
+                                :disabled="!editorImage && !editorVideo"
+                                @click="submitEditorImage()"
+                            >
+                                <i class="la la-angle-right "></i>
+                            </button>  
+                            <input type='file' 
+                                @change='addEditorImage($event, "img_upload_editor", "file")' 
+                                v-if="uploadReady" ref="fileupload"
+                                id='img_upload_editor'
+                                class="float-left mt-2 w-200" 
+                                accept="image/*, video/*"
+                            > 
+                        </div>
+                    </div>
+
+                    <img id='preview_img_upload_editor' src='/img/photo.png' v-if="editorImage" class='w-100' />
+                    <div class="p-y text-center" v-if="editorVideo">No preview for this file type</div>
+                </div> 
             </div>
         </div>
     </div>

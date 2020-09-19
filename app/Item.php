@@ -20,6 +20,11 @@ class Item extends Model
         return $this->belongsTo(\App\User::class, 'editor_id');
     }
 
+    public function editedItem() 
+    {
+        return $this->hasOne(\App\EditedItem::class, 'item_id')->orderBy('id', 'desc');
+    }
+
     public function scopeOfKeywords($query, $strKeywords)
     {
         if($strKeywords)

@@ -70,7 +70,7 @@
                 <select v-model='listing.editor_id' 
                     class="form-control"
                 >
-                    <option value="">Select a Editor</option>
+                    <option value="">Select an Editor</option>
                     @foreach($editors as $editor)
                         <option value="{{$editor->id}}">
                             {{$editor->full_name}} ({{$editor->email}})
