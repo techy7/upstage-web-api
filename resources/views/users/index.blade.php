@@ -44,6 +44,12 @@
                         <div class="m-portlet__head-tools">
                             <ul class="m-portlet__nav">
                                 <li class="m-portlet__nav-item">
+                                    <select class="form-control" v-model="filters.sort" @change="getList(1)">
+                                        <option value="first_name">Sort by Name</option>
+                                        <option value="listings_count">Sort by Lists</option>
+                                    </select>
+                                </li>
+                                <li class="m-portlet__nav-item">
                                     <form @submit.prevent="getList(1)" class="m-input-icon m-input-icon--right m-0">
                                         <input type="text" 
                                             class="form-control m-input" 

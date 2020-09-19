@@ -13,7 +13,7 @@ Vue.component('users-list', {
             filters: {
                 page: 1,
                 q:'',
-                
+                sort: 'first_name' 
             },
             isLoading: false,
         }
