@@ -51342,7 +51342,8 @@ Vue.component('users-delete', {
       },
       filters: {
         page: 1,
-        q: ''
+        q: '',
+        sort: 'first_name'
       },
       isLoading: false
     };

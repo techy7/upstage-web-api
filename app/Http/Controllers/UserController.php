@@ -105,12 +105,14 @@ class UserController extends Controller
     public function api_index(Request $request)
     {
         $strKeywords = $request->input('q', null);
+        $strSortBy = $request->input('sort', 'first_name');
+        $strSortDir = $strSortBy == 'listings_count' ? 'desc' : 'asc';
         
         $users = User::ofKeywords($strKeywords)
             ->where('role', 'user')
             ->with(['plan'])
             ->withCount(['listings'])
-            ->orderBy('first_name', 'asc')
+            ->orderBy($strSortBy, $strSortDir)
             ->paginate(20);
             
         return response()->json($users);

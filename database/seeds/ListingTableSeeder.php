@@ -16,7 +16,7 @@ class ListingTableSeeder extends Seeder
     public function run(Faker $faker)
     {  
         factory(App\Listing::class, 30)->create()->each(function ($list) use($faker) { 
- 			$numOfItems = rand(3,9);
+ 			$numOfItems = rand(2,6);
 
  			for ($i=0; $i < $numOfItems; $i++) { 
  				// create item here
@@ -42,9 +42,9 @@ class ListingTableSeeder extends Seeder
 	            $filename = time() . '__' . $value . '.jpg';
 	            
 	            // resize the image to 1000px width
-	            $img->resize(1000, null, function ($constraint) {
-					$constraint->aspectRatio();
-				});
+	   			// $img->resize(1000, null, function ($constraint) {
+				// 	$constraint->aspectRatio();
+				// });
 
 	            // create the image in storage item folder
 	            $img->save($item_path . $filename, 90);
