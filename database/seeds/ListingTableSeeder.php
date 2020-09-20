@@ -17,8 +17,9 @@ class ListingTableSeeder extends Seeder
     {  
         factory(App\Listing::class, 10)->create()->each(function ($list) use($faker) { 
  			$numOfItems = rand(2,6);
+ 			$imgVal = Arr::random(array(1,2,3,4,5,6,7,8,9,10), $numOfItems);
 
- 			for ($i=0; $i < $numOfItems; $i++) { 
+ 			for ($i=0; $i < $numOfItems; $i++) {  
  				// create item here
 	            $item = Item::create([
 		            'label' =>$faker->realText($maxNbChars = rand(20, 50)),
@@ -34,17 +35,11 @@ class ListingTableSeeder extends Seeder
 	            // create the folder if it doesn't exist
 	            if (!file_exists($item_path)) {
 	                mkdir($item_path, 777, true);
-	            }
+	            } 
 
-	            $value = rand(1,10);   
-	            $path = base_path() . '/samplepics/items/' . $value . '.jpg';  
+	            $path = base_path() . '/samplepics/items/' . $imgVal[$i] . '.jpg';  
 	            $img = InterImage::make($path); 
-	            $filename = time() . '__' . $value . '.jpg';
-	            
-	            // resize the image to 1000px width
-	   			// $img->resize(1000, null, function ($constraint) {
-				// 	$constraint->aspectRatio();
-				// });
+	            $filename = time() . '__' . $imgVal[$i] . '.jpg';
 
 	            // create the image in storage item folder
 	            $img->save($item_path . $filename, 90);

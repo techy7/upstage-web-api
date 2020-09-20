@@ -10,6 +10,11 @@ require('./components/users/show');
 require('./components/users/form'); 
 require('./components/users/delete'); 
 
+require('./components/editors/list'); 
+require('./components/editors/show'); 
+require('./components/editors/form'); 
+require('./components/editors/delete'); 
+
 require('./components/listings/list'); 
 require('./components/listings/show'); 
 require('./components/listings/form'); 

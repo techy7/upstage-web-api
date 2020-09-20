@@ -20,9 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false]); 
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('email-verify/{user}', 'UserController@verify');
 
 Route::get('/image/{folder}/{width}/{height}/{img_name}', 'ImageController@crop');
@@ -34,16 +33,24 @@ Route::get('/video/{folder}/{filename}/download', 'VideoController@download');
 Route::get('/user/{slug}', 'UserController@profile_public');
 Route::get('/user/{slug}/{list}', 'UserController@profile_listing');
 
-Route::prefix('/')->middleware(['auth'])->group(function () {
+Route::prefix('/')->middleware(['auth', 'isNotUser'])->group(function () {
 	Route::get('/apidocs', function(){
 		return view('apidocs.index');
 	});
+
+	Route::get('/home', 'HomeController@index')->name('home');
 
 	Route::get('users', 'UserController@index'); 
 	Route::get('users/new', 'UserController@create'); 
 	Route::get('users/{user}', 'UserController@show'); 
 	Route::get('users/{user}/edit', 'UserController@edit'); 
 	Route::get('users/{user}/delete', 'UserController@delete'); 
+
+	Route::get('editors', 'EditorController@index'); 
+	Route::get('editors/new', 'EditorController@create'); 
+	Route::get('editors/{editor}', 'EditorController@show'); 
+	Route::get('editors/{editor}/edit', 'EditorController@edit'); 
+	Route::get('editors/{editor}/delete', 'EditorController@delete'); 
 
 	Route::get('plans', 'PlanController@index'); 
 	Route::get('plans/new', 'PlanController@create'); 
@@ -69,7 +76,7 @@ Route::prefix('/')->middleware(['auth'])->group(function () {
 });
 
 // psuedo API for admin purposes so web auth session can be used
-Route::prefix('/admin_api')->middleware(['auth'])->group(function () {
+Route::prefix('/admin_api')->middleware(['auth', 'isNotUser'])->group(function () {
 	Route::get('plans', 'PlanController@api_index'); 
 	Route::get('plans/all', 'PlanController@all'); 
 	Route::post('plans', 'PlanController@api_store'); 
@@ -83,6 +90,13 @@ Route::prefix('/admin_api')->middleware(['auth'])->group(function () {
 	Route::get('users/{user}', 'UserController@api_show'); 
 	Route::put('users/{user}', 'UserController@api_update'); 
 	Route::delete('users/{user}', 'UserController@api_destroy'); 
+
+	Route::get('editors', 'EditorController@api_index'); 
+	Route::get('editors/all', 'EditorController@all'); 
+	Route::post('editors', 'EditorController@api_store'); 
+	Route::get('editors/{user}', 'EditorController@api_show'); 
+	Route::put('editors/{user}', 'EditorController@api_update'); 
+	Route::delete('editors/{user}', 'EditorController@api_destroy'); 
 
 	Route::get('listings', 'ListingController@api_index'); 
 	Route::get('listings/all', 'ListingController@all'); 

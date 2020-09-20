@@ -66,6 +66,20 @@
 					</span>
 				</a>
 			</li> 
+			<li class="m-menu__item @if(Request::is('editors', 'editors/*')) m-menu__item--active @endif" 
+				aria-haspopup="true" 
+			>
+				<a  href="{{url('/editors')}}" class="m-menu__link ">
+					<i class="m-menu__link-icon flaticon-user-settings"></i>
+					<span class="m-menu__link-title">
+						<span class="m-menu__link-wrap">
+							<span class="m-menu__link-text">
+								Editors
+							</span> 
+						</span>
+					</span>
+				</a>
+			</li>
 
 			<li class="m-menu__section">
 				<h4 class="m-menu__section-text">

@@ -76,6 +76,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(\App\Listing::class);
     }
 
+    public function listedits() 
+    {
+        return $this->hasMany(\App\Listing::class, 'editor_id');
+    }
+
     public function scopeOfKeywords($query, $strKeywords)
     {
         if($strKeywords)
