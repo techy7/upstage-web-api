@@ -102,6 +102,11 @@
           "mimetype": "video/mp4",
           "file_url": "http://localhost/video/items/videofile.mp4",
           "thumbnail_url": null
+        },
+        "listing": {
+            "name": "Alice had been to the end of the court. (As that is.",
+            "hash": "m806w1pg",
+            "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
         }
       },
       {
@@ -117,6 +122,11 @@
               "mimetype": "image/png",
               "file_url": "http://localhost/image/items/house_image.png",
               "thumbnail_url": "http://localhost/image/items/150/150/house_image.png"
+          },
+          "listing": {
+              "name": "Alice had been to the end of the court. (As that is.",
+              "hash": "m806w1pg",
+              "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
           }
       },
       ....
@@ -321,6 +331,11 @@
         "mimetype": "image/png",
         "file_url": "http://localhost/image/items/item_image.png",
         "thumbnail_url": "http://localhost/image/items/150/150/item_image.png"
+    },
+    "listing": {
+        "name": "Alice had been to the end of the court. (As that is.",
+        "hash": "m806w1pg",
+        "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
     }
 }
 </pre> 
@@ -340,6 +355,11 @@
         "mimetype": "video/mp4",
         "file_url": "http://localhost/video/items/video_item.mp4",
         "thumbnail_url": null
+    },
+    "listing": {
+        "name": "Alice had been to the end of the court. (As that is.",
+        "hash": "m806w1pg",
+        "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
     }
 },
 </pre> 

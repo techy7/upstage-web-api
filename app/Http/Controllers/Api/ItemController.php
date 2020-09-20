@@ -38,12 +38,33 @@ class ItemController extends Controller
             ->where('user_id', $user['id'])
             ->where('listing_id', $listing->id)
             ->ofStatus($strStatus) 
+            ->with(['editedItem'])
             ->orderBy('created_at', 'desc')
             ->paginate(20); 
 
-        $items->getCollection()->transform(function ($item) {
+        $items->getCollection()->transform(function ($item) use($listing) {
             $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
             $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+
+            $objFile = array(
+                "filename" => $item->filename,
+                "mimetype" => $item->mimetype,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+                "thumbnail_url" => $thumb
+            );
+
+            if($item->editedItem) { 
+                $folderUrl = strpos($item->editedItem->mimetype, 'image') !== false ? 'image' : 'video';
+                $thumb = strpos($item->editedItem->mimetype, 'image') !== false ?
+                             env('APP_URL').'/image/editeditems/150/150/'.$item->editedItem->filename : null;
+
+                $objFile = array(
+                    "filename" => $item->editedItem->filename,
+                    "mimetype" => $item->editedItem->mimetype,
+                    "file_url" => env('APP_URL').'/'.$folderUrl.'/editeditems/'.$item->editedItem->filename,
+                    "thumbnail_url" => $thumb
+                );
+            }
 
             return array(
                 "label" => $item->label,
@@ -53,39 +74,14 @@ class ItemController extends Controller
                 "slug" => $item->slug,
                 "created_at" => $item->created_at,
                 "updated_at" => $item->updated_at,
-                "file" => array(
-                    "filename" => $item->filename,
-                    "mimetype" => $item->mimetype,
-                    "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
-                    "thumbnail_url" => $thumb
+                "file" => $objFile,
+                "listing" => array(
+                    "name" => $listing->name, 
+                    "hash" => $listing->hash,
+                    "slug" => $listing->slug,
                 )
-            );
-
-            // return $item;
-        });
-
-
-        // $items->getCollection()->transform((function($model) {
-        //     return $model;
-        //     $folderUrl = strpos($model->mimetype, 'image') !== false ? 'image' : 'video';
-        //     $thumb = strpos($model->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$model->filename : null;
-
-        //     // return array(
-        //     //     "label" => $model->label,
-        //     //     "description" => $model->description, 
-        //     //     "status" => $model->status,
-        //     //     "hash" => $model->hash,
-        //     //     "slug" => $model->slug,
-        //     //     "created_at" => $model->created_at,
-        //     //     "updated_at" => $model->updated_at,
-        //     //     "file" => array(
-        //     //         "filename" => $model->filename,
-        //     //         "mimetype" => $model->mimetype,
-        //     //         "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$model->filename,
-        //     //         "thumbnail_url" => $thumb
-        //     //     )
-        //     // );
-        // });
+            ); 
+        }); 
             
         return response()->json($items);
     }
@@ -168,8 +164,30 @@ class ItemController extends Controller
             ], 401);
         }  
 
+        $item->load(['editedItem']);
+
         $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
         $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+
+        $objFile = array(
+            "filename" => $item->filename,
+            "mimetype" => $item->mimetype,
+            "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+            "thumbnail_url" => $thumb
+        );
+
+        if($item->editedItem) { 
+            $folderUrl = strpos($item->editedItem->mimetype, 'image') !== false ? 'image' : 'video';
+            $thumb = strpos($item->editedItem->mimetype, 'image') !== false ?
+                         env('APP_URL').'/image/editeditems/150/150/'.$item->editedItem->filename : null;
+
+            $objFile = array(
+                "filename" => $item->editedItem->filename,
+                "mimetype" => $item->editedItem->mimetype,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/editeditems/'.$item->editedItem->filename,
+                "thumbnail_url" => $thumb
+            );
+        }
         
         return response()->json(array(
             "label" => $item->label,
@@ -179,11 +197,11 @@ class ItemController extends Controller
             "slug" => $item->slug,
             "created_at" => $item->created_at,
             "updated_at" => $item->updated_at,
-            "file" => array(
-                "filename" => $item->filename,
-                "mimetype" => $item->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
-                "thumbnail_url" => $thumb
+            "file" => $objFile,
+            "listing" => array(
+                "name" => $listing->name, 
+                "hash" => $listing->hash,
+                "slug" => $listing->slug,
             )
         ));
     }

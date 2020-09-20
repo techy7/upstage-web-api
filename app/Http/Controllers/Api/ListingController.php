@@ -38,7 +38,7 @@ class ListingController extends Controller
         $listings = Listing::ofKeywords($strKeywords)
             ->where('user_id', $user['id'])
             ->ofStatus($strStatus)
-            ->with(['first_item', 'user'])
+            ->with(['first_item.editedItem', 'user'])
             ->withCount(['items'])
             ->orderBy('created_at', 'desc')
             ->paginate(20);
@@ -48,6 +48,22 @@ class ListingController extends Controller
             $first_item = null;
 
             if($list->first_item) {
+                $objFile = array(
+                    "filename" => $list->first_item->filename,
+                    "mimetype" => $list->first_item->mimetype,
+                    "file_url" => env('APP_URL').'/image/items/'.$list->first_item->filename,
+                    "thumbnail_url" => env('APP_URL').'/image/items/150/150/'.$list->first_item->filename
+                );
+
+                if($list->first_item->editedItem) { 
+                    $objFile = array(
+                        "filename" => $list->first_item->editedItem->filename,
+                        "mimetype" => $list->first_item->editedItem->mimetype,
+                        "file_url" => env('APP_URL').'/image/editeditems/'.$list->first_item->editedItem->filename,
+                        "thumbnail_url" => env('APP_URL').'/image/editeditems/150/150/'.$list->first_item->editedItem->filename
+                    );
+                }
+
                 $first_item = array(
                     "label" => $list->first_item->label,
                     "description" => $list->first_item->description, 
@@ -56,12 +72,7 @@ class ListingController extends Controller
                     "slug" => $list->first_item->slug,
                     "created_at" => $list->first_item->created_at,
                     "updated_at" => $list->first_item->updated_at,
-                    "file" => array(
-                        "filename" => $list->first_item->filename,
-                        "mimetype" => $list->first_item->mimetype,
-                        "file_url" => env('APP_URL').'/image/items/'.$list->first_item->filename,
-                        "thumbnail_url" => env('APP_URL').'/image/items/150/150/'.$list->first_item->filename
-                    )
+                    "file" => $objFile
                 );
             }
 
@@ -197,6 +208,26 @@ class ListingController extends Controller
             $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
             $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
 
+            $objFile = array(
+                "filename" => $item->filename,
+                "mimetype" => $item->mimetype,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+                "thumbnail_url" => $thumb
+            );
+
+            if($item->editedItem) { 
+                $folderUrl = strpos($item->editedItem->mimetype, 'image') !== false ? 'image' : 'video';
+                $thumb = strpos($item->editedItem->mimetype, 'image') !== false ?
+                             env('APP_URL').'/image/editeditems/150/150/'.$item->editedItem->filename : null;
+
+                $objFile = array(
+                    "filename" => $item->editedItem->filename,
+                    "mimetype" => $item->editedItem->mimetype,
+                    "file_url" => env('APP_URL').'/'.$folderUrl.'/editeditems/'.$item->editedItem->filename,
+                    "thumbnail_url" => $thumb
+                );
+            }
+
             array_push($listingItems, array(
                 "label" => $item->label,
                 "description" => $item->description, 
@@ -205,12 +236,7 @@ class ListingController extends Controller
                 "slug" => $item->slug,
                 "created_at" => $item->created_at,
                 "updated_at" => $item->updated_at,
-                "file" => array(
-                    "filename" => $item->filename,
-                    "mimetype" => $item->mimetype,
-                    "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
-                    "thumbnail_url" => $thumb
-                )
+                "file" => $objFile
             ));
         }
 
