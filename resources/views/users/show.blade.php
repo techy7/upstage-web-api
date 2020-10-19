@@ -112,6 +112,41 @@
                                 <div class="row m-row--no-padding align-items-center">
                                     <div class="col">
                                         <span class="m-widget1__desc">
+                                            Type
+                                        </span> 
+                                        <h3 class="m-widget1__title" v-if="user.type == 'agent'">
+                                            Real State Agent
+                                        </h3> 
+                                        <h3 class="m-widget1__title">
+                                            Home Owner
+                                        </h3> 
+                                    </div> 
+                                </div>
+                            </div> 
+                            <div class="m-widget1__item" v-if="user.type == 'agent'">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <span class="m-widget1__desc">
+                                            State
+                                        </span> 
+                                        <h3 class="m-widget1__title" v-html='user.agent_state || "n/a"'></h3> 
+                                    </div> 
+                                </div>
+                            </div> 
+                            <div class="m-widget1__item" v-if="user.type == 'agent'">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <span class="m-widget1__desc">
+                                            License Number
+                                        </span> 
+                                        <h3 class="m-widget1__title" v-html='user.agent_license || "n/a"'></h3> 
+                                    </div> 
+                                </div>
+                            </div> 
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <span class="m-widget1__desc">
                                             Plan
                                         </span> 
                                         <h3 class="m-widget1__title" v-cloak v-if="user.plan">@{{user.plan.name}}</h3> 

@@ -91,6 +91,9 @@ class ListingController extends Controller
             return array(
                 "name" => $list->name,
                 "description" => $list->description,
+                "address" => $list->address,
+                "state" => $list->state,
+                "num_of_rooms" => $list->num_of_rooms,
                 "status" => $list->status,
                 "created_at" => $list->created_at,
                 "updated_at" => $list->updated_at,
@@ -125,7 +128,10 @@ class ListingController extends Controller
         }
 
         $validator = Validator::make($request->all(), [ 
-            'name' => 'required'
+            'name' => 'required',
+            'address' => 'required',
+            'state' => 'required',
+            'num_of_rooms' => 'required|min:1|max:10|integer'
         ]);
 
         if ($validator->fails()) {  
@@ -151,6 +157,9 @@ class ListingController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'user_id' => $user['id'],
+            'address' => $request->address,
+            'state' => $request->state,
+            'num_of_rooms' => $request->num_of_rooms,
         ]);
 
         if($listing)
@@ -175,6 +184,9 @@ class ListingController extends Controller
         return response()->json(array(
             "name" => $listing->name,
             "description" => $listing->description,
+            "address" => $listing->address,
+            "state" => $listing->state,
+            "num_of_rooms" => $listing->num_of_rooms,
             "hash" => $listing->hash,
             "slug" => $listing->slug,
             "created_at" => $listing->created_at,
@@ -256,6 +268,9 @@ class ListingController extends Controller
         return response()->json(array(
             "name" => $listing->name,
             "description" => $listing->description,
+            "address" => $listing->address,
+            "state" => $listing->state,
+            "num_of_rooms" => $listing->num_of_rooms,
             "hash" => $listing->hash,
             "slug" => $listing->slug,
             "created_at" => $listing->created_at,

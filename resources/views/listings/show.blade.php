@@ -85,6 +85,39 @@
                                 <div class="row m-row--no-padding align-items-center">
                                     <div class="col">
                                         <span class="m-widget1__desc">
+                                            Address:
+                                        </span> 
+                                        <h3 class="m-widget1__title" v-html='listing.address || "n/a"'></h3> 
+                                    </div> 
+                                </div>
+                            </div>
+
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <span class="m-widget1__desc">
+                                            State:
+                                        </span> 
+                                        <h3 class="m-widget1__title" v-html='listing.state || "n/a"'></h3> 
+                                    </div> 
+                                </div>
+                            </div>
+
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <span class="m-widget1__desc">
+                                            Number of Rooms:
+                                        </span> 
+                                        <h3 class="m-widget1__title" v-html='listing.num_of_rooms || "n/a"'></h3> 
+                                    </div> 
+                                </div>
+                            </div>
+
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <span class="m-widget1__desc">
                                             Status:
                                         </span> 
                                         <h3 class="m-widget1__title" v-html='listing.status || "n/a"'></h3> 

@@ -76,6 +76,9 @@
       {
           "name": "Listing One",
           "description": "This is list 1",
+          "address": "Brooklyn 99",
+          "state": "New York",
+          "num_of_rooms": 9,
           "status": "pending", 
           "hash": "vdzpnl17",
           "first_item": {...},
@@ -85,6 +88,9 @@
       {
           "name": "Listing Two",
           "description": "This is list 2",
+          "address": "Brooklyn 99",
+          "state": "New York",
+          "num_of_rooms": 9,
           "status": "pending", 
           "hash": "vdzpnl18",
           "first_item": {...},
@@ -170,6 +176,27 @@
                     <td></td>
                     <td>A big house on the beach</td>
                   </tr> 
+                  <tr> 
+                    <td>address</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>Brooklyn 99</td>
+                  </tr>
+                  <tr> 
+                    <td>state</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>New York</td>
+                  </tr>
+                  <tr> 
+                    <td>num_of_rooms</td>
+                    <td>required</td>
+                    <td>Number of rooms between <strong>1</strong> to <strong>10</strong></td>
+                    <td></td>
+                    <td>5</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -180,6 +207,9 @@
 {
     "name": "Beach House",
     "description": "Big house near the beach",
+    "address": "Brooklyn 99",
+    "state": "New York",
+    "num_of_rooms": 9,
     "hash": "xy08g71j",
     "slug": "beach-house-xy08g71j",
     "created_at": "2020-08-20T14:23:54.000000Z",
@@ -262,6 +292,9 @@
 {
     "name": "Beach House",
     "description": "Big house near the beach",
+    "address": "Brooklyn 99",
+    "state": "New York",
+    "num_of_rooms": 9,
     "hash": "xy08g71j",
     "slug": "beach-house-xy08g71j",
     "created_at": "2020-08-20T14:23:54.000000Z",
@@ -342,6 +375,27 @@
                     <td></td>
                     <td>A big house on the beach</td>
                   </tr> 
+                  <tr> 
+                    <td>address</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>Brooklyn 99</td>
+                  </tr>
+                  <tr> 
+                    <td>state</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>New York</td>
+                  </tr>
+                  <tr> 
+                    <td>num_of_rooms</td>
+                    <td>required</td>
+                    <td>Number of rooms between <strong>1</strong> to <strong>10</strong></td>
+                    <td></td>
+                    <td>5</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -352,6 +406,9 @@
 {
     "name": "Beach House",
     "description": "Big house near the beach",
+    "address": "Brooklyn 99",
+    "state": "New York",
+    "num_of_rooms": 9,
     "hash": "xy08g71j",
     "slug": "beach-house-xy08g71j",
     "created_at": "2020-08-20T14:23:54.000000Z",
