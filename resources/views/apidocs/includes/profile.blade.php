@@ -48,7 +48,18 @@
     "email": "one@user.com",
     "contact_num": "+1.828.451.2447",
     "avatar": null,
-    "slug": "orvallakin.4n5qn"
+    "slug": "orvallakin.4n5qn",
+    "fb_profile": {
+        "fb_id": "",
+        "fb_token": "",
+        "fb_avatar": "",
+        "fb_email": "",
+        "fb_name": ""
+    },
+    "type": "agent",
+    "agent_state": "Texas",
+    "agent_license": "qwer-1233-gddssx-9086",
+    "is_verified": false
 }
 </pre>  
             </div>

@@ -37,6 +37,9 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'first_name' => 'required', 
             'last_name' => 'required', 
+            'type' => 'required|in:'."home_owner,agent", 
+            'agent_state' => "required_if:type,==,agent",
+            'agent_license' => "required_if:type,==,agent"
         ]);
 
         if ($validator->fails()) {  
@@ -55,7 +58,10 @@ class RegisterController extends Controller
                 'last_name' => $request->last_name,  
                 'contact_num' => $request->contact_num,  
                 'password' => bcrypt($request->password),
-                'plan_id' => 1
+                'plan_id' => 1,
+                'type' => $request->type, 
+                'agent_state' => $request->agent_state, 
+                'agent_license' => $request->agent_license, 
             ]); 
         } catch (Exception $e) {
             return Response::json(['message' => 'Something went wrong.'], 422); 
@@ -91,6 +97,9 @@ class RegisterController extends Controller
                 'slug' => $user->slug,
                 'is_verified' => $user->email_verified_at ? true : false,
                 'fb_profile' => null,
+                'type' => $user->type,
+                'agent_state' => $user->agent_state,
+                'agent_license' => $user->agent_license,
             ]
         ]);
 

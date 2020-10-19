@@ -45,6 +45,9 @@ class ProfileController extends Controller
                 'fb_email' => data_get($user, 'fb_email', ''),
                 'fb_name' => data_get($user, 'fb_name', ''),
             ],
+            'type' => $user['type'], 
+            'agent_state' => $user['agent_state'], 
+            'agent_license' => $user['agent_license'], 
             'is_verified' => $user['email_verified_at'] ? true : false
         ]);
     } 
@@ -94,7 +97,11 @@ class ProfileController extends Controller
 
         // validate form inputs 
         $validator = Validator::make($request->all(), [
-            'name' => 'required', 
+            'first_name' => 'required', 
+            'last_name' => 'required', 
+            'type' => 'required|in:'."home_owner,agent", 
+            'agent_state' => "required_if:type,==,agent",
+            'agent_license' => "required_if:type,==,agent"
         ]);
 
         if ($validator->fails()) {  
@@ -111,6 +118,9 @@ class ProfileController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'contact_num' => $request->contact_num,
+            'type' => $request->type, 
+            'agent_state' => $request->agent_state, 
+            'agent_license' => $request->agent_license, 
         ]);
 
         // if avatar file is presennt, update user's avatar too
@@ -128,6 +138,9 @@ class ProfileController extends Controller
             'name' => $user['name'],
             'email' => $user['email'], 
             'contact_num' => $user['contact_num'],
+            'type' => $user['type'], 
+            'agent_state' => $user['agent_state'], 
+            'agent_license' => $user['agent_license'], 
             'avatar' => $user['avatar']
         ]);
     }

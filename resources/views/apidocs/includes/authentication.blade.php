@@ -176,6 +176,27 @@
                     <td></td>
                     <td>secretpassword</td>
                   </tr>
+                  <tr> 
+                    <td>type</td>
+                    <td>required</td>
+                    <td>Choose from <strong>home_owner</strong> or <strong>agent</strong></td>
+                    <td></td>
+                    <td>home_owner</td>
+                  </tr>
+                  <tr> 
+                    <td>agent_state</td>
+                    <td>required</td>
+                    <td>This is <strong>required</strong> only if <strong>type = agent</strong></td>
+                    <td></td>
+                    <td>Texas</td>
+                  </tr>
+                  <tr> 
+                    <td>agent_license</td>
+                    <td>required</td>
+                    <td>This is <strong>required</strong> only if <strong>type = agent</strong></td>
+                    <td></td>
+                    <td>asdf1234-zxcv-09876</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -198,7 +219,10 @@
         "avatar": null,
         "slug": "ffff.xjn4x",
         "is_verified": false,
-        "fb_profile": null
+        "fb_profile": null,
+        "type": "agent",
+        "agent_state": "Texas",
+        "agent_license": "qwer-1233-gddssx-9086"
     }
 }
 </pre> 
@@ -213,6 +237,15 @@
         ],
         "name": [
             "The name field is required."
+        ],
+        "type": [
+            "The selected type is invalid."
+        ]
+        "agent_state": [
+            "The agent state field is required when type is agent."
+        ],
+        "agent_license": [
+            "The agent license field is required when type is agent."
         ]
     },
     "status": "error",
