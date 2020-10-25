@@ -34,6 +34,10 @@
             <div class="card mb-5">
                 @include('apidocs.includes.item')
             </div>
+
+            <div class="card mb-5">
+                @include('apidocs.includes.layer')
+            </div>
         </div>
     </div>
 </div>

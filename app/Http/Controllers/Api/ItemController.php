@@ -247,6 +247,8 @@ class ItemController extends Controller
                 'mimetype' => $objLayer->mimetype,
                 'filename' => $objLayer->filename,
                 'hash' => $objLayer->hash,
+                'room_hash' => $item->hash,
+                'listing_hash' => $listing->hash,
                 'file_url' => env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
             ));
         }
@@ -327,6 +329,8 @@ class ItemController extends Controller
                 'mimetype' => $objLayer->mimetype,
                 'filename' => $objLayer->filename,
                 'hash' => $objLayer->hash,
+                'room_hash' => $item->hash,
+                'listing_hash' => $listing->hash,
                 'file_url' => env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
             ));
         }
@@ -392,6 +396,8 @@ class ItemController extends Controller
                 'mimetype' => $objLayer->mimetype,
                 'filename' => $objLayer->filename,
                 'hash' => $objLayer->hash,
+                'room_hash' => $item->hash,
+                'listing_hash' => $listing->hash,
                 "file_url"=> env('APP_URL').'/image/layers/'.$objLayer->filename,
                 "thumbnail_url"=> env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
             ));
@@ -445,6 +451,8 @@ class ItemController extends Controller
             "mimetype"=> $objLayer->mimetype,
             "filename"=> $objLayer->filename,
             "hash"=> $objLayer->hash,
+            'room_hash' => $item->hash,
+            'listing_hash' => $listing->hash,
             "file_url"=> env('APP_URL').'/image/layers/'.$objLayer->filename,
             "thumbnail_url"=> env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
         ), 200);
@@ -466,6 +474,8 @@ class ItemController extends Controller
             "mimetype"=> $layer->mimetype,
             "filename"=> $layer->filename,
             "hash"=> $layer->hash,
+            'room_hash' => $item->hash,
+            'listing_hash' => $listing->hash,
             "file_url"=> env('APP_URL').'/image/layers/'.$layer->filename,
             "thumbnail_url"=> env('APP_URL').'/image/layers/150/150/'.$layer->filename
         ), 200);
