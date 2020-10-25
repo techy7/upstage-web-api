@@ -15,6 +15,11 @@ class ImageController extends Controller
         try 
         {
             $path = storage_path().'/app/'. $folder .'/' . $name;
+
+            if(!Storage::exists($folder .'/' . $name) && $folder == 'rooms') {
+                $path = storage_path().'/app/items/' . $name;
+            }
+
             $img = InterImage::make($path)->fit($width, $height); 
         }
         catch(\Exception $e)
@@ -31,6 +36,11 @@ class ImageController extends Controller
         try 
         {
             $path = storage_path().'/app/'. $folder .'/' . $name;
+            
+            if(!Storage::exists($folder .'/' . $name) && $folder == 'rooms') {
+                $path = storage_path().'/app/items/' . $name;
+            }
+
             $img = InterImage::make($path)->resize($width, $height, function ($constraint) {
                 $constraint->aspectRatio();
             });
@@ -49,6 +59,11 @@ class ImageController extends Controller
         try
         {
             $path = storage_path().'/app/'. $folder .'/' . $name; 
+
+            if(!Storage::exists($folder .'/' . $name) && $folder == 'rooms') {
+                $path = storage_path().'/app/items/' . $name;
+            }
+
             $img = InterImage::make($path); 
         }
         catch(\Exception $e)

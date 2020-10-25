@@ -1,5 +1,5 @@
 <div class="card-header">
-  <h4 class="m-0">Items/Gallery API</h4>
+  <h4 class="m-0">Rooms/Gallery API</h4>
 </div>
 
 
@@ -9,7 +9,7 @@
         <div class="card-header px-2 py-1" id="headingItemAll">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseItemAll" aria-expanded="false" aria-controls="collapseItemAll">
-              All Items
+              All Rooms
             </button>
           </h2>
         </div>
@@ -17,14 +17,14 @@
           <div class="card-body">
             <div class="mb-5">
               <h4 class="m0">Resource URL</h4>
-              <p class="text-primary">GET base_URL/api/listings/{listing_hash}/items</p> 
+              <p class="text-primary">GET base_URL/api/listings/{listing_hash}/rooms</p> 
             </div>
 
             <div class="mb-5">
               <h4 class="m0">Description</h4>
-              <p class="m-0">Returns the items/gallery of the given listing_hash. This endpoint requires the <strong>TOKEN</strong> acquired in login.</p>
-              <p class="m-0">The <strong class="text-primary">data</strong> in response is where the items and the others are for pagination like <strong class="text-primary">current_page</strong>, <strong class="text-primary">total</strong></p>
-              <p>You can also get items/gallery in the listing object <strong class="text-primary">listing.items</strong>. Refer to the <strong>Display Listing</strong> section</p>
+              <p class="m-0">Returns the rooms/gallery of the given listing_hash. This endpoint requires the <strong>TOKEN</strong> acquired in login.</p>
+              <p class="m-0">The <strong class="text-primary">data</strong> in response is where the rooms and the others are for pagination like <strong class="text-primary">current_page</strong>, <strong class="text-primary">total</strong></p>
+              <p>You can also get rooms/gallery in the listing object <strong class="text-primary">listing.rooms</strong>. Refer to the <strong>Display Listing</strong> section</p>
               <p class="m-0">
                 There are 2 types of item: 
                 <strong class="text-primary">image</strong> and 
@@ -37,7 +37,7 @@
                 For images, there is given <strong class="text-primary">file.thumbnail_url</strong> for thumbnail but feel free to change the width and height (/150/150/) in the URL to match the size that you need. 
               </p>
               <p class="m-0">
-                This is done by assembling <strong>baseurl/image/items</strong> + <strong>/{width}/{heigth}/</strong> + <strong>{file.filename}</strong>
+                This is done by assembling <strong>baseurl/image/rooms</strong> + <strong>/{width}/{heigth}/</strong> + <strong>{file.filename}</strong>
               </p>
               <p class="m-0"><span class="text-danger">No thumbnail for video yet</span></p>
             </div>
@@ -70,7 +70,7 @@
                   <tr> 
                     <td>page</td>
                     <td>optional</td>
-                    <td>Integer to indicate the page number. Default items per page is 20</td>
+                    <td>Integer to indicate the page number. Default rooms per page is 20</td>
                     <td></td>
                     <td>Mansion</td>
                   </tr>
@@ -100,7 +100,7 @@
         "file": {
           "filename": "videofile.mp4",
           "mimetype": "video/mp4",
-          "file_url": "http://localhost/video/items/videofile.mp4",
+          "file_url": "http://localhost/video/rooms/videofile.mp4",
           "thumbnail_url": null
         },
         "listing": {
@@ -120,8 +120,8 @@
           "file": {
               "filename": "house_image.png",
               "mimetype": "image/png",
-              "file_url": "http://localhost/image/items/house_image.png",
-              "thumbnail_url": "http://localhost/image/items/150/150/house_image.png"
+              "file_url": "http://localhost/image/rooms/house_image.png",
+              "thumbnail_url": "http://localhost/image/rooms/150/150/house_image.png"
           },
           "listing": {
               "name": "Alice had been to the end of the court. (As that is.",
@@ -131,12 +131,12 @@
       },
       ....
     ],
-    "first_page_url": "http://localhost:8000/api/listings/5nzqox1l/items?page=1",
+    "first_page_url": "http://localhost:8000/api/listings/5nzqox1l/rooms?page=1",
     "from": 1,
     "last_page": 2,
-    "last_page_url": "http://localhost:8000/api/listings/5nzqox1l/items?page=2",
-    "next_page_url": "http://localhost:8000/api/listings/5nzqox1l/items?page=2",
-    "path": "http://localhost:8000/api/listings/5nzqox1l/items",
+    "last_page_url": "http://localhost:8000/api/listings/5nzqox1l/rooms?page=2",
+    "next_page_url": "http://localhost:8000/api/listings/5nzqox1l/rooms?page=2",
+    "path": "http://localhost:8000/api/listings/5nzqox1l/rooms",
     "per_page": 20,
     "prev_page_url": null,
     "to": 20,
@@ -161,7 +161,7 @@
         <div class="card-header px-2 py-1" id="headingItemNew">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseItemNew" aria-expanded="false" aria-controls="collapseItemNew">
-              Create New Listing
+              Create New Room
             </button>
           </h2>
         </div>
@@ -169,12 +169,12 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_url/api/listings/{listing_hash}/items</p> 
+              <p class="text-primary">POST base_url/api/listings/{listing_hash}/rooms</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p class="mb-1">Endpoint for adding new item/gallery on a given listing</p>
+              <p class="mb-1">Endpoint for adding new room/gallery on a given listing</p>
             </div>
 
             <div class="mb-5">
@@ -196,7 +196,7 @@
                 </thead>
                 <tbody> 
                   <tr> 
-                    <td>label</td>
+                    <td>name</td>
                     <td>required</td>
                     <td>String</td>
                     <td></td>
@@ -224,7 +224,7 @@
 <h5 class="m0">Example Response : Success</h5> 
 <pre class="text-danger mb-5">
 {
-    "label": "Front Gate",
+    "name": "Front Gate",
     "description": "this is front gate",
     "status": "raw",
     "hash": "9zxqwx6j",
@@ -234,8 +234,8 @@
     "file": {
         "filename": "frontgate.png",
         "mimetype": "image/png",
-        "file_url": "http://localhost/image/items/frontgate.png",
-        "thumbnail_url": "http://localhost/image/items/150/150/frontgate.png"
+        "file_url": "http://localhost/image/rooms/frontgate.png",
+        "thumbnail_url": "http://localhost/image/rooms/150/150/frontgate.png"
     }
 }
 </pre> 
@@ -245,8 +245,8 @@
 {
     "message": "Could not add new listing.",
     "errors": {
-        "label": [
-            "The label field is required."
+        "name": [
+            "The name field is required."
         ],
         "file": [
             "The file field is required."
@@ -280,7 +280,7 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_url/api/listings{listing_hash}/items/{item_hash}</p> 
+              <p class="text-primary">POST base_url/api/listings{listing_hash}/room/{item_hash}</p> 
             </div>
 
             <div class="mb-5">
@@ -299,9 +299,9 @@
                 For images, there is given <strong class="text-primary">file.thumbnail_url</strong> for thumbnail but feel free to change the width and height (/150/150/) in the URL to match the size that you need. 
               </p>
               <p class="m-0">
-                This is done by assembling <strong>baseurl/image/items/</strong> + <strong>/{width}/{heigth}/</strong> + <strong>{file.filename}</strong>
+                This is done by assembling <strong>baseurl/image/room/</strong> + <strong>/{width}/{heigth}/</strong> + <strong>{file.filename}</strong>
               </p>
-              <p class="m-0">Add <strong class="text-primary">/watch</strong> at the end of video URL if you want the streamable video (<small class="text-muted">http://localhost/video/items/video_item.mp4/watch</small>)</p>
+              <p class="m-0">Add <strong class="text-primary">/watch</strong> at the end of video URL if you want the streamable video (<small class="text-muted">http://localhost/video/room/video_item.mp4/watch</small>)</p>
               <p class="m-0"><span class="text-danger">No thumbnail for video yet</span></p>
             </div>
 
@@ -319,7 +319,7 @@
 <h5 class="m0">Example Response : Success Image</h5> 
 <pre class="text-danger mb-5">
 {
-    "label": "item 2",
+    "name": "item 2",
     "description": "this is item 2",
     "status": "raw",
     "hash": "9do1kxm5",
@@ -329,8 +329,8 @@
     "file": {
         "filename": "item_image.png",
         "mimetype": "image/png",
-        "file_url": "http://localhost/image/items/item_image.png",
-        "thumbnail_url": "http://localhost/image/items/150/150/item_image.png"
+        "file_url": "http://localhost/image/rooms/item_image.png",
+        "thumbnail_url": "http://localhost/image/rooms/150/150/item_image.png"
     },
     "listing": {
         "name": "Alice had been to the end of the court. (As that is.",
@@ -343,7 +343,7 @@
 <h5 class="m0">Example Response : Success Video</h5> 
 <pre class="text-danger mb-5">
 {
-    "label": "video item",
+    "name": "video item",
     "description": "this is a video item",
     "status": "raw",
     "hash": "6qlw4xmy",
@@ -353,7 +353,7 @@
     "file": {
         "filename": "video_item.mp4",
         "mimetype": "video/mp4",
-        "file_url": "http://localhost/video/items/video_item.mp4",
+        "file_url": "http://localhost/video/rooms/video_item.mp4",
         "thumbnail_url": null
     },
     "listing": {
@@ -387,7 +387,7 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_url/api/listings/{listing_hash}/items/{item_hash}</p> 
+              <p class="text-primary">POST base_url/api/listings/{listing_hash}/rooms/{item_hash}</p> 
             </div>
 
             <div class="mb-5">
@@ -415,7 +415,7 @@
                 </thead>
                 <tbody> 
                   <tr> 
-                    <td>label</td>
+                    <td>name</td>
                     <td>required</td>
                     <td>String</td>
                     <td></td>
@@ -443,7 +443,7 @@
 <h5 class="m0">Example Response : Success</h5> 
 <pre class="text-danger mb-5">
 {
-    "label": "test edit",
+    "name": "test edit",
     "description": saving updated description,
     "status": "raw",
     "hash": "mrlyko46",
@@ -453,8 +453,8 @@
     "file": {
         "filename": "item_image.png",
         "mimetype": "image/png",
-        "file_url": "http://localhost/image/items/item_image.png",
-        "thumbnail_url": "http://localhost/image/items/150/150/item_image.png"
+        "file_url": "http://localhost/image/rooms/item_image.png",
+        "thumbnail_url": "http://localhost/image/rooms/150/150/item_image.png"
     }
 }
 </pre> 
@@ -496,7 +496,7 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">DELETE base_url/api/listings/{listing_hash}/items/{item_hash}</p> 
+              <p class="text-primary">DELETE base_url/api/listings/{listing_hash}/rooms/{item_hash}</p> 
             </div>
 
             <div class="mb-5">

@@ -73,7 +73,7 @@ class VideoController extends Controller
     public function download(Request $request, $folder, $name)
     {   
         if(Storage::exists($folder .'/' . $name)) {
-            return Storage::download($folder .'/' . $name, 'ssss');    
+            return Storage::download($folder .'/' . $name);    
         } else {
             return 'File not found';
         } 

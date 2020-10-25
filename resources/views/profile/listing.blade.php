@@ -24,7 +24,7 @@
                                     <div class="listing-wrap">
                                         @if($item->editedItem)
                                             @if(strpos($item->editedItem->mimetype, 'image') !== false) 
-                                                <img src='{{url("/image/editeditems/300/300/".$item->editedItem->filename)}}' 
+                                                <img src='{{url("/image/editedrooms/300/300/".$item->editedItem->filename)}}' 
                                                     class="w-100"
                                                 >  
                                             @else 
@@ -32,7 +32,7 @@
                                             @endif
                                         @else
                                             @if(strpos($item->mimetype, 'image') !== false) 
-                                                <img src='{{url("/image/items/300/300/".$item->filename)}}' class="w-100">  
+                                                <img src='{{url("/image/rooms/300/300/".$item->filename)}}' class="w-100">  
                                             @else 
                                                 <img src='/img/video.png' class="w-100" alt="...">  
                                             @endif
@@ -75,13 +75,13 @@
                         <div class="modal-body p-0">
                             @if($item->editedItem)
                                 @if(strpos($item->editedItem->mimetype, 'image') !== false) 
-                                    <img src="{{url('/image/editeditems/'.$item->editedItem->filename)}}" class="w-100" />
+                                    <img src="{{url('/image/editedrooms/'.$item->editedItem->filename)}}" class="w-100" />
                                 @endif
 
                                 @if(strpos($item->editedItem->mimetype, 'video') !== false) 
                                     <video controls width="250" class="w-100 video-item-player" id="videoModal{{$item->hash}}" >
 
-                                        <source src="{{url('/video/editeditems/'.$item->editedItem->filename.'/watch')}}"
+                                        <source src="{{url('/video/editedrooms/'.$item->editedItem->filename.'/watch')}}"
                                                 type="{{$item->editedItem->mimetype}}"> 
 
                                         Sorry, your browser doesn't support embedded videos.
@@ -89,13 +89,13 @@
                                 @endif
                             @else
                                 @if(strpos($item->mimetype, 'image') !== false) 
-                                    <img src="{{url('/image/items/'.$item->filename)}}" class="w-100" />
+                                    <img src="{{url('/image/rooms/'.$item->filename)}}" class="w-100" />
                                 @endif
 
                                 @if(strpos($item->mimetype, 'video') !== false) 
                                     <video controls width="250" class="w-100 video-item-player" id="videoModal{{$item->hash}}" >
 
-                                        <source src="{{url('/video/items/'.$item->filename.'/watch')}}"
+                                        <source src="{{url('/video/rooms/'.$item->filename.'/watch')}}"
                                                 type="{{$item->mimetype}}"> 
 
                                         Sorry, your browser doesn't support embedded videos.

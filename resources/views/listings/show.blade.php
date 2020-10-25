@@ -199,14 +199,14 @@
                                         @if($raw->editedItem) 
                                             @if(strpos($raw->editedItem->mimetype, 'image') !== false)
                                                 <div class="editor-upload-box" 
-                                                    @click="openEditorModal('{{url('/image/items/100/100/'.$raw->filename)}}', 'img', '{{$raw->hash}}')"
+                                                    @click="openEditorModal('{{url('/image/rooms/100/100/'.$raw->filename)}}', 'img', '{{$raw->hash}}')"
                                                 >
-                                                    <img src="{{url('/image/editeditems/100/100/'.$raw->editedItem->filename)}}" class="w-50" alt="...">
+                                                    <img src="{{url('/image/editedrooms/100/100/'.$raw->editedItem->filename)}}" class="w-50" alt="...">
                                                     <i class="upicon la la-upload"></i>
                                                 </div>
                                             @else
                                                 <div class="editor-upload-box" 
-                                                    @click="openEditorModal('{{url('/image/items/100/100/'.$raw->filename)}}', 'video', '{{$raw->hash}}')"
+                                                    @click="openEditorModal('{{url('/image/rooms/100/100/'.$raw->filename)}}', 'video', '{{$raw->hash}}')"
                                                 >
                                                     <img src='/img/video.png' class="w-50" alt="...">
                                                     <i class="upicon la la-upload"></i>
@@ -214,7 +214,7 @@
                                             @endif
                                         @else
                                             <div class="editor-upload-box" 
-                                                @click="openEditorModal('{{url('/image/items/100/100/'.$raw->filename)}}', 'video', '{{$raw->hash}}')"
+                                                @click="openEditorModal('{{url('/image/rooms/100/100/'.$raw->filename)}}', 'video', '{{$raw->hash}}')"
                                             >
                                                 <img src='/img/uped.png' class="w-50" alt="...">
                                                 <i class="upicon la la-upload"></i>
@@ -223,7 +223,7 @@
                                     </div> 
                                     <div class="m-widget4__img m-widget4__img">
                                         @if(strpos($raw->mimetype, 'image') !== false)
-                                            <img src="{{url('/image/items/100/100/'.$raw->filename)}}" class="w-50" />
+                                            <img src="{{url('/image/rooms/100/100/'.$raw->filename)}}" class="w-50" />
                                         @else
                                             <img src='/img/photo.png' class="w-50" alt="...">
                                         @endif
@@ -240,11 +240,11 @@
 
                                     <span class="m-widget4__ext w-150 d-inline-block text-right">
                                         @if(strpos($raw->mimetype, 'image') !== false)
-                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="Download " href="{{url('/image/items/'.$raw->filename.'/download')}}" target="_blank"> 
+                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="Download " href="{{url('/image/rooms/'.$raw->filename.'/download')}}" target="_blank"> 
                                             <i class="la la-download"></i>
                                         </a>  
                                         @else
-                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="Download " href="{{url('/video/items/'.$raw->filename.'/download')}}" target="_new"> 
+                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="Download " href="{{url('/video/rooms/'.$raw->filename.'/download')}}" target="_new"> 
                                             <i class="la la-download"></i>
                                         </a>  
                                         @endif

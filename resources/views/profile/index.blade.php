@@ -33,7 +33,7 @@
                                                         alt="..."
                                                     >
                                                 @else
-                                                    <img src='{{url("/image/items/300/300/".$list->first_item->filename)}}' 
+                                                    <img src='{{url("/image/rooms/300/300/".$list->first_item->filename)}}' 
                                                         class="w-100" 
                                                         alt="..."
                                                     >

@@ -44,12 +44,12 @@ class ItemController extends Controller
 
         $items->getCollection()->transform(function ($item) use($listing) {
             $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-            $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+            $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
 
             $objFile = array(
                 "filename" => $item->filename,
                 "mimetype" => $item->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
                 "thumbnail_url" => $thumb
             );
 
@@ -99,7 +99,7 @@ class ItemController extends Controller
         }
 
         $validator = Validator::make($request->all(), [ 
-            'label' => 'required',
+            'name' => 'required',
             'file' => 'required|file'
         ]);
 
@@ -113,7 +113,7 @@ class ItemController extends Controller
         }
 
         $item = Item::create([
-            'label' => $request->label,
+            'label' => $request->name,
             'description' => $request->description,
             'status' => 'raw',
             'listing_id' => $listing->id,
@@ -125,7 +125,7 @@ class ItemController extends Controller
         {
             $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
             $file_stamp = $listing->hash . time() . '_file_' . $filename; 
-            $request->file->storeAs('items', $file_stamp); 
+            $request->file->storeAs('rooms', $file_stamp); 
             $item->update([
                 'filename'=>$file_stamp,
                 'mimetype'=>$request->file->getMimeType(),
@@ -133,10 +133,10 @@ class ItemController extends Controller
         } 
 
         $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
 
         return response()->json(array(
-            "label" => $item->label,
+            "name" => $item->label,
             "description" => $item->description, 
             "status" => $item->status,
             "hash" => $item->hash,
@@ -146,7 +146,7 @@ class ItemController extends Controller
             "file" => array(
                 "filename" => $item->filename,
                 "mimetype" => $item->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
                 "thumbnail_url" => $thumb
             )
         ), 201);
@@ -167,12 +167,12 @@ class ItemController extends Controller
         $item->load(['editedItem']);
 
         $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
 
         $objFile = array(
             "filename" => $item->filename,
             "mimetype" => $item->mimetype,
-            "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+            "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
             "thumbnail_url" => $thumb
         );
 
@@ -184,13 +184,13 @@ class ItemController extends Controller
             $objFile = array(
                 "filename" => $item->editedItem->filename,
                 "mimetype" => $item->editedItem->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/editeditems/'.$item->editedItem->filename,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/editedrooms/'.$item->editedItem->filename,
                 "thumbnail_url" => $thumb
             );
         }
         
         return response()->json(array(
-            "label" => $item->label,
+            "name" => $item->label,
             "description" => $item->description, 
             "status" => $item->status,
             "hash" => $item->hash,
@@ -219,7 +219,7 @@ class ItemController extends Controller
         }
 
         $validator = Validator::make($request->all(), [ 
-            'label' => 'required'
+            'name' => 'required'
         ]);
 
         if ($validator->fails()) {  
@@ -232,7 +232,7 @@ class ItemController extends Controller
         }
         
         $item->update([
-            'label' => $request->label,
+            'label' => $request->name,
             'description' => $request->description
         ]);
 
@@ -241,7 +241,7 @@ class ItemController extends Controller
         {
             $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
             $file_stamp = $listing->hash . time() . '_file_' . $filename; 
-            $request->file->storeAs('items', $file_stamp); 
+            $request->file->storeAs('rooms', $file_stamp); 
             $item->update([
                 'filename'=>$file_stamp,
                 'mimetype'=>$request->file->getMimeType(),
@@ -249,10 +249,10 @@ class ItemController extends Controller
         } 
 
         $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
         
         return response()->json(array(
-            "label" => $item->label,
+            "name" => $item->label,
             "description" => $item->description, 
             "status" => $item->status,
             "hash" => $item->hash,
@@ -262,7 +262,7 @@ class ItemController extends Controller
             "file" => array(
                 "filename" => $item->filename,
                 "mimetype" => $item->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
                 "thumbnail_url" => $thumb
             )
         ));

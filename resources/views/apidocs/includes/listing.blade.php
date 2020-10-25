@@ -24,6 +24,15 @@
               <h4 class="m0">Description</h4>
               <p class="m-0">Returns the loggedin user's listings. This endpoint requires the <strong>TOKEN</strong> acquired in login.</p>
               <p>The <strong class="text-primary">data</strong> in response is where the listings and the others are for pagination like <strong class="text-primary">current_page</strong>, <strong class="text-primary">total</strong></p>
+
+              <ul>
+                <li>
+                  <strong>num_of_rooms</strong> is the limit of rooms to be added.
+                </li>
+                <li>
+                  <strong>rooms_count</strong> is the current number of uploaded rooms
+                </li>
+              </ul>
             </div>
 
             <div class="mb-5">
@@ -80,8 +89,10 @@
           "state": "New York",
           "num_of_rooms": 9,
           "status": "pending", 
+          "rooms_count": 4,
           "hash": "vdzpnl17",
-          "first_item": {...},
+          "first_room": {...},
+          "rooms": {...},
           "user": {...}
           ....
       },
@@ -94,6 +105,7 @@
           "status": "pending", 
           "hash": "vdzpnl18",
           "first_item": {...},
+          "rooms": {...},
           "user": {...}
           ....
       },
@@ -273,7 +285,16 @@
             <div class="mb-5">
               <h5 class="m0">Description</h5>
               <p class="mb-1">Endpoint for retrieving listing details where <strong class="text-primary">{listing_hash}</strong> is the HASH of the listing that you want to view.</p>
-              <p>This also includes <strong class="text-primary">items/gallery</strong> of the listings. Refer to Items section of this doc for more item/gallery info</p>
+              <p>This also includes <strong class="text-primary">rooms/gallery</strong> of the listings. Refer to Rooms section of this doc for more item/gallery info</p>
+
+              <ul>
+                <li>
+                  <strong>num_of_rooms</strong> is the limit of rooms to be added.
+                </li>
+                <li>
+                  <strong>rooms_count</strong> is the current number of uploaded rooms
+                </li>
+              </ul>
             </div>
 
             <div class="mb-5">
@@ -303,9 +324,9 @@
       "name": "User1 One",
       "hash": "4n5qn"
     },
-    "items": [
+    "rooms": [
       {
-        "label": "item1",
+        "name": "item1",
         .....
       }
     ]

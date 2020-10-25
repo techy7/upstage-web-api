@@ -38,13 +38,14 @@ class ListingController extends Controller
         $listings = Listing::ofKeywords($strKeywords)
             ->where('user_id', $user['id'])
             ->ofStatus($strStatus)
-            ->with(['first_item.editedItem', 'user'])
+            ->with(['first_item.editedItem', 'user', 'items'=>function($i){
+                $i->limit(4);
+            }])
             ->withCount(['items'])
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
-        $listings->getCollection()->transform(function ($list) {  
-
+        $listings->getCollection()->transform(function ($list) {   
             $first_item = null;
 
             if($list->first_item) {
@@ -65,7 +66,7 @@ class ListingController extends Controller
                 }
 
                 $first_item = array(
-                    "label" => $list->first_item->label,
+                    "name" => $list->first_item->label,
                     "description" => $list->first_item->description, 
                     "status" => $list->first_item->status,
                     "hash" => $list->first_item->hash,
@@ -88,6 +89,47 @@ class ListingController extends Controller
                 $fb_profile = null;
             }
 
+            // assemble the four rooms
+            $listingRooms = [];
+
+            foreach ($list->items as $key => $item) {
+                $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
+                $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+
+                $objFile = array(
+                    "filename" => $item->filename,
+                    "mimetype" => $item->mimetype,
+                    "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+                    "thumbnail_url" => $thumb
+                );
+
+                if($item->editedItem) { 
+                    $folderUrl = strpos($item->editedItem->mimetype, 'image') !== false ? 'image' : 'video';
+                    $thumb = strpos($item->editedItem->mimetype, 'image') !== false ?
+                                 env('APP_URL').'/image/editeditems/150/150/'.$item->editedItem->filename : null;
+
+                    $objFile = array(
+                        "filename" => $item->editedItem->filename,
+                        "mimetype" => $item->editedItem->mimetype,
+                        "file_url" => env('APP_URL').'/'.$folderUrl.'/editeditems/'.$item->editedItem->filename,
+                        "thumbnail_url" => $thumb
+                    );
+                }
+
+                array_push($listingRooms, array(
+                    "name" => $item->label,
+                    "description" => $item->description, 
+                    "status" => $item->status,
+                    "hash" => $item->hash,
+                    "slug" => $item->slug,
+                    "created_at" => $item->created_at,
+                    "updated_at" => $item->updated_at,
+                    "file" => $objFile
+                ));
+            }
+
+            $shareURL = url('/user/'.$list->user->slug.'/'.$list->hash);
+
             return array(
                 "name" => $list->name,
                 "description" => $list->description,
@@ -99,8 +141,10 @@ class ListingController extends Controller
                 "updated_at" => $list->updated_at,
                 "hash" => $list->hash,
                 "slug" => $list->slug,
-                "items_count" => $list->items_count,
-                "first_item" => $first_item,
+                "rooms_count" => $list->items_count,
+                "first_room" => $first_item,
+                "rooms" => $listingRooms,
+                "share_url" => $shareURL,
                 "user" => array(
                     "name" => $list->user->full_name, 
                     "hash" => $list->user->hash,
@@ -241,7 +285,7 @@ class ListingController extends Controller
             }
 
             array_push($listingItems, array(
-                "label" => $item->label,
+                "name" => $item->label,
                 "description" => $item->description, 
                 "status" => $item->status,
                 "hash" => $item->hash,
@@ -281,7 +325,7 @@ class ListingController extends Controller
                 "avatar" => $listing->user->avatar,  
                 "fb_profile" => $fb_profile
             ),
-            "items" => $listingItems
+            "rooms" => $listingItems
         ));
     }
 
