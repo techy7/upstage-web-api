@@ -237,7 +237,7 @@
                   <tr> 
                     <td>layers[]</td>
                     <td>required if virtual_staging</td>
-                    <td>An array of images for Layers which is required <strong>media_type</strong> is <strong>virtual_staging</strong></td>
+                    <td>An array of images for Layers which is required if <strong>media_type</strong> is <strong>virtual_staging</strong></td>
                     <td></td>
                     <td></td>
                   </tr> 
