@@ -13,12 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-	if(Auth::user()){
-		return redirect('/home');
-	}
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@index');
 
 Auth::routes(['register' => false]); 
 
@@ -34,9 +29,10 @@ Route::get('/user/{slug}', 'UserController@profile_public');
 Route::get('/user/{slug}/{list}', 'UserController@profile_listing');
 
 Route::prefix('/')->middleware(['auth', 'isNotUser'])->group(function () {
-	Route::get('/apidocs', function(){
-		return view('apidocs.index');
-	});
+	Route::get('/apidocs', 'HomeController@apidocs');
+	// function(){
+	// 	return view('apidocs.index');
+	// });
 
 	Route::get('/home', 'HomeController@index')->name('home');
 

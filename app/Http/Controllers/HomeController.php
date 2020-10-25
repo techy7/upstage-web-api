@@ -40,4 +40,9 @@ class HomeController extends Controller
         // dd(HelpNotif::unread('App\Notifications\UserNewSignup'));
         return view('home', compact('newListings', 'newUsers', 'allListings', 'allUsers', 'latestUsers', 'latestListings'));
     }
+
+    public function apidocs()
+    {
+        return view('apidocs.index');
+    }
 }

@@ -371,4 +371,124 @@ class ItemController extends Controller
             'status_code' => 200
         ], 200);
     }
+
+    public function layer_index(Listing $listing, Item $item)
+    {
+        $user = auth('api')->user(); 
+
+        if(!isset($user['id']) || $item->user_id != $user->id)
+        {
+            return response()->json([
+                'error'   =>'Unauthorized',
+                'status_code' => 401
+            ], 401);
+        }
+
+        $item->load(['layers']);
+        $itemLayers = [];
+
+        foreach ($item->layers as $objLayer) {
+            array_push($itemLayers, array(
+                'mimetype' => $objLayer->mimetype,
+                'filename' => $objLayer->filename,
+                'hash' => $objLayer->hash,
+                "file_url"=> env('APP_URL').'/image/layers/'.$objLayer->filename,
+                "thumbnail_url"=> env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
+            ));
+        }
+
+        return response()->json($itemLayers, 200);
+    }
+
+    public function layer_store(Request $request, Listing $listing, Item $item)
+    { 
+        $user = auth('api')->user(); 
+
+        if(!isset($user['id']) || $item->user_id != $user->id)
+        {
+            return response()->json([
+                'error'   =>'Unauthorized',
+                'status_code' => 401
+            ], 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|file'
+        ]);
+
+        if ($validator->fails()) {  
+            return response()->json([
+                'message' => 'Could not add new room.',
+                'errors' => $validator->errors(),
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }  
+
+        // save main file
+        if($request->file('file'))
+        {
+            $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
+            $file_stamp = $listing->hash . time() . '_file_' . $filename; 
+            $request->file->storeAs('layers', $file_stamp);  
+        } 
+
+        $objLayer = Layer::create([
+            'filename'=>$file_stamp,
+            'mimetype'=>$request->file->getMimeType(),
+            'listing_id' => $listing->id,
+            'user_id' => $listing->user_id,
+            'item_id' => $item->id
+        ]);
+
+        return response()->json(array(
+            "mimetype"=> $objLayer->mimetype,
+            "filename"=> $objLayer->filename,
+            "hash"=> $objLayer->hash,
+            "file_url"=> env('APP_URL').'/image/layers/'.$objLayer->filename,
+            "thumbnail_url"=> env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
+        ), 200);
+    }
+
+    public function layer_show(Listing $listing, Item $item, Layer $layer)
+    {
+        $user = auth('api')->user(); 
+
+        if(!isset($user['id']) || $item->user_id != $user->id)
+        {
+            return response()->json([
+                'error'   =>'Unauthorized',
+                'status_code' => 401
+            ], 401);
+        }
+
+        return response()->json(array(
+            "mimetype"=> $layer->mimetype,
+            "filename"=> $layer->filename,
+            "hash"=> $layer->hash,
+            "file_url"=> env('APP_URL').'/image/layers/'.$layer->filename,
+            "thumbnail_url"=> env('APP_URL').'/image/layers/150/150/'.$layer->filename
+        ), 200);
+    }
+
+    public function layer_delete(Listing $listing, Item $item, Layer $layer)
+    {
+        $user = auth('api')->user(); 
+
+        if(!isset($user['id']) || $item->user_id != $user->id)
+        {
+            return response()->json([
+                'error'   =>'Unauthorized',
+                'status_code' => 401
+            ], 401);
+        } 
+
+        Storage::delete('layers/'.$item->filename);
+        $layer->delete();
+        
+        return response()->json([
+            'message' => 'Layer was successfully deleted',
+            'status_code' => 200
+        ], 200);
+    }
 }

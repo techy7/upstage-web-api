@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::post('/login', 'Api\Auth\LoginController@index');
 Route::post('/register', 'Api\Auth\RegisterController@index'); 
@@ -46,4 +46,9 @@ Route::middleware(['api'])->group(function () {
 	Route::get('listings/{listing}/rooms/{item}', 'Api\ItemController@show'); 
 	Route::post('listings/{listing}/rooms/{item}', 'Api\ItemController@update');
 	Route::delete('listings/{listing}/rooms/{item}', 'Api\ItemController@destroy');
+
+	Route::get('listings/{listing}/rooms/{item}/layers', 'Api\ItemController@layer_index');
+	Route::post('listings/{listing}/rooms/{item}/layers', 'Api\ItemController@layer_store');
+	Route::get('listings/{listing}/rooms/{item}/layers/{layer}', 'Api\ItemController@layer_show');
+	Route::delete('listings/{listing}/rooms/{item}/layers/{layer}', 'Api\ItemController@layer_delete');
 });
