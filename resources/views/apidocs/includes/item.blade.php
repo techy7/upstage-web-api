@@ -97,6 +97,7 @@
         "instruction": "this is just a basic instruction",
         "hash": "6qlw4xmy",
         "slug": "move-6qlw4xmy",
+        "layers_count" => 3,
         "created_at": "2020-08-21T15:21:40.000000Z",
         "updated_at": "2020-08-21T15:21:40.000000Z",
         "file": {
@@ -119,6 +120,7 @@
           "status": "raw",
           "hash": "9do1kxm5",
           "slug": "item-2-9do1kxm5",
+          "layers_count" => 3,
           "created_at": "2020-08-21T15:03:50.000000Z",
           "updated_at": "2020-08-21T15:03:50.000000Z",
           "file": {
@@ -233,6 +235,13 @@
                     <td>A big house on the beach</td>
                   </tr> 
                   <tr> 
+                    <td>layers[]</td>
+                    <td>required if virtual_staging</td>
+                    <td>An array of images for Layers which is required <strong>media_type</strong> is <strong>virtual_staging</strong></td>
+                    <td></td>
+                    <td></td>
+                  </tr> 
+                  <tr> 
                     <td>instruction</td>
                     <td>optional</td>
                     <td>Special instructions</td>
@@ -259,7 +268,16 @@
         "mimetype": "image/png",
         "file_url": "http://localhost/image/rooms/frontgate.png",
         "thumbnail_url": "http://localhost/image/rooms/150/150/frontgate.png"
-    }
+    },
+    "layers": [
+        {
+            "mimetype": "image/png",
+            "filename": "30x2wrxy1603638172_file_layer_one_photo.png",
+            "hash": "5r4ox4pw",
+            "file_url": "http://upstage.test/image/layers/150/150/30x2wrxy1603638172_file_layer_one_photo.png"
+        }
+    ]
+
 }
 </pre> 
 
@@ -273,6 +291,9 @@
         ],
         "file": [
             "The file field is required."
+        ],
+        "type": [
+            "Virtual Staging staging type requires at least 1 layer photo"
         ]
     },
     "status": "error",
@@ -339,7 +360,7 @@
             </div>
 
             <div class="mb-5">
-<h5 class="m0">Example Response : Success Image</h5> 
+<h5 class="m0">Example Response : Success</h5> 
 <pre class="text-danger mb-5">
 {
     "name": "item 2",
@@ -361,7 +382,15 @@
         "name": "Alice had been to the end of the court. (As that is.",
         "hash": "m806w1pg",
         "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
-    }
+    },
+    "layers": [
+        {
+            "mimetype": "image/png",
+            "filename": "30x2wrxy1603638172_file_layer_one_photo.png",
+            "hash": "5r4ox4pw",
+            "file_url": "http://upstage.test/image/layers/150/150/30x2wrxy1603638172_file_layer_one_photo.png"
+        }
+    ]
 }
 </pre> 
 
@@ -454,26 +483,7 @@
                     <td>Additional text that describe the listing</td>
                     <td></td>
                     <td>A big house on the beach</td>
-                  </tr> 
-                  <tr> 
-                    <td>file</td>
-                    <td><strong class="text-primary">OPTIONAL</strong></td>
-                    <td>An image or video file (if no file, it will keep the old file added when creating this item)</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr> 
-                    <td>type</td>
-                    <td>required</td>
-                    <td>
-                      Select one of the following <strong>media_type</strong>: 
-                      <strong>photo</strong>,
-                      <strong>video</strong>,
-                      <strong>virtual_staging</strong>
-                    </td>
-                    <td></td>
-                    <td>A big house on the beach</td>
-                  </tr> 
+                  </tr>  
                   <tr> 
                     <td>instruction</td>
                     <td>optional</td>
@@ -503,7 +513,15 @@
         "mimetype": "image/png",
         "file_url": "http://localhost/image/rooms/item_image.png",
         "thumbnail_url": "http://localhost/image/rooms/150/150/item_image.png"
-    }
+    },
+    "layers": [
+        {
+            "mimetype": "image/png",
+            "filename": "30x2wrxy1603638172_file_layer_one_photo.png",
+            "hash": "5r4ox4pw",
+            "file_url": "http://upstage.test/image/layers/150/150/30x2wrxy1603638172_file_layer_one_photo.png"
+        }
+    ]
 }
 </pre> 
 
