@@ -1,4 +1,9 @@
-@extends('layouts.metronic.profile.profile')
+@extends('layouts.metronic.profile.profile', [
+    'title' => ucwords($profile->full_name),
+    'desc' => $profile->description,
+    'linkurl' => url('/user/'.$profile->slug),
+    'imgurl' => $profile->avatar ? url("/image/avatars/500/500/".$profile->avatar) : null
+])
 
 @section('content')
 
@@ -7,7 +12,7 @@
         <div class="col-md-12">
             <div class="pubprofile-header px-5 pt-5 text-center">
                 @if($profile->avatar)
-                    <img src='{{url("/image/items/300/300/".$profile->avatar)}}' class=" mb-4" alt="...">
+                    <img src='{{url("/image/avatars/300/300/".$profile->avatar)}}' class=" mb-4" alt="...">
                 @else
                     <img src='/img/profile-xs.png' class=" mb-4" alt="...">
                 @endif

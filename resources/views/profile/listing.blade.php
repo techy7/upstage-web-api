@@ -1,4 +1,9 @@
-@extends('layouts.metronic.profile.profile')
+@extends('layouts.metronic.profile.profile', [
+    'title' => $listing->name.' by '.$profile->full_name,
+    'desc' => $listing->description,
+    'linkurl' => url('/user/'.$profile->slug),
+    'imgurl' => $profile->avatar ? url("/image/avatars/500/500/".$profile->avatar) : null
+])
 
 @section('content')
 
