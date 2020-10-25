@@ -93,6 +93,8 @@
         "label": "move",
         "description": "monv",
         "status": "raw",
+        "type": "photo",
+        "instruction": "this is just a basic instruction",
         "hash": "6qlw4xmy",
         "slug": "move-6qlw4xmy",
         "created_at": "2020-08-21T15:21:40.000000Z",
@@ -112,6 +114,8 @@
       {
           "label": "item 2",
           "description": "this is item 2",
+          "type": "photo",
+          "instruction": "this is just a basic instruction",
           "status": "raw",
           "hash": "9do1kxm5",
           "slug": "item-2-9do1kxm5",
@@ -216,6 +220,25 @@
                     <td></td>
                     <td></td>
                   </tr>
+                  <tr> 
+                    <td>type</td>
+                    <td>required</td>
+                    <td>
+                      Select one of the following <strong>media_type</strong>: 
+                      <strong>photo</strong>,
+                      <strong>video</strong>,
+                      <strong>virtual_staging</strong>
+                    </td>
+                    <td></td>
+                    <td>A big house on the beach</td>
+                  </tr> 
+                  <tr> 
+                    <td>instruction</td>
+                    <td>optional</td>
+                    <td>Special instructions</td>
+                    <td></td>
+                    <td></td>
+                  </tr> 
                 </tbody>
               </table>
             </div>
@@ -272,7 +295,7 @@
         <div class="card-header px-2 py-1" id="headingItemShow">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseItemShow" aria-expanded="false" aria-controls="collapseItemShow">
-              Display Item
+              Display Room
             </button>
           </h2>
         </div>
@@ -321,6 +344,8 @@
 {
     "name": "item 2",
     "description": "this is item 2",
+    "type": "photo",
+    "instruction": "this is just a basic instruction",
     "status": "raw",
     "hash": "9do1kxm5",
     "slug": "item-2-9do1kxm5",
@@ -345,6 +370,8 @@
 {
     "name": "video item",
     "description": "this is a video item",
+    "type": "video",
+    "instruction": "this is just a basic instruction",
     "status": "raw",
     "hash": "6qlw4xmy",
     "slug": "video-item-6qlw4xmy",
@@ -379,7 +406,7 @@
         <div class="card-header px-2 py-1" id="headingItemEdit">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseItemEdit" aria-expanded="false" aria-controls="collapseItemEdit">
-              Edit Item
+              Edit Room
             </button>
           </h2>
         </div>
@@ -435,6 +462,25 @@
                     <td></td>
                     <td></td>
                   </tr>
+                  <tr> 
+                    <td>type</td>
+                    <td>required</td>
+                    <td>
+                      Select one of the following <strong>media_type</strong>: 
+                      <strong>photo</strong>,
+                      <strong>video</strong>,
+                      <strong>virtual_staging</strong>
+                    </td>
+                    <td></td>
+                    <td>A big house on the beach</td>
+                  </tr> 
+                  <tr> 
+                    <td>instruction</td>
+                    <td>optional</td>
+                    <td>Special instructions</td>
+                    <td></td>
+                    <td></td>
+                  </tr> 
                 </tbody>
               </table>
             </div>
@@ -445,6 +491,8 @@
 {
     "name": "test edit",
     "description": saving updated description,
+    "type": "video",
+    "instruction": "this is just a basic instruction",
     "status": "raw",
     "hash": "mrlyko46",
     "slug": "tttt-mrlyko46",
@@ -488,7 +536,7 @@
         <div class="card-header px-2 py-1" id="headingItemDelete">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseItemDelete" aria-expanded="false" aria-controls="collapseItemDelete">
-              Delete Listing
+              Delete Room
             </button>
           </h2>
         </div>

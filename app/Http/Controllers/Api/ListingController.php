@@ -71,6 +71,8 @@ class ListingController extends Controller
                     "status" => $list->first_item->status,
                     "hash" => $list->first_item->hash,
                     "slug" => $list->first_item->slug,
+                    "type" => $list->first_item->type,
+                    "instruction" => $list->first_item->instruction,
                     "created_at" => $list->first_item->created_at,
                     "updated_at" => $list->first_item->updated_at,
                     "file" => $objFile
@@ -122,6 +124,8 @@ class ListingController extends Controller
                     "status" => $item->status,
                     "hash" => $item->hash,
                     "slug" => $item->slug,
+                    "type" => $item->type,
+                    "instruction" => $item->instruction,
                     "created_at" => $item->created_at,
                     "updated_at" => $item->updated_at,
                     "file" => $objFile

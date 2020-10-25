@@ -70,6 +70,8 @@ class ItemController extends Controller
                 "label" => $item->label,
                 "description" => $item->description, 
                 "status" => $item->status,
+                "type" => $item->type, 
+                "instruction" => $item->instruction, 
                 "hash" => $item->hash,
                 "slug" => $item->slug,
                 "created_at" => $item->created_at,
@@ -100,12 +102,13 @@ class ItemController extends Controller
 
         $validator = Validator::make($request->all(), [ 
             'name' => 'required',
+            'type' => 'required|in:'."photo,video,virtual_staging",
             'file' => 'required|file'
         ]);
 
         if ($validator->fails()) {  
             return response()->json([
-                'message' => 'Could not add new listing.',
+                'message' => 'Could not add new room.',
                 'errors' => $validator->errors(),
                 'status' => 'error',
                 'status_code' => 422
@@ -117,7 +120,9 @@ class ItemController extends Controller
             'description' => $request->description,
             'status' => 'raw',
             'listing_id' => $listing->id,
-            'user_id' => $listing->user_id
+            'user_id' => $listing->user_id,
+            'type' => $request->type,
+            'instruction' => $request->instruction,
         ]);
 
         // save avatar
@@ -141,6 +146,8 @@ class ItemController extends Controller
             "status" => $item->status,
             "hash" => $item->hash,
             "slug" => $item->slug,
+            "type" => $item->type, 
+            "instruction" => $item->instruction, 
             "created_at" => $item->created_at,
             "updated_at" => $item->updated_at,
             "file" => array(
@@ -192,6 +199,8 @@ class ItemController extends Controller
         return response()->json(array(
             "name" => $item->label,
             "description" => $item->description, 
+            "type" => $item->type, 
+            "instruction" => $item->instruction, 
             "status" => $item->status,
             "hash" => $item->hash,
             "slug" => $item->slug,
@@ -219,12 +228,13 @@ class ItemController extends Controller
         }
 
         $validator = Validator::make($request->all(), [ 
-            'name' => 'required'
+            'name' => 'required',
+            'type' => 'required|in:'."photo,video,virtual_staging",
         ]);
 
         if ($validator->fails()) {  
             return response()->json([
-                'message' => 'Could not update listing.',
+                'message' => 'Could not update room.',
                 'errors' => $validator->errors(),
                 'status' => 'error',
                 'status_code' => 422
@@ -233,7 +243,9 @@ class ItemController extends Controller
         
         $item->update([
             'label' => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
+            'type' => $request->type,
+            'instruction' => $request->instruction
         ]);
 
         // save avatar
@@ -254,6 +266,8 @@ class ItemController extends Controller
         return response()->json(array(
             "name" => $item->label,
             "description" => $item->description, 
+            "type" => $item->type, 
+            "instruction" => $item->instruction, 
             "status" => $item->status,
             "hash" => $item->hash,
             "slug" => $item->slug,
@@ -284,7 +298,7 @@ class ItemController extends Controller
         $item->delete();
         
         return response()->json([
-            'message' => 'Item was successfully deleted',
+            'message' => 'Room was successfully deleted',
             'status_code' => 200
         ], 200);
     }

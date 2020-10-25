@@ -25,6 +25,11 @@ class Item extends Model
         return $this->hasOne(\App\EditedItem::class, 'item_id')->orderBy('id', 'desc');
     }
 
+    public function layers() 
+    {
+        return $this->hasMany(\App\Layer::class);
+    }
+
     public function scopeOfKeywords($query, $strKeywords)
     {
         if($strKeywords)
