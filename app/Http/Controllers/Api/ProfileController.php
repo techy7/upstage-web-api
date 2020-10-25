@@ -37,6 +37,8 @@ class ProfileController extends Controller
             'email' => $user['email'], 
             'contact_num' => $user['contact_num'],
             'avatar' => $user['avatar'],
+            'avatar_full' => env('APP_URL').'/image/avatars/'.$user['avatar'],
+            'avatar_thumbnail' => env('APP_URL').'/image/avatars/300/300/'.$user['avatar'],
             'slug' => $user['slug'],
             'fb_profile' => [
                 'fb_id' => data_get($user, 'fb_id', ''),

@@ -47,7 +47,9 @@
     "last_name": "One",
     "email": "one@user.com",
     "contact_num": "+1.828.451.2447",
-    "avatar": null,
+    "avatar": myavatar.jpg,
+    "avatar_full": "http://upstage.test/image/avatars/myavatar.jpg",
+    "avatar_thumbnail": "http://upstage.test/image/avatars/300/300/myavatar.jpg",
     "slug": "orvallakin.4n5qn",
     "fb_profile": {
         "fb_id": "",
