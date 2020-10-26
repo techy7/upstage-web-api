@@ -69,7 +69,7 @@ class ItemController extends Controller
             }
 
             return array(
-                "label" => $item->label,
+                "name" => $item->label,
                 "description" => $item->description, 
                 "status" => $item->status,
                 "type" => $item->type, 
@@ -155,17 +155,19 @@ class ItemController extends Controller
             ]);
         } 
 
-        foreach ($request->file('layers') as $layer) { 
-            $layerFilename = Str::slug($layer->getClientOriginalName(), '-') . '.' .$layer->extension(); 
-            $layerStamp = $item->hash . time() . '_file_' . $layerFilename; 
-            $layer->storeAs('layers', $layerStamp); 
-            $objLayer = Layer::create([
-                'filename'=>$layerStamp,
-                'mimetype'=>$layer->getMimeType(),
-                'listing_id' => $listing->id,
-                'user_id' => $listing->user_id,
-                'item_id' => $item->id
-            ]); 
+        if($request->type == 'virtual_staging'){ 
+            foreach ($request->file('layers') as $layer) { 
+                $layerFilename = Str::slug($layer->getClientOriginalName(), '-') . '.' .$layer->extension(); 
+                $layerStamp = $item->hash . time() . '_file_' . $layerFilename; 
+                $layer->storeAs('layers', $layerStamp); 
+                $objLayer = Layer::create([
+                    'filename'=>$layerStamp,
+                    'mimetype'=>$layer->getMimeType(),
+                    'listing_id' => $listing->id,
+                    'user_id' => $listing->user_id,
+                    'item_id' => $item->id
+                ]); 
+            }
         }
 
         $item->load(['layers']);

@@ -90,7 +90,7 @@
     "current_page": 1,
     "data": [
       {
-        "label": "move",
+        "name": "move",
         "description": "monv",
         "status": "raw",
         "type": "photo",
@@ -113,7 +113,7 @@
         }
       },
       {
-          "label": "item 2",
+          "name": "item 2",
           "description": "this is item 2",
           "type": "photo",
           "instruction": "this is just a basic instruction",
