@@ -52,16 +52,16 @@ class ListingController extends Controller
                 $objFile = array(
                     "filename" => $list->first_item->filename,
                     "mimetype" => $list->first_item->mimetype,
-                    "file_url" => env('APP_URL').'/image/items/'.$list->first_item->filename,
-                    "thumbnail_url" => env('APP_URL').'/image/items/150/150/'.$list->first_item->filename
+                    "file_url" => env('APP_URL').'/image/rooms/'.$list->first_item->filename,
+                    "thumbnail_url" => env('APP_URL').'/image/rooms/150/150/'.$list->first_item->filename
                 );
 
                 if($list->first_item->editedItem) { 
                     $objFile = array(
                         "filename" => $list->first_item->editedItem->filename,
                         "mimetype" => $list->first_item->editedItem->mimetype,
-                        "file_url" => env('APP_URL').'/image/editeditems/'.$list->first_item->editedItem->filename,
-                        "thumbnail_url" => env('APP_URL').'/image/editeditems/150/150/'.$list->first_item->editedItem->filename
+                        "file_url" => env('APP_URL').'/image/editedrooms/'.$list->first_item->editedItem->filename,
+                        "thumbnail_url" => env('APP_URL').'/image/editedrooms/150/150/'.$list->first_item->editedItem->filename
                     );
                 }
 
@@ -96,24 +96,24 @@ class ListingController extends Controller
 
             foreach ($list->items as $key => $item) {
                 $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-                $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+                $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
 
                 $objFile = array(
                     "filename" => $item->filename,
                     "mimetype" => $item->mimetype,
-                    "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+                    "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
                     "thumbnail_url" => $thumb
                 );
 
                 if($item->editedItem) { 
                     $folderUrl = strpos($item->editedItem->mimetype, 'image') !== false ? 'image' : 'video';
                     $thumb = strpos($item->editedItem->mimetype, 'image') !== false ?
-                                 env('APP_URL').'/image/editeditems/150/150/'.$item->editedItem->filename : null;
+                                 env('APP_URL').'/image/editedrooms/150/150/'.$item->editedItem->filename : null;
 
                     $objFile = array(
                         "filename" => $item->editedItem->filename,
                         "mimetype" => $item->editedItem->mimetype,
-                        "file_url" => env('APP_URL').'/'.$folderUrl.'/editeditems/'.$item->editedItem->filename,
+                        "file_url" => env('APP_URL').'/'.$folderUrl.'/editedrooms/'.$item->editedItem->filename,
                         "thumbnail_url" => $thumb
                     );
                 }
@@ -266,24 +266,24 @@ class ListingController extends Controller
 
         foreach ($listing->items as $key => $item) {
             $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-            $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/items/150/150/'.$item->filename : null;
+            $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
 
             $objFile = array(
                 "filename" => $item->filename,
                 "mimetype" => $item->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/items/'.$item->filename,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
                 "thumbnail_url" => $thumb
             );
 
             if($item->editedItem) { 
                 $folderUrl = strpos($item->editedItem->mimetype, 'image') !== false ? 'image' : 'video';
                 $thumb = strpos($item->editedItem->mimetype, 'image') !== false ?
-                             env('APP_URL').'/image/editeditems/150/150/'.$item->editedItem->filename : null;
+                             env('APP_URL').'/image/editedrooms/150/150/'.$item->editedItem->filename : null;
 
                 $objFile = array(
                     "filename" => $item->editedItem->filename,
                     "mimetype" => $item->editedItem->mimetype,
-                    "file_url" => env('APP_URL').'/'.$folderUrl.'/editeditems/'.$item->editedItem->filename,
+                    "file_url" => env('APP_URL').'/'.$folderUrl.'/editedrooms/'.$item->editedItem->filename,
                     "thumbnail_url" => $thumb
                 );
             }
