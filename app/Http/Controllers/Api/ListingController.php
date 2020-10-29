@@ -38,9 +38,7 @@ class ListingController extends Controller
         $listings = Listing::ofKeywords($strKeywords)
             ->where('user_id', $user['id'])
             ->ofStatus($strStatus)
-            ->with(['first_item.editedItem', 'user', 'items'=>function($i){
-                $i->limit(4);
-            }])
+            ->with(['first_item.editedItem', 'user', 'items'])
             ->withCount(['items'])
             ->orderBy('created_at', 'desc')
             ->paginate(20);
@@ -94,7 +92,7 @@ class ListingController extends Controller
             // assemble the four rooms
             $listingRooms = [];
 
-            foreach ($list->items as $key => $item) {
+            foreach ($list->items->sortByDesc('id')->take(4) as $key => $item) {
                 $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
                 $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
 
