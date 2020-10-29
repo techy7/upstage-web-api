@@ -133,6 +133,20 @@ class ItemController extends Controller
             }
         } 
 
+        $listing->loadCount(['items']);
+        if($listing->items_count >= $listing->num_of_rooms) {
+            return response()->json([
+                'message' => 'Reached maximum number of rooms for this listings.',
+                'errors' => array(
+                    'num_of_rooms'=>[ "Reached maximum number of rooms for this listings" ]
+                ),
+                'status' => 'error',
+                'status_code' => 422,
+                'num_of_rooms' => $listing->num_of_rooms,
+                'items_count' => $listing->items_count
+            ], 422); 
+        }
+
         $item = Item::create([
             'label' => $request->name,
             'description' => $request->description,

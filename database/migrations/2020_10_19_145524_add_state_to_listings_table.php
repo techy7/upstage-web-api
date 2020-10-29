@@ -14,7 +14,7 @@ class AddStateToListingsTable extends Migration
     public function up()
     {
         Schema::table('listings', function (Blueprint $table) {
-            $table->unsignedInteger('num_of_rooms')->default(1)->nullable();
+            $table->unsignedInteger('num_of_rooms')->default(6)->nullable();
             $table->string('address')->nullable();
             $table->string('state')->nullable();
         });
