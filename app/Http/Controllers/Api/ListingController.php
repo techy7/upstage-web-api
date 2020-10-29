@@ -290,6 +290,8 @@ class ListingController extends Controller
                 "name" => $item->label,
                 "description" => $item->description, 
                 "status" => $item->status,
+                "type" => $item->type,
+                "instruction" => $item->instruction,
                 "hash" => $item->hash,
                 "slug" => $item->slug,
                 "created_at" => $item->created_at,
