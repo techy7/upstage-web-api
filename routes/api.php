@@ -35,20 +35,20 @@ Route::middleware(['api'])->group(function () {
 	Route::post('profile/avatar', 'Api\ProfileController@avatar');
 	Route::post('logout', 'Api\ProfileController@logout');
 
-	Route::get('listings', 'Api\ListingController@index');
-	Route::post('listings', 'Api\ListingController@store');
-	Route::get('listings/{listing}', 'Api\ListingController@show');
-	Route::post('listings/{listing}', 'Api\ListingController@update');
-	Route::delete('listings/{listing}', 'Api\ListingController@destroy');
+	Route::get('projects', 'Api\ListingController@index');
+	Route::post('projects', 'Api\ListingController@store');
+	Route::get('projects/{listing}', 'Api\ListingController@show');
+	Route::post('projects/{listing}', 'Api\ListingController@update');
+	Route::delete('projects/{listing}', 'Api\ListingController@destroy');
 
-	Route::get('listings/{listing}/rooms', 'Api\ItemController@index');
-	Route::post('listings/{listing}/rooms', 'Api\ItemController@store'); 
-	Route::get('listings/{listing}/rooms/{item}', 'Api\ItemController@show'); 
-	Route::post('listings/{listing}/rooms/{item}', 'Api\ItemController@update');
-	Route::delete('listings/{listing}/rooms/{item}', 'Api\ItemController@destroy');
+	Route::get('projects/{listing}/presentations', 'Api\ItemController@index');
+	Route::post('projects/{listing}/presentations', 'Api\ItemController@store'); 
+	Route::get('projects/{listing}/presentations/{item}', 'Api\ItemController@show'); 
+	Route::post('projects/{listing}/presentations/{item}', 'Api\ItemController@update');
+	Route::delete('projects/{listing}/presentations/{item}', 'Api\ItemController@destroy');
 
-	Route::get('listings/{listing}/rooms/{item}/layers', 'Api\ItemController@layer_index');
-	Route::post('listings/{listing}/rooms/{item}/layers', 'Api\ItemController@layer_store');
-	Route::get('listings/{listing}/rooms/{item}/layers/{layer}', 'Api\ItemController@layer_show');
-	Route::delete('listings/{listing}/rooms/{item}/layers/{layer}', 'Api\ItemController@layer_delete');
+	Route::get('projects/{listing}/presentations/{item}/media-assets', 'Api\ItemController@layer_index');
+	Route::post('projects/{listing}/presentations/{item}/media-assets', 'Api\ItemController@layer_store');
+	Route::get('projects/{listing}/presentations/{item}/media-assets/{layer}', 'Api\ItemController@layer_show');
+	Route::delete('projects/{listing}/presentations/{item}/media-assets/{layer}', 'Api\ItemController@layer_delete');
 });

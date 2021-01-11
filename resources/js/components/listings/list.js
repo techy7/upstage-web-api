@@ -39,7 +39,7 @@ Vue.component('listings-list', {
             this.isLoading = true;
             this.filters.page = page;
              
-            axios.get('/admin_api/listings/', { params: this.filters } )
+            axios.get('/admin_api/projects/', { params: this.filters } )
                 .then((response)=>{ 
                     if(response && response.data){
                         this.listings = response.data;

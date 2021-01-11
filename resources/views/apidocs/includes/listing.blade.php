@@ -1,5 +1,5 @@
 <div class="card-header">
-  <h4 class="m-0">Listings API</h4>
+  <h4 class="m-0">Projects API</h4>
 </div>
 
 
@@ -9,7 +9,7 @@
         <div class="card-header px-2 py-1" id="headingListing">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseListing" aria-expanded="false" aria-controls="collapseListing">
-              All Listings
+              All Projects
             </button>
           </h2>
         </div>
@@ -17,20 +17,20 @@
           <div class="card-body">
             <div class="mb-5">
               <h4 class="m0">Resource URL</h4>
-              <p class="text-primary">GET base_URL/api/listings</p> 
+              <p class="text-primary">GET base_URL/api/projects</p> 
             </div>
 
             <div class="mb-5">
               <h4 class="m0">Description</h4>
-              <p class="m-0">Returns the loggedin user's listings. This endpoint requires the <strong>TOKEN</strong> acquired in login.</p>
-              <p>The <strong class="text-primary">data</strong> in response is where the listings and the others are for pagination like <strong class="text-primary">current_page</strong>, <strong class="text-primary">total</strong></p>
+              <p class="m-0">Returns the loggedin user's projects. This endpoint requires the <strong>TOKEN</strong> acquired in login.</p>
+              <p>The <strong class="text-primary">data</strong> in response is where the projects and the others are for pagination like <strong class="text-primary">current_page</strong>, <strong class="text-primary">total</strong></p>
 
               <ul>
                 <li>
-                  <strong>num_of_rooms</strong> is the limit of rooms to be added.
+                  <strong>num_of_presentations</strong> is the limit of presentations to be added.
                 </li>
                 <li>
-                  <strong>rooms_count</strong> is the current number of uploaded rooms
+                  <strong>presentations_count</strong> is the current number of uploaded presentations
                 </li>
               </ul>
             </div>
@@ -63,7 +63,7 @@
                   <tr> 
                     <td>page</td>
                     <td>optional</td>
-                    <td>Integer to indicate the page nnumber. Default listing per page is 20</td>
+                    <td>Integer to indicate the page nnumber. Default projects per page is 20</td>
                     <td></td>
                     <td>Mansion</td>
                   </tr>
@@ -83,39 +83,40 @@
     "current_page": 1,
     "data": [
       {
-          "name": "Listing One",
-          "description": "This is list 1",
+          "name": "Project One",
+          "description": "This is project 1",
           "address": "Brooklyn 99",
           "state": "New York",
-          "num_of_rooms": 9,
+          "num_of_presentations": 9,
           "status": "pending", 
-          "rooms_count": 4,
+          "presentations_count": 4,
           "hash": "vdzpnl17",
-          "first_room": {...},
-          "rooms": {...},
+          "first_presentation": {...},
+          "presentations": {...},
           "user": {...}
           ....
       },
       {
-          "name": "Listing Two",
-          "description": "This is list 2",
+          "name": "Project Two",
+          "description": "This is project 2",
           "address": "Brooklyn 99",
           "state": "New York",
-          "num_of_rooms": 9,
+          "num_of_presentations": 9,
           "status": "pending", 
+          "presentations_count": 4,
           "hash": "vdzpnl18",
-          "first_item": {...},
-          "rooms": {...},
+          "first_presentation": {...},
+          "presentations": {...},
           "user": {...}
           ....
       },
     ],
-    "first_page_url": "http://localhost:8000/api/listings?page=1",
+    "first_page_url": "http://localhost:8000/api/projects?page=1",
     "from": 1,
     "last_page": 2,
-    "last_page_url": "http://localhost:8000/api/listings?page=2",
-    "next_page_url": "http://localhost:8000/api/listings?page=2",
-    "path": "http://localhost:8000/api/listings",
+    "last_page_url": "http://localhost:8000/api/projects?page=2",
+    "next_page_url": "http://localhost:8000/api/projects?page=2",
+    "path": "http://localhost:8000/api/projects",
     "per_page": 20,
     "prev_page_url": null,
     "to": 20,
@@ -140,7 +141,7 @@
         <div class="card-header px-2 py-1" id="headingListingNew">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseListingNew" aria-expanded="false" aria-controls="collapseListingNew">
-              Create New Listing
+              Create New Project
             </button>
           </h2>
         </div>
@@ -148,12 +149,12 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_url/api/listings</p> 
+              <p class="text-primary">POST base_url/api/projects</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p class="mb-1">Endpoint for creating new listing</p>
+              <p class="mb-1">Endpoint for creating new project</p>
             </div>
 
             <div class="mb-5">
@@ -184,7 +185,7 @@
                   <tr> 
                     <td>description</td>
                     <td>optional</td>
-                    <td>Additional text that describe the listing</td>
+                    <td>Additional text that describe the project</td>
                     <td></td>
                     <td>A big house on the beach</td>
                   </tr> 
@@ -203,9 +204,9 @@
                     <td>New York</td>
                   </tr>
                   <tr> 
-                    <td>num_of_rooms</td>
+                    <td>num_of_presentations</td>
                     <td>required</td>
-                    <td>Number of rooms between <strong>1</strong> to <strong>10</strong></td>
+                    <td>Number of presentations between <strong>1</strong> to <strong>10</strong></td>
                     <td></td>
                     <td>5</td>
                   </tr>
@@ -221,7 +222,7 @@
     "description": "Big house near the beach",
     "address": "Brooklyn 99",
     "state": "New York",
-    "num_of_rooms": 9,
+    "num_of_presentations": 9,
     "hash": "xy08g71j",
     "slug": "beach-house-xy08g71j",
     "created_at": "2020-08-20T14:23:54.000000Z",
@@ -236,7 +237,7 @@
 <h5 class="m0">Example Response : Error</h5> 
 <pre class="text-danger mb-5">
 {
-    "message": "Could not add new listing",
+    "message": "Could not add new project",
     "errors": {
         "name": [
             "The name field is required."
@@ -250,7 +251,7 @@
 <h5 class="m0">Example Response : Error</h5> 
 <pre class="text-danger">
 {
-    "message": "Reached maximum number of listings for your plan",
+    "message": "Reached maximum number of projects for your plan",
     "status": "error",
     "status_code": 422
 }
@@ -271,7 +272,7 @@
         <div class="card-header px-2 py-1" id="headingListingShow">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseListingShow" aria-expanded="false" aria-controls="collapseListingShow">
-              Display Listing
+              Display Project
             </button>
           </h2>
         </div>
@@ -279,20 +280,20 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_url/api/listings{listing_hash}</p> 
+              <p class="text-primary">POST base_url/api/projects/{project_hash}</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p class="mb-1">Endpoint for retrieving listing details where <strong class="text-primary">{listing_hash}</strong> is the HASH of the listing that you want to view.</p>
-              <p>This also includes <strong class="text-primary">rooms/gallery</strong> of the listings. Refer to Rooms section of this doc for more item/gallery info</p>
+              <p class="mb-1">Endpoint for retrieving project details where <strong class="text-primary">{project_hash}</strong> is the HASH of the project that you want to view.</p>
+              <p>This also includes <strong class="text-primary">presentations/gallery</strong> of the projects. Refer to Presentations section of this doc for more item/gallery info</p>
 
               <ul>
                 <li>
-                  <strong>num_of_rooms</strong> is the limit of rooms to be added.
+                  <strong>num_of_presentations</strong> is the limit of presentations to be added.
                 </li>
                 <li>
-                  <strong>rooms_count</strong> is the current number of uploaded rooms
+                  <strong>presentations_count</strong> is the current number of uploaded presentations
                 </li>
               </ul>
             </div>
@@ -315,7 +316,7 @@
     "description": "Big house near the beach",
     "address": "Brooklyn 99",
     "state": "New York",
-    "num_of_rooms": 9,
+    "num_of_presentations": 9,
     "hash": "xy08g71j",
     "slug": "beach-house-xy08g71j",
     "created_at": "2020-08-20T14:23:54.000000Z",
@@ -324,7 +325,7 @@
       "name": "User1 One",
       "hash": "4n5qn"
     },
-    "rooms": [
+    "presentations": [
       {
         "name": "item1",
         .....
@@ -348,7 +349,7 @@
         <div class="card-header px-2 py-1" id="headingListingEdit">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseListingEdit" aria-expanded="false" aria-controls="collapseListingEdit">
-              Edit Listing
+              Edit Project
             </button>
           </h2>
         </div>
@@ -356,12 +357,12 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_url/api/listings/{listing_hash}</p> 
+              <p class="text-primary">POST base_url/api/projects/{project_hash}</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p class="mb-1">Endpoint for updating listing where <strong class="text-primary">{listing_hash}</strong> is the HASH of the listing that you want to update.</p>
+              <p class="mb-1">Endpoint for updating project where <strong class="text-primary">{project_hash}</strong> is the HASH of the project that you want to update.</p>
             </div>
 
             <div class="mb-5">
@@ -392,7 +393,7 @@
                   <tr> 
                     <td>description</td>
                     <td>optional</td>
-                    <td>Additional text that describe the listing</td>
+                    <td>Additional text that describe the project</td>
                     <td></td>
                     <td>A big house on the beach</td>
                   </tr> 
@@ -411,9 +412,9 @@
                     <td>New York</td>
                   </tr>
                   <tr> 
-                    <td>num_of_rooms</td>
+                    <td>num_of_presentations</td>
                     <td>required</td>
-                    <td>Number of rooms between <strong>1</strong> to <strong>10</strong></td>
+                    <td>Number of presentations between <strong>1</strong> to <strong>10</strong></td>
                     <td></td>
                     <td>5</td>
                   </tr>
@@ -429,7 +430,7 @@
     "description": "Big house near the beach",
     "address": "Brooklyn 99",
     "state": "New York",
-    "num_of_rooms": 9,
+    "num_of_presentations": 9,
     "hash": "xy08g71j",
     "slug": "beach-house-xy08g71j",
     "created_at": "2020-08-20T14:23:54.000000Z",
@@ -444,7 +445,7 @@
 <h5 class="m0">Example Response : Error</h5> 
 <pre class="text-danger mb-5">
 {
-    "message": "Could not update listing.",
+    "message": "Could not update project.",
     "errors": {
         "name": [
             "The name field is required."
@@ -470,7 +471,7 @@
         <div class="card-header px-2 py-1" id="headingListingDelete">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseListingDelete" aria-expanded="false" aria-controls="collapseListingDelete">
-              Delete Listing
+              Delete Project
             </button>
           </h2>
         </div>
@@ -478,12 +479,12 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">DELETE base_url/api/listings{listing_hash}</p> 
+              <p class="text-primary">DELETE base_url/api/projects/{project_hash}</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p class="mb-1">Endpoint for deleting listing where <strong class="text-primary">{listing_hash}</strong> is the HASH of the listing that you want to delete.</p>
+              <p class="mb-1">Endpoint for deleting project where <strong class="text-primary">{project_hash}</strong> is the HASH of the project that you want to delete.</p>
             </div>
 
             <div class="mb-5">
@@ -500,7 +501,7 @@
 <h5 class="m0">Example Response : Success</h5> 
 <pre class="text-danger mb-5">
 {
-    "message": "Listing was successfully deleted",
+    "message": "Project was successfully deleted",
     "status_code": 200
 }
 </pre> 

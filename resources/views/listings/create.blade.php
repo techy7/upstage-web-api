@@ -3,7 +3,7 @@
 @section('content')
 <listings-form 
     :objlisting="{{$listing}}"
-    url="{{url('/admin_api/listings')}}"
+    url="{{url('/admin_api/projects')}}"
     action="post"
     inline-template
 >
@@ -14,11 +14,11 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    <i class="flaticon-squares-1"></i> Create New Listing
+                    <i class="flaticon-squares-1"></i> Create New Project
                 </h3>
             </div>
             <div>
-                <a :href="'/listings/'"
+                <a :href="'/projects/'"
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
                     <span> 

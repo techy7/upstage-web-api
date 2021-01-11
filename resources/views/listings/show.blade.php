@@ -12,11 +12,11 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    <i class="flaticon-squares-1"></i> Listing Details
+                    <i class="flaticon-squares-1"></i> Project Details
                 </h3>
             </div>
             <div>
-                <a :href="'/listings/'" 
+                <a :href="'/projects/'" 
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
                     <span> 
@@ -27,7 +27,7 @@
                     </span>
                 </a> 
 
-                <a :href="'/listings/'+listing.hash+'/edit'"
+                <a :href="'/projects/'+listing.hash+'/edit'"
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
                     <span> 
@@ -37,7 +37,7 @@
                         </span> 
                     </span>
                 </a> 
-                <a :href="'/listings/'+listing.hash+'/delete'" 
+                <a :href="'/projects/'+listing.hash+'/delete'" 
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
                     <span> 
@@ -63,7 +63,7 @@
                                 <div class="row m-row--no-padding align-items-center">
                                     <div class="col">
                                         <span class="m-widget1__desc">
-                                            Listing Name:
+                                            Project Name:
                                         </span> 
                                         <h3 class="m-widget1__title" v-html='listing.name || "n/a"'></h3> 
                                     </div> 
@@ -172,15 +172,15 @@
                             <div class="m-portlet__head-title"> 
                                 <h2 class="m-portlet__head-label m-portlet__head-label--success">
                                     <span>
-                                        Items
+                                        Presentations
                                     </span>
                                 </h2>
                                 <div class="m-portlet--creative-buttons">
-                                    <a :href="'/listings/'+listing.hash+'/items/new'"
+                                    <a :href="'/projects/'+listing.hash+'/presentations/new'"
                                         class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2 m-btn--air"
                                     >
                                         <span> 
-                                            <span class="m--font-dark">Add New Item</span>
+                                            <span class="m--font-dark">Add New Presentation</span>
                                             <span class="btn btn-dark m-btn m-btn--icon btn-sm m-btn--icon-only  m-btn--pill ml-1">
                                                 <i class="la la-plus m--font-light m--font-light"></i>
                                             </span> 
@@ -199,14 +199,14 @@
                                         @if($raw->editedItem) 
                                             @if(strpos($raw->editedItem->mimetype, 'image') !== false)
                                                 <div class="editor-upload-box" 
-                                                    @click="openEditorModal('{{url('/image/rooms/100/100/'.$raw->filename)}}', 'img', '{{$raw->hash}}')"
+                                                    @click="openEditorModal('{{url('/image/presentations/100/100/'.$raw->filename)}}', 'img', '{{$raw->hash}}')"
                                                 >
                                                     <img src="{{url('/image/editedrooms/100/100/'.$raw->editedItem->filename)}}" class="w-50" alt="...">
                                                     <i class="upicon la la-upload"></i>
                                                 </div>
                                             @else
                                                 <div class="editor-upload-box" 
-                                                    @click="openEditorModal('{{url('/image/rooms/100/100/'.$raw->filename)}}', 'video', '{{$raw->hash}}')"
+                                                    @click="openEditorModal('{{url('/image/presentations/100/100/'.$raw->filename)}}', 'video', '{{$raw->hash}}')"
                                                 >
                                                     <img src='/img/video.png' class="w-50" alt="...">
                                                     <i class="upicon la la-upload"></i>
@@ -214,7 +214,7 @@
                                             @endif
                                         @else
                                             <div class="editor-upload-box" 
-                                                @click="openEditorModal('{{url('/image/rooms/100/100/'.$raw->filename)}}', 'video', '{{$raw->hash}}')"
+                                                @click="openEditorModal('{{url('/image/presentations/100/100/'.$raw->filename)}}', 'video', '{{$raw->hash}}')"
                                             >
                                                 <img src='/img/uped.png' class="w-50" alt="...">
                                                 <i class="upicon la la-upload"></i>
@@ -223,7 +223,7 @@
                                     </div> 
                                     <div class="m-widget4__img m-widget4__img">
                                         @if(strpos($raw->mimetype, 'image') !== false)
-                                            <img src="{{url('/image/rooms/100/100/'.$raw->filename)}}" class="w-50" />
+                                            <img src="{{url('/image/presentations/100/100/'.$raw->filename)}}" class="w-50" />
                                         @else
                                             <img src='/img/photo.png' class="w-50" alt="...">
                                         @endif
@@ -240,7 +240,7 @@
 
                                     <span class="m-widget4__ext w-150 d-inline-block text-right">
                                         @if(strpos($raw->mimetype, 'image') !== false)
-                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="Download " href="{{url('/image/rooms/'.$raw->filename.'/download')}}" target="_blank"> 
+                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="Download " href="{{url('/image/presentations/'.$raw->filename.'/download')}}" target="_blank"> 
                                             <i class="la la-download"></i>
                                         </a>  
                                         @else
@@ -248,10 +248,10 @@
                                             <i class="la la-download"></i>
                                         </a>  
                                         @endif
-                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " href="{{url('listings/'.$listing->hash.'/items/'.$raw->hash.'/edit')}}"> 
+                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " href="{{url('projects/'.$listing->hash.'/presentations/'.$raw->hash.'/edit')}}"> 
                                             <i class="la la-pencil-square"></i>
                                         </a>  
-                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" href="{{url('listings/'.$listing->hash.'/items/'.$raw->hash.'/delete')}}"> 
+                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" href="{{url('projects/'.$listing->hash.'/presentations/'.$raw->hash.'/delete')}}"> 
                                             <i class="la la-trash"></i>
                                         </a>   
                                     </span> 

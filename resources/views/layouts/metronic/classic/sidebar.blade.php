@@ -38,15 +38,15 @@
 					</span>
 				</a>
 			</li>
-			<li class="m-menu__item @if(Request::is('listings', 'listings/*')) m-menu__item--active @endif" 
+			<li class="m-menu__item @if(Request::is('projects', 'projects/*')) m-menu__item--active @endif" 
 				aria-haspopup="true" 
 			>
-				<a  href="{{url('/listings')}}" class="m-menu__link ">
+				<a  href="{{url('/projects')}}" class="m-menu__link ">
 					<i class="m-menu__link-icon flaticon-squares-1"></i>
 					<span class="m-menu__link-title">
 						<span class="m-menu__link-wrap">
 							<span class="m-menu__link-text">
-								Listings
+								Projects
 							</span> 
 						</span>
 					</span>

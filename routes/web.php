@@ -54,16 +54,16 @@ Route::prefix('/')->middleware(['auth', 'isNotUser'])->group(function () {
 	Route::get('plans/{plan}/edit', 'PlanController@edit'); 
 	Route::get('plans/{plan}/delete', 'PlanController@delete'); 
 
-	Route::get('listings', 'ListingController@index'); 
-	Route::get('listings/new', 'ListingController@create'); 
-	Route::get('listings/{listing}', 'ListingController@show'); 
-	Route::get('listings/{listing}/edit', 'ListingController@edit'); 
-	Route::get('listings/{listing}/delete', 'ListingController@delete'); 
+	Route::get('projects', 'ListingController@index'); 
+	Route::get('projects/new', 'ListingController@create'); 
+	Route::get('projects/{listing}', 'ListingController@show'); 
+	Route::get('projects/{listing}/edit', 'ListingController@edit'); 
+	Route::get('projects/{listing}/delete', 'ListingController@delete'); 
 
-	Route::get('listings/{listing}/items/new', 'ItemController@create'); 
-	Route::get('listings/{listing}/items/{item}', 'ItemController@show'); 
-	Route::get('listings/{listing}/items/{item}/edit', 'ItemController@edit'); 
-	Route::get('listings/{listing}/items/{item}/delete', 'ItemController@delete'); 
+	Route::get('projects/{listing}/presentations/new', 'ItemController@create'); 
+	Route::get('projects/{listing}/presentations/{item}', 'ItemController@show'); 
+	Route::get('projects/{listing}/presentations/{item}/edit', 'ItemController@edit'); 
+	Route::get('projects/{listing}/presentations/{item}/delete', 'ItemController@delete'); 
 
 	Route::get('notifications', 'NotificationController@notifications');
 	Route::get('notifications/unread', 'NotificationController@unreadnotifications');
@@ -94,12 +94,12 @@ Route::prefix('/admin_api')->middleware(['auth', 'isNotUser'])->group(function (
 	Route::put('editors/{user}', 'EditorController@api_update'); 
 	Route::delete('editors/{user}', 'EditorController@api_destroy'); 
 
-	Route::get('listings', 'ListingController@api_index'); 
-	Route::get('listings/all', 'ListingController@all'); 
-	Route::post('listings', 'ListingController@api_store'); 
-	Route::get('listings/{listing}', 'ListingController@api_show'); 
-	Route::put('listings/{listing}', 'ListingController@api_update'); 
-	Route::delete('listings/{listing}', 'ListingController@api_destroy'); 
+	Route::get('projects', 'ListingController@api_index'); 
+	Route::get('projects/all', 'ListingController@all'); 
+	Route::post('projects', 'ListingController@api_store'); 
+	Route::get('projects/{listing}', 'ListingController@api_show'); 
+	Route::put('projects/{listing}', 'ListingController@api_update'); 
+	Route::delete('projects/{listing}', 'ListingController@api_destroy'); 
 
 	Route::post('listings/{listing}/items', 'ItemController@api_store'); 
 	Route::post('listings/{listing}/items/{item}', 'ItemController@api_update'); 

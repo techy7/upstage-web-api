@@ -3,7 +3,7 @@
 @section('content')
 <listings-form 
     :objlisting="{{$listing}}"
-    url="{{url('/admin_api/listings/'.$listing->hash.'?_method=PUT')}}"
+    url="{{url('/admin_api/projects/'.$listing->hash.'?_method=PUT')}}"
     action="put"
     inline-template
 >
@@ -14,11 +14,11 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    <i class="flaticon-squares-1"></i> Edit Listing
+                    <i class="flaticon-squares-1"></i> Edit Project
                 </h3>
             </div>
             <div>
-                <a :href="'/listings/'+listing.hash"
+                <a :href="'/projects/'+listing.hash"
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
                     <span> 

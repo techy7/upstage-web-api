@@ -45,7 +45,9 @@ class ListingController extends Controller
             'description' => '',
             "user_id" => $user_id,
             "editor_id" => '',
-            "status" => 'pending'
+            "status" => 'pending',
+            "address" => '',
+            "state" => ''
         ]);
 
         $users = User::where('role', 'user')
@@ -77,6 +79,7 @@ class ListingController extends Controller
             ->update(['read_at' => now()]); 
             
         $listing->load(['user', 'editor', 'rawItems.editedItem']);
+
         return view('listings.show', compact('listing'));
     }
 

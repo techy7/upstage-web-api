@@ -25,14 +25,14 @@ Vue.component('listings-delete', {
 
             this.isLoading = true;
             
-            axios.delete('/admin_api/listings/'+this.listing.hash)
+            axios.delete('/admin_api/projects/'+this.listing.hash)
                 .then((response)=>{ 
                     this.msgError = '';
                     this.msgSuccess = 'Listing has been successfully deleted.';
                     this.isLoading = false;
 
                     setTimeout(()=>{
-                        window.location = '/listings/';
+                        window.location = '/projects/';
                     }, 500)
                 }).catch((error)=>{ 
                     this.msgError = 'Error in deleting listing';

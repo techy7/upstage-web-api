@@ -8,6 +8,7 @@ use Hashids\Hashids;
 
 class Listing extends Model
 {
+    // This is renamed to "Project" in the display
     protected $guarded = ['id'];
 
     public function user() 

@@ -137,15 +137,15 @@ class ListingController extends Controller
                 "description" => $list->description,
                 "address" => $list->address,
                 "state" => $list->state,
-                "num_of_rooms" => $list->num_of_rooms,
+                "num_of_presentations" => $list->num_of_rooms,
                 "status" => $list->status,
                 "created_at" => $list->created_at,
                 "updated_at" => $list->updated_at,
                 "hash" => $list->hash,
                 "slug" => $list->slug,
-                "rooms_count" => $list->items_count,
-                "first_room" => $first_item,
-                "rooms" => $listingRooms,
+                "presentations_count" => $list->items_count,
+                "first_presentation" => $first_item,
+                "presentations" => $listingRooms,
                 "share_url" => $shareURL,
                 "user" => array(
                     "name" => $list->user->full_name, 
@@ -177,12 +177,12 @@ class ListingController extends Controller
             'name' => 'required',
             'address' => 'required',
             'state' => 'required',
-            'num_of_rooms' => 'required|min:1|max:10|integer'
+            'num_of_presentations' => 'required|min:1|max:10|integer'
         ]);
 
         if ($validator->fails()) {  
             return response()->json([
-                'message' => 'Could not add new listing.',
+                'message' => 'Could not add new project.',
                 'errors' => $validator->errors(),
                 'status' => 'error',
                 'status_code' => 422
@@ -205,7 +205,7 @@ class ListingController extends Controller
             'user_id' => $user['id'],
             'address' => $request->address,
             'state' => $request->state,
-            'num_of_rooms' => $request->num_of_rooms,
+            'num_of_rooms' => $request->num_of_presentations,
         ]);
 
         if($listing)
@@ -318,7 +318,7 @@ class ListingController extends Controller
             "description" => $listing->description,
             "address" => $listing->address,
             "state" => $listing->state,
-            "num_of_rooms" => $listing->num_of_rooms,
+            "num_of_presentations" => $listing->num_of_rooms,
             "hash" => $listing->hash,
             "slug" => $listing->slug,
             "created_at" => $listing->created_at,
@@ -329,7 +329,7 @@ class ListingController extends Controller
                 "avatar" => $listing->user->avatar,  
                 "fb_profile" => $fb_profile
             ),
-            "rooms" => $listingItems
+            "presentations" => $listingItems
         ));
     }
 
@@ -389,7 +389,7 @@ class ListingController extends Controller
         $listing->delete();
         
         return response()->json([
-            'message' => 'Listing was successfully deleted',
+            'message' => 'Project was successfully deleted',
             'status_code' => 200
         ], 200);
     }

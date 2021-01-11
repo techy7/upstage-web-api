@@ -46,7 +46,7 @@
                                 <li class="m-portlet__nav-item">
                                     <select class="form-control" v-model="filters.sort" @change="getList(1)">
                                         <option value="first_name">Sort by Name</option>
-                                        <option value="listings_count">Sort by List</option>
+                                        <option value="listings_count">Sort by Projects</option>
                                     </select>
                                 </li>
                                 <li class="m-portlet__nav-item">
@@ -101,7 +101,7 @@
                                         </span>
                                         <br class="">
                                         <span class="m-widget4__sub ">
-                                            Listings
+                                            Projects
                                         </span>
                                     </span> 
                                 </span>

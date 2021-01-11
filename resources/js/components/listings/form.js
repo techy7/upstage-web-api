@@ -56,7 +56,7 @@ Vue.component('listings-form', {
                     // redirect to listing page after creating
                     if(this.action == 'post'){
                         setTimeout(()=>{
-                            window.location = '/listings/'+response.data.hash;
+                            window.location = '/projects/'+response.data.hash;
                         }, 500)
                     }
 

@@ -1,5 +1,5 @@
 <div class="card-header">
-  <h4 class="m-0">Rooms/Gallery API</h4>
+  <h4 class="m-0">Presentations API</h4>
 </div>
 
 
@@ -9,7 +9,7 @@
         <div class="card-header px-2 py-1" id="headingItemAll">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseItemAll" aria-expanded="false" aria-controls="collapseItemAll">
-              All Rooms
+              All Presentations
             </button>
           </h2>
         </div>
@@ -17,16 +17,17 @@
           <div class="card-body">
             <div class="mb-5">
               <h4 class="m0">Resource URL</h4>
-              <p class="text-primary">GET base_URL/api/listings/{listing_hash}/rooms</p> 
+              <p class="text-primary">GET base_URL/api/projects/{project_hash}/presentations</p> 
             </div>
 
             <div class="mb-5">
               <h4 class="m0">Description</h4>
-              <p class="m-0">Returns the rooms/gallery of the given listing_hash. This endpoint requires the <strong>TOKEN</strong> acquired in login.</p>
-              <p class="m-0">The <strong class="text-primary">data</strong> in response is where the rooms and the others are for pagination like <strong class="text-primary">current_page</strong>, <strong class="text-primary">total</strong></p>
-              <p>You can also get rooms/gallery in the listing object <strong class="text-primary">listing.rooms</strong>. Refer to the <strong>Display Listing</strong> section</p>
+              <p class="m-0">Returns the presentations of the given project_hash. This endpoint requires the <strong>TOKEN</strong> acquired in login.</p>
+              <p class="m-0">The <strong class="text-primary">data</strong> in response is where the presentations and the others are for pagination like <strong class="text-primary">current_page</strong>, <strong class="text-primary">total</strong></p>
+              <p>You can also get presentations in the project object <strong class="text-primary">project.presentations</strong>. Refer to the <strong>Display Project</strong> section</p>
               <p class="m-0">
-                There are 2 types of item: 
+                There are 3 types of presentation: 
+                <strong class="text-primary">virtual_staging</strong>, 
                 <strong class="text-primary">image</strong> and 
                 <strong class="text-primary">video</strong>. 
                 You can use the 
@@ -37,7 +38,7 @@
                 For images, there is given <strong class="text-primary">file.thumbnail_url</strong> for thumbnail but feel free to change the width and height (/150/150/) in the URL to match the size that you need. 
               </p>
               <p class="m-0">
-                This is done by assembling <strong>baseurl/image/rooms</strong> + <strong>/{width}/{heigth}/</strong> + <strong>{file.filename}</strong>
+                This is done by assembling <strong>baseurl/image/presentations</strong> + <strong>/{width}/{heigth}/</strong> + <strong>{file.filename}</strong>
               </p>
               <p class="m-0"><span class="text-danger">No thumbnail for video yet</span></p>
             </div>
@@ -70,7 +71,7 @@
                   <tr> 
                     <td>page</td>
                     <td>optional</td>
-                    <td>Integer to indicate the page number. Default rooms per page is 20</td>
+                    <td>Integer to indicate the page number. Default presentations per page is 20</td>
                     <td></td>
                     <td>Mansion</td>
                   </tr>
@@ -103,10 +104,10 @@
         "file": {
           "filename": "videofile.mp4",
           "mimetype": "video/mp4",
-          "file_url": "http://localhost/video/rooms/videofile.mp4",
+          "file_url": "http://localhost/video/presentations/videofile.mp4",
           "thumbnail_url": null
         },
-        "listing": {
+        "project": {
             "name": "Alice had been to the end of the court. (As that is.",
             "hash": "m806w1pg",
             "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
@@ -126,10 +127,10 @@
           "file": {
               "filename": "house_image.png",
               "mimetype": "image/png",
-              "file_url": "http://localhost/image/rooms/house_image.png",
-              "thumbnail_url": "http://localhost/image/rooms/150/150/house_image.png"
+              "file_url": "http://localhost/image/presentations/house_image.png",
+              "thumbnail_url": "http://localhost/image/presentations/150/150/house_image.png"
           },
-          "listing": {
+          "project": {
               "name": "Alice had been to the end of the court. (As that is.",
               "hash": "m806w1pg",
               "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
@@ -137,12 +138,12 @@
       },
       ....
     ],
-    "first_page_url": "http://localhost:8000/api/listings/5nzqox1l/rooms?page=1",
+    "first_page_url": "http://localhost:8000/api/projects/5nzqox1l/presentations?page=1",
     "from": 1,
     "last_page": 2,
-    "last_page_url": "http://localhost:8000/api/listings/5nzqox1l/rooms?page=2",
-    "next_page_url": "http://localhost:8000/api/listings/5nzqox1l/rooms?page=2",
-    "path": "http://localhost:8000/api/listings/5nzqox1l/rooms",
+    "last_page_url": "http://localhost:8000/api/projects/5nzqox1l/presentations?page=2",
+    "next_page_url": "http://localhost:8000/api/projects/5nzqox1l/presentations?page=2",
+    "path": "http://localhost:8000/api/projects/5nzqox1l/presentations",
     "per_page": 20,
     "prev_page_url": null,
     "to": 20,
@@ -167,7 +168,7 @@
         <div class="card-header px-2 py-1" id="headingItemNew">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseItemNew" aria-expanded="false" aria-controls="collapseItemNew">
-              Create New Room
+              Create New Presentation
             </button>
           </h2>
         </div>
@@ -175,12 +176,12 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_url/api/listings/{listing_hash}/rooms</p> 
+              <p class="text-primary">POST base_url/api/projects/{project_hash}/presentations</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p class="mb-1">Endpoint for adding new room/gallery on a given listing</p>
+              <p class="mb-1">Endpoint for adding new presentation of a given project</p>
             </div>
 
             <div class="mb-5">
@@ -211,7 +212,7 @@
                   <tr> 
                     <td>description</td>
                     <td>optional</td>
-                    <td>Additional text that describe the listing</td>
+                    <td>Additional text that describe the presentation</td>
                     <td></td>
                     <td>A big house on the beach</td>
                   </tr> 
@@ -235,7 +236,7 @@
                     <td>A big house on the beach</td>
                   </tr> 
                   <tr> 
-                    <td>layers[]</td>
+                    <td>media_assets[]</td>
                     <td>required if virtual_staging</td>
                     <td>An array of images for Layers which is required if <strong>media_type</strong> is <strong>virtual_staging</strong></td>
                     <td></td>
@@ -266,10 +267,10 @@
     "file": {
         "filename": "frontgate.png",
         "mimetype": "image/png",
-        "file_url": "http://localhost/image/rooms/frontgate.png",
-        "thumbnail_url": "http://localhost/image/rooms/150/150/frontgate.png"
+        "file_url": "http://localhost/image/presentations/frontgate.png",
+        "thumbnail_url": "http://localhost/image/presentations/150/150/frontgate.png"
     },
-    "layers": [
+    "media_assets": [
         {
             "mimetype": "image/png",
             "filename": "30x2wrxy1603638172_file_layer_one_photo.png",
@@ -284,7 +285,7 @@
 <h5 class="m0">Example Response : Error</h5> 
 <pre class="text-danger mb-5">
 {
-    "message": "Could not add new listing.",
+    "message": "Could not add new presentation.",
     "errors": {
         "name": [
             "The name field is required."
@@ -293,7 +294,7 @@
             "The file field is required."
         ],
         "type": [
-            "Virtual Staging staging type requires at least 1 layer photo"
+            "Virtual Staging staging type requires at least 1 media asset"
         ]
     },
     "status": "error",
@@ -316,7 +317,7 @@
         <div class="card-header px-2 py-1" id="headingItemShow">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseItemShow" aria-expanded="false" aria-controls="collapseItemShow">
-              Display Room
+              Display Presentation
             </button>
           </h2>
         </div>
@@ -324,15 +325,16 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_url/api/listings{listing_hash}/room/{item_hash}</p> 
+              <p class="text-primary">POST base_url/api/projects{project_hash}/presentation/{presentation_hash}</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p class="mb-1">Endpoint for retrieving item details where <strong class="text-primary">{listing_hash}</strong> is the HASH of the listing and <strong class="text-primary">{item_hash}</strong> is the HASH of item that you want to view.</p>
+              <p class="mb-1">Endpoint for retrieving presentation details where <strong class="text-primary">{project_hash}</strong> is the HASH of the project and <strong class="text-primary">{presentation_hash}</strong> is the HASH of presentation you want to view.</p>
               
               <p class="m-0">
-                There are 2 types of item: 
+                There are 3 types of presentation: 
+                <strong class="text-primary">virtual_staging</strong>, 
                 <strong class="text-primary">image</strong> and 
                 <strong class="text-primary">video</strong>. 
                 You can use the 
@@ -343,9 +345,9 @@
                 For images, there is given <strong class="text-primary">file.thumbnail_url</strong> for thumbnail but feel free to change the width and height (/150/150/) in the URL to match the size that you need. 
               </p>
               <p class="m-0">
-                This is done by assembling <strong>baseurl/image/room/</strong> + <strong>/{width}/{heigth}/</strong> + <strong>{file.filename}</strong>
+                This is done by assembling <strong>baseurl/image/presentations/</strong> + <strong>/{width}/{heigth}/</strong> + <strong>{file.filename}</strong>
               </p>
-              <p class="m-0">Add <strong class="text-primary">/watch</strong> at the end of video URL if you want the streamable video (<small class="text-muted">http://localhost/video/room/video_item.mp4/watch</small>)</p>
+              <p class="m-0">Add <strong class="text-primary">/watch</strong> at the end of video URL if you want the streamable video (<small class="text-muted">http://localhost/video/presentations/video_item.mp4/watch</small>)</p>
               <p class="m-0"><span class="text-danger">No thumbnail for video yet</span></p>
             </div>
 
@@ -375,20 +377,20 @@
     "file": {
         "filename": "item_image.png",
         "mimetype": "image/png",
-        "file_url": "http://localhost/image/rooms/item_image.png",
-        "thumbnail_url": "http://localhost/image/rooms/150/150/item_image.png"
+        "file_url": "http://localhost/image/presentations/item_image.png",
+        "thumbnail_url": "http://localhost/image/presentations/150/150/item_image.png"
     },
-    "listing": {
+    "project": {
         "name": "Alice had been to the end of the court. (As that is.",
         "hash": "m806w1pg",
         "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
     },
-    "layers": [
+    "media_assets": [
         {
             "mimetype": "image/png",
             "filename": "30x2wrxy1603638172_file_layer_one_photo.png",
             "hash": "5r4ox4pw",
-            "file_url": "http://upstage.test/image/layers/150/150/30x2wrxy1603638172_file_layer_one_photo.png"
+            "file_url": "http://upstage.test/image/media_assets/150/150/30x2wrxy1603638172_file_layer_one_photo.png"
         }
     ]
 }
@@ -409,10 +411,10 @@
     "file": {
         "filename": "video_item.mp4",
         "mimetype": "video/mp4",
-        "file_url": "http://localhost/video/rooms/video_item.mp4",
+        "file_url": "http://localhost/video/presentations/video_item.mp4",
         "thumbnail_url": null
     },
-    "listing": {
+    "project": {
         "name": "Alice had been to the end of the court. (As that is.",
         "hash": "m806w1pg",
         "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
@@ -435,7 +437,7 @@
         <div class="card-header px-2 py-1" id="headingItemEdit">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseItemEdit" aria-expanded="false" aria-controls="collapseItemEdit">
-              Edit Room
+              Edit Presentation
             </button>
           </h2>
         </div>
@@ -443,13 +445,13 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_url/api/listings/{listing_hash}/rooms/{item_hash}</p> 
+              <p class="text-primary">POST base_url/api/projects/{project_hash}/presentations/{presentation_hash}</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p class="mb-1">Endpoint for updating item details where <strong class="text-primary">{listing_hash}</strong> is the HASH of the parent listing and <strong class="text-primary">{item_hash}</strong> is the HASH of item that you want to update.</p>
-              <p>If success, it will return the updated item object</p>
+              <p class="mb-1">Endpoint for updating presentation details where <strong class="text-primary">{project_hash}</strong> is the HASH of the parent project and <strong class="text-primary">{presentation_hash}</strong> is the HASH of presentation that you want to update.</p>
+              <p>If success, it will return the updated presentation object</p>
             </div>
 
             <div class="mb-5">
@@ -480,7 +482,7 @@
                   <tr> 
                     <td>description</td>
                     <td>optional</td>
-                    <td>Additional text that describe the listing</td>
+                    <td>Additional text that describe the presentation</td>
                     <td></td>
                     <td>A big house on the beach</td>
                   </tr>  
@@ -511,8 +513,8 @@
     "file": {
         "filename": "item_image.png",
         "mimetype": "image/png",
-        "file_url": "http://localhost/image/rooms/item_image.png",
-        "thumbnail_url": "http://localhost/image/rooms/150/150/item_image.png"
+        "file_url": "http://localhost/image/presentations/item_image.png",
+        "thumbnail_url": "http://localhost/image/presentations/150/150/item_image.png"
     },
     "layers": [
         {
@@ -528,7 +530,7 @@
 <h5 class="m0">Example Response : Error</h5> 
 <pre class="text-danger mb-5">
 {
-    "message": "Could not update listing.",
+    "message": "Could not update presentation.",
     "errors": {
         "name": [
             "The name field is required."
@@ -554,7 +556,7 @@
         <div class="card-header px-2 py-1" id="headingItemDelete">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseItemDelete" aria-expanded="false" aria-controls="collapseItemDelete">
-              Delete Room
+              Delete Presentation
             </button>
           </h2>
         </div>
@@ -562,12 +564,12 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">DELETE base_url/api/listings/{listing_hash}/rooms/{item_hash}</p> 
+              <p class="text-primary">DELETE base_url/api/projects/{project_hash}/presentations/{presentation_hash}</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p class="mb-1">Endpoint for deleting item where <strong class="text-primary">{item_hash}</strong> is the HASH of the item that you want to delete. This also requires the hash of parent listing.</p>
+              <p class="mb-1">Endpoint for deleting presentation where <strong class="text-primary">{presentation_hash}</strong> is the HASH of the presentation that you want to delete. This also requires the hash of parent project.</p>
             </div>
 
             <div class="mb-5">
@@ -584,7 +586,7 @@
 <h5 class="m0">Example Response : Success</h5> 
 <pre class="text-danger mb-5">
 {
-    "message": "Item was successfully deleted",
+    "message": "Presentation was successfully deleted",
     "status_code": 200
 }
 </pre> 

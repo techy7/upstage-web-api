@@ -9,11 +9,11 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    <i class="flaticon-squares-1"></i> Listings
+                    <i class="flaticon-squares-1"></i> Projects
                 </h3>
             </div>
             <div>
-                <a href="{{url('listings/new')}}" 
+                <a href="{{url('projects/new')}}" 
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
                     <span> 
@@ -36,8 +36,8 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    All listings
-                                    <small>@{{listings.total}} listings found</small>
+                                    All projects
+                                    <small>@{{listings.total}} projects found</small>
                                 </h3>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                                         </span>
                                         <br class="">
                                         <span class="m-widget4__sub ">
-                                            Items 
+                                            Presentations 
                                         </span>
                                     </span> 
                                 </span>
@@ -114,13 +114,13 @@
                                 </span>
                                 <span class="m-widget4__ext">
                                     <span class="d-inline-block w-150 text-right"> 
-                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="View " :href="'/listings/'+listing.hash"> 
+                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="View " :href="'/projects/'+listing.hash"> 
                                             <i class="la la-external-link-square"></i>
                                         </a> 
-                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " :href="'/listings/'+listing.hash+'/edit'"> 
+                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " :href="'/projects/'+listing.hash+'/edit'"> 
                                             <i class="la la-pencil-square"></i>
                                         </a>  
-                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" :href="'/listings/'+listing.hash+'/delete'"> 
+                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" :href="'/projects/'+listing.hash+'/delete'"> 
                                             <i class="la la-trash"></i>
                                         </a>   
                                     </span> 
@@ -129,7 +129,7 @@
                         </div>
 
                         <div v-cloak class="text-center p-5" v-if="!listings.total && !isLoading"> 
-                                There are no listings found.  
+                                There are no projects found.  
                         </div> 
 
                         <div class="text-center p-5" v-if="!listings.total && isLoading"> 

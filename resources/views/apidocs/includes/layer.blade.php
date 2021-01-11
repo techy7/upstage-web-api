@@ -1,5 +1,5 @@
 <div class="card-header">
-  <h4 class="m-0">Virtual Staging Layers</h4>
+  <h4 class="m-0">Virtual Staging Media Assets</h4>
 </div>
 
 
@@ -9,7 +9,7 @@
         <div class="card-header px-2 py-1" id="headingLayerIndex">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left btn-block" type="button" data-toggle="collapse" data-target="#collapseLayerIndex" aria-expanded="false" aria-controls="collapseLayerIndex">
-              All Layers
+              All Media Assets
             </button>
           </h2>
         </div>
@@ -18,13 +18,13 @@
           <div class="card-body">
             <div class="mb-5">
               <h4 class="m0">Resource URL</h4>
-              <p class="text-primary">GET base_URL/api/listings/{listing_hash}/rooms/{room_hash}/layers</p> 
+              <p class="text-primary">GET base_URL/api/projects/{project_hash}/rooms/{presentation_hash}/media-assets</p> 
             </div>
 
             <div class="mb-5">
               <h4 class="m0">Description</h4>
-              <p class="m-0">Returns the list of available layers for that room.</p>
-              <p class="m-0">A room of type <strong>virtual_staging</strong> can have multiple <strong>layer</strong> images as a reference for the Editor</p> 
+              <p class="m-0">Returns the list of available media assets for that room.</p>
+              <p class="m-0">A room of type <strong>virtual_staging</strong> can have multiple <strong>media assets</strong> images as a reference for the Editor</p> 
             </div>
 
             <div class="mb-5">
@@ -45,19 +45,19 @@
         "mimetype": "image/png",
         "filename": "layer_sofa.png",
         "hash": "k0ex6e5m",
-        "room_hash": "30x2wrxy",
-        "listing_hash": "9q1jn0p3",
-        "file_url": "http://upstage.test/image/layers/layer_sofa.png",
-        "thumbnail_url": "http://upstage.test/image/layers/150/150/layer_sofa.png"
+        "presentation_hash": "30x2wrxy",
+        "project_hash": "9q1jn0p3",
+        "file_url": "http://upstage.test/image/media_assets/layer_sofa.png",
+        "thumbnail_url": "http://upstage.test/image/media_assets/150/150/layer_sofa.png"
     },
     {
         "mimetype": "image/jpeg",
         "filename": "layer_cabinet.jpeg",
         "hash": "pdzj340v",
-        "room_hash": "30x2wrxy",
-        "listing_hash": "9q1jn0p3",
-        "file_url": "http://upstage.test/image/layers/layer_cabinet.jpeg",
-        "thumbnail_url": "http://upstage.test/image/layers/150/150/layer_cabinet.jpeg"
+        "presentation_hash": "30x2wrxy",
+        "project_hash": "9q1jn0p3",
+        "file_url": "http://upstage.test/image/media_assets/layer_cabinet.jpeg",
+        "thumbnail_url": "http://upstage.test/image/media_assets/150/150/layer_cabinet.jpeg"
     }
 ]
 </pre>  
@@ -79,7 +79,7 @@
         <div class="card-header px-2 py-1" id="headingLayerCreate">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseLayerCreate" aria-expanded="false" aria-controls="collapseLayerCreate">
-              Create New Layer
+              Create New Media Asset
             </button>
           </h2>
         </div>
@@ -87,12 +87,12 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_URL/api/listings/{listing_hash}/rooms/{room_hash}/layers</p> 
+              <p class="text-primary">POST base_URL/api/projects/{project_hash}/rooms/{presentation_hash}/media-assets</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p>Endpoint for adding new layer of a room.</p>
+              <p>Endpoint for adding new media asset of a presentation.</p>
             </div>
 
             <div class="mb-5">
@@ -126,17 +126,17 @@
     "mimetype": "image/jpeg",
     "filename": "layer_table.jpeg",
     "hash": "7o48lzj0",
-    "room_hash": "30x2wrxy",
-    "listing_hash": "9q1jn0p3",
-    "file_url": "http://upstage.test/image/layers/layer_table.jpeg",
-    "thumbnail_url": "http://upstage.test/image/layers/150/150/layer_table.jpeg"
+    "presentation_hash": "30x2wrxy",
+    "project_hash": "9q1jn0p3",
+    "file_url": "http://upstage.test/image/media_assets/layer_table.jpeg",
+    "thumbnail_url": "http://upstage.test/image/media_assets/150/150/layer_table.jpeg"
 }
 </pre> 
 
 <h5 class="m0">Example Response : Error</h5> 
 <pre class="text-danger mb-5">
 {
-    "message": "Could not add new room.",
+    "message": "Could not add new media assets.",
     "errors": {
         "file": [
             "The file field is required."
@@ -156,7 +156,7 @@
         <div class="card-header px-2 py-1" id="headingLayerShow">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseLayerShow" aria-expanded="false" aria-controls="collapseLayerShow">
-              Display Layer
+              Display Media Asset
             </button>
           </h2>
         </div>
@@ -164,12 +164,12 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">POST base_URL/api/listings/{listing_hash}/rooms/{room_hash}/layers/{layer_hash}</p> 
+              <p class="text-primary">POST base_URL/api/projects/{project_hash}/rooms/{presentation_hash}/media-assets/{media_asset_hash}</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p>Endpoint for retrieving a layer info.</p>
+              <p>Endpoint for retrieving a media asset info.</p>
             </div>
 
             <div class="mb-5">
@@ -184,8 +184,8 @@
     "mimetype": "image/jpeg",
     "filename": "layer_bed.jpeg",
     "hash": "7o48lzj0",
-    "room_hash": "30x2wrxy",
-    "listing_hash": "9q1jn0p3",
+    "presentation_hash": "30x2wrxy",
+    "project_hash": "9q1jn0p3",
     "file_url": "http://upstage.test/image/layers/layer_bed.jpeg",
     "thumbnail_url": "http://upstage.test/image/layers/150/150/layer_bed.jpeg"
 }
@@ -208,7 +208,7 @@
         <div class="card-header px-2 py-1" id="headingLayerDelete">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseLayerDelete" aria-expanded="false" aria-controls="collapseLayerDelete">
-              Delete Layer
+              Delete Media Asset
             </button>
           </h2>
         </div>
@@ -216,12 +216,12 @@
           <div class="card-body">
             <div class="mb-5">
               <h5 class="m0">Resource URL</h5>
-              <p class="text-primary">DELETE base_URL/api/listings/{listing_hash}/rooms/{room_hash}/layers/{layer_hash}</p> 
+              <p class="text-primary">DELETE base_URL/api/projects/{project_hash}/rooms/{presentation_hash}/media-assets/{media_asset_hash}</p> 
             </div>
 
             <div class="mb-5">
               <h5 class="m0">Description</h5>
-              <p>Endpoint for deleting layer where {layer_hash} is the HASH of the layer that you want to delete.</p>
+              <p>Endpoint for deleting media asset where {media_asset_hash} is the HASH of the media asset that you want to delete.</p>
             </div>
 
             <div class="mb-5">
@@ -238,7 +238,7 @@
 <h5 class="m0">Example Response : Success</h5> 
 <pre class="text-danger mb-5">
 {
-    "message": "Layer was successfully deleted",
+    "message": "Media Asset was successfully deleted",
     "status_code": 200
 }
 </pre> 

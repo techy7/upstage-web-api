@@ -58,12 +58,12 @@ class ItemController extends Controller
             if($item->editedItem) { 
                 $folderUrl = strpos($item->editedItem->mimetype, 'image') !== false ? 'image' : 'video';
                 $thumb = strpos($item->editedItem->mimetype, 'image') !== false ?
-                             env('APP_URL').'/image/editeditems/150/150/'.$item->editedItem->filename : null;
+                             env('APP_URL').'/image/editedpresentations/150/150/'.$item->editedItem->filename : null;
 
                 $objFile = array(
                     "filename" => $item->editedItem->filename,
                     "mimetype" => $item->editedItem->mimetype,
-                    "file_url" => env('APP_URL').'/'.$folderUrl.'/editeditems/'.$item->editedItem->filename,
+                    "file_url" => env('APP_URL').'/'.$folderUrl.'/editedpresentations/'.$item->editedItem->filename,
                     "thumbnail_url" => $thumb
                 );
             }
@@ -80,7 +80,7 @@ class ItemController extends Controller
                 "updated_at" => $item->updated_at,
                 "file" => $objFile,
                 "layers_count" => $item->layers_count,
-                "listing" => array(
+                "project" => array(
                     "name" => $listing->name, 
                     "hash" => $listing->hash,
                     "slug" => $listing->slug,
@@ -120,12 +120,12 @@ class ItemController extends Controller
 
         if($request->type == 'virtual_staging')
         { 
-            if(!$request->file('layers') || !@count($request->file('layers'))) {
+            if(!$request->file('media_assets') || !@count($request->file('media_assets'))) {
                 return response()->json([
                     'message' => 'Could not add new room.',
                     'errors' => array(
-                        'type'=>[ "Virtual Staging staging type requires at least 1 layer photo" ],
-                        'layers'=>[ "Virtual Staging staging type requires at least 1 layer photo" ]
+                        'type'=>[ "Virtual Staging staging type requires at least 1 media asset" ],
+                        'media_assets'=>[ "Virtual Staging staging type requires at least 1 media asset" ]
                     ),
                     'status' => 'error',
                     'status_code' => 422
@@ -136,21 +136,21 @@ class ItemController extends Controller
         $listing->loadCount(['items']);
         if($listing->items_count >= $listing->num_of_rooms) {
             return response()->json([
-                'message' => 'Reached maximum number of rooms for this listings.',
+                'message' => 'Reached maximum number of presentations for this project.',
                 'errors' => array(
-                    'num_of_rooms'=>[ "Reached maximum number of rooms for this listings" ]
+                    'num_of_presentations'=>[ "Reached maximum number of presentations for this project" ]
                 ),
                 'status' => 'error',
                 'status_code' => 422,
-                'num_of_rooms' => $listing->num_of_rooms,
-                'items_count' => $listing->items_count
+                'num_of_presentations' => $listing->num_of_rooms,
+                'presentations_count' => $listing->items_count
             ], 422); 
         }
 
         $item = Item::create([
             'label' => $request->name,
             'description' => $request->description,
-            'status' => 'raw',
+            'status' => 'pending',
             'listing_id' => $listing->id,
             'user_id' => $listing->user_id,
             'type' => $request->type,
@@ -162,7 +162,7 @@ class ItemController extends Controller
         {
             $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
             $file_stamp = $listing->hash . time() . '_file_' . $filename; 
-            $request->file->storeAs('rooms', $file_stamp); 
+            $request->file->storeAs('presentation', $file_stamp); 
             $item->update([
                 'filename'=>$file_stamp,
                 'mimetype'=>$request->file->getMimeType(),
@@ -170,10 +170,10 @@ class ItemController extends Controller
         } 
 
         if($request->type == 'virtual_staging'){ 
-            foreach ($request->file('layers') as $layer) { 
+            foreach ($request->file('media_assets') as $layer) { 
                 $layerFilename = Str::slug($layer->getClientOriginalName(), '-') . '.' .$layer->extension(); 
                 $layerStamp = $item->hash . time() . '_file_' . $layerFilename; 
-                $layer->storeAs('layers', $layerStamp); 
+                $layer->storeAs('media_assets', $layerStamp); 
                 $objLayer = Layer::create([
                     'filename'=>$layerStamp,
                     'mimetype'=>$layer->getMimeType(),
@@ -192,12 +192,12 @@ class ItemController extends Controller
                 'mimetype' => $objLayer->mimetype,
                 'filename' => $objLayer->filename,
                 'hash' => $objLayer->hash,
-                'file_url' => env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
+                'file_url' => env('APP_URL').'/image/media_assets/150/150/'.$objLayer->filename
             ));
         }
 
         $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
+        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/presentations/150/150/'.$item->filename : null;
 
         return response()->json(array(
             "name" => $item->label,
@@ -212,7 +212,7 @@ class ItemController extends Controller
             "file" => array(
                 "filename" => $item->filename,
                 "mimetype" => $item->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/presentations/'.$item->filename,
                 "thumbnail_url" => $thumb
             ),
             'layers' => $itemLayers
@@ -223,7 +223,7 @@ class ItemController extends Controller
     {
         $user = auth('api')->user();
 
-        if(!isset($user['id']) || $item->user_id != $user->id)
+        if(!isset($user['id']) || $item->user_id != $user->id || $listing->user_id != $user->id)
         {
             return response()->json([
                 'error'   =>'Unauthorized',
@@ -234,24 +234,24 @@ class ItemController extends Controller
         $item->load(['editedItem', 'layers']);
 
         $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
+        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/presentations/150/150/'.$item->filename : null;
 
         $objFile = array(
             "filename" => $item->filename,
             "mimetype" => $item->mimetype,
-            "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
+            "file_url" => env('APP_URL').'/'.$folderUrl.'/presentations/'.$item->filename,
             "thumbnail_url" => $thumb
         );
 
         if($item->editedItem) { 
             $folderUrl = strpos($item->editedItem->mimetype, 'image') !== false ? 'image' : 'video';
             $thumb = strpos($item->editedItem->mimetype, 'image') !== false ?
-                         env('APP_URL').'/image/editeditems/150/150/'.$item->editedItem->filename : null;
+                         env('APP_URL').'/image/editedpresentations/150/150/'.$item->editedItem->filename : null;
 
             $objFile = array(
                 "filename" => $item->editedItem->filename,
                 "mimetype" => $item->editedItem->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/editedrooms/'.$item->editedItem->filename,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/editedpresentations/'.$item->editedItem->filename,
                 "thumbnail_url" => $thumb
             );
         }
@@ -265,7 +265,7 @@ class ItemController extends Controller
                 'hash' => $objLayer->hash,
                 'room_hash' => $item->hash,
                 'listing_hash' => $listing->hash,
-                'file_url' => env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
+                'file_url' => env('APP_URL').'/image/media_assets/150/150/'.$objLayer->filename
             ));
         }
         
@@ -280,7 +280,7 @@ class ItemController extends Controller
             "created_at" => $item->created_at,
             "updated_at" => $item->updated_at,
             "file" => $objFile,
-            "listing" => array(
+            "project" => array(
                 "name" => $listing->name, 
                 "hash" => $listing->hash,
                 "slug" => $listing->slug,
@@ -327,7 +327,7 @@ class ItemController extends Controller
         {
             $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
             $file_stamp = $listing->hash . time() . '_file_' . $filename; 
-            $request->file->storeAs('rooms', $file_stamp); 
+            $request->file->storeAs('presentations', $file_stamp); 
             $item->update([
                 'filename'=>$file_stamp,
                 'mimetype'=>$request->file->getMimeType(),
@@ -335,7 +335,7 @@ class ItemController extends Controller
         } 
 
         $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
+        $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/presentations/150/150/'.$item->filename : null;
 
         $item->load(['layers']);
         $itemLayers = [];
@@ -347,7 +347,7 @@ class ItemController extends Controller
                 'hash' => $objLayer->hash,
                 'room_hash' => $item->hash,
                 'listing_hash' => $listing->hash,
-                'file_url' => env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
+                'file_url' => env('APP_URL').'/image/media_assets/150/150/'.$objLayer->filename
             ));
         }
         
@@ -364,7 +364,7 @@ class ItemController extends Controller
             "file" => array(
                 "filename" => $item->filename,
                 "mimetype" => $item->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/presentations/'.$item->filename,
                 "thumbnail_url" => $thumb
             ),
             "layers" => $itemLayers
@@ -383,7 +383,7 @@ class ItemController extends Controller
             ], 401);
         }
 
-        Storage::delete('items/'.$item->filename);
+        Storage::delete('presentations/'.$item->filename);
         $item->delete();
         
         return response()->json([
@@ -412,10 +412,10 @@ class ItemController extends Controller
                 'mimetype' => $objLayer->mimetype,
                 'filename' => $objLayer->filename,
                 'hash' => $objLayer->hash,
-                'room_hash' => $item->hash,
-                'listing_hash' => $listing->hash,
-                "file_url"=> env('APP_URL').'/image/layers/'.$objLayer->filename,
-                "thumbnail_url"=> env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
+                'presentation_hash' => $item->hash,
+                'project_hash' => $listing->hash,
+                "file_url"=> env('APP_URL').'/image/media_assets/'.$objLayer->filename,
+                "thumbnail_url"=> env('APP_URL').'/image/media_assets/150/150/'.$objLayer->filename
             ));
         }
 
@@ -424,7 +424,7 @@ class ItemController extends Controller
 
     public function layer_store(Request $request, Listing $listing, Item $item)
     { 
-        $user = auth('api')->user(); 
+        $user = auth('api')->user();
 
         if(!isset($user['id']) || $item->user_id != $user->id)
         {
@@ -452,7 +452,7 @@ class ItemController extends Controller
         {
             $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
             $file_stamp = $listing->hash . time() . '_file_' . $filename; 
-            $request->file->storeAs('layers', $file_stamp);  
+            $request->file->storeAs('media_assets', $file_stamp);  
         } 
 
         $objLayer = Layer::create([
@@ -467,10 +467,10 @@ class ItemController extends Controller
             "mimetype"=> $objLayer->mimetype,
             "filename"=> $objLayer->filename,
             "hash"=> $objLayer->hash,
-            'room_hash' => $item->hash,
-            'listing_hash' => $listing->hash,
-            "file_url"=> env('APP_URL').'/image/layers/'.$objLayer->filename,
-            "thumbnail_url"=> env('APP_URL').'/image/layers/150/150/'.$objLayer->filename
+            'presentation_hash' => $item->hash,
+            'project_hash' => $listing->hash,
+            "file_url"=> env('APP_URL').'/image/media_assets/'.$objLayer->filename,
+            "thumbnail_url"=> env('APP_URL').'/image/media_assets/150/150/'.$objLayer->filename
         ), 200);
     }
 
@@ -490,10 +490,10 @@ class ItemController extends Controller
             "mimetype"=> $layer->mimetype,
             "filename"=> $layer->filename,
             "hash"=> $layer->hash,
-            'room_hash' => $item->hash,
-            'listing_hash' => $listing->hash,
-            "file_url"=> env('APP_URL').'/image/layers/'.$layer->filename,
-            "thumbnail_url"=> env('APP_URL').'/image/layers/150/150/'.$layer->filename
+            'presentation_hash' => $item->hash,
+            'project_hash' => $listing->hash,
+            "file_url"=> env('APP_URL').'/image/media_assets/'.$layer->filename,
+            "thumbnail_url"=> env('APP_URL').'/image/media_assets/150/150/'.$layer->filename
         ), 200);
     }
 
@@ -509,11 +509,11 @@ class ItemController extends Controller
             ], 401);
         } 
 
-        Storage::delete('layers/'.$item->filename);
+        Storage::delete('media_assets/'.$item->filename);
         $layer->delete();
         
         return response()->json([
-            'message' => 'Layer was successfully deleted',
+            'message' => 'Media Asset was successfully deleted',
             'status_code' => 200
         ], 200);
     }
