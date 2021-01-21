@@ -46,12 +46,12 @@ class ItemController extends Controller
 
         $items->getCollection()->transform(function ($item) use($listing) {
             $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-            $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
+            $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/presentations/150/150/'.$item->filename : null;
 
             $objFile = array(
                 "filename" => $item->filename,
                 "mimetype" => $item->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/presentations/'.$item->filename,
                 "thumbnail_url" => $thumb
             );
 
@@ -79,7 +79,7 @@ class ItemController extends Controller
                 "created_at" => $item->created_at,
                 "updated_at" => $item->updated_at,
                 "file" => $objFile,
-                "layers_count" => $item->layers_count,
+                "media_assets_count" => $item->layers_count,
                 "project" => array(
                     "name" => $listing->name, 
                     "hash" => $listing->hash,
@@ -106,7 +106,8 @@ class ItemController extends Controller
         $validator = Validator::make($request->all(), [ 
             'name' => 'required',
             'type' => 'required|in:'."photo,video,virtual_staging",
-            'file' => 'required|file'
+            'file' => 'required|file',
+            'template_id' => 'required'
         ]);
 
         if ($validator->fails()) {  
@@ -134,18 +135,20 @@ class ItemController extends Controller
         } 
 
         $listing->loadCount(['items']);
-        if($listing->items_count >= $listing->num_of_rooms) {
-            return response()->json([
-                'message' => 'Reached maximum number of presentations for this project.',
-                'errors' => array(
-                    'num_of_presentations'=>[ "Reached maximum number of presentations for this project" ]
-                ),
-                'status' => 'error',
-                'status_code' => 422,
-                'num_of_presentations' => $listing->num_of_rooms,
-                'presentations_count' => $listing->items_count
-            ], 422); 
-        }
+
+        // removed number of presentations/rooms
+        // if($listing->items_count >= $listing->num_of_rooms) {
+        //     return response()->json([
+        //         'message' => 'Reached maximum number of presentations for this project.',
+        //         'errors' => array(
+        //             'num_of_presentations'=>[ "Reached maximum number of presentations for this project" ]
+        //         ),
+        //         'status' => 'error',
+        //         'status_code' => 422,
+        //         'num_of_presentations' => $listing->num_of_rooms,
+        //         'presentations_count' => $listing->items_count
+        //     ], 422); 
+        // }
 
         $item = Item::create([
             'label' => $request->name,
@@ -155,6 +158,7 @@ class ItemController extends Controller
             'user_id' => $listing->user_id,
             'type' => $request->type,
             'instruction' => $request->instruction,
+            'template_id' => $request->template_id, 
         ]);
 
         // save main file
@@ -162,27 +166,26 @@ class ItemController extends Controller
         {
             $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
             $file_stamp = $listing->hash . time() . '_file_' . $filename; 
-            $request->file->storeAs('presentation', $file_stamp); 
+            $request->file->storeAs('presentations', $file_stamp); 
             $item->update([
                 'filename'=>$file_stamp,
                 'mimetype'=>$request->file->getMimeType(),
             ]);
         } 
-
-        if($request->type == 'virtual_staging'){ 
-            foreach ($request->file('media_assets') as $layer) { 
-                $layerFilename = Str::slug($layer->getClientOriginalName(), '-') . '.' .$layer->extension(); 
-                $layerStamp = $item->hash . time() . '_file_' . $layerFilename; 
-                $layer->storeAs('media_assets', $layerStamp); 
-                $objLayer = Layer::create([
-                    'filename'=>$layerStamp,
-                    'mimetype'=>$layer->getMimeType(),
-                    'listing_id' => $listing->id,
-                    'user_id' => $listing->user_id,
-                    'item_id' => $item->id
-                ]); 
-            }
-        }
+        
+        // all types can have layers/media_assets
+        foreach ($request->file('media_assets') as $layer) { 
+            $layerFilename = Str::slug($layer->getClientOriginalName(), '-') . '.' .$layer->extension(); 
+            $layerStamp = $item->hash . time() . '_file_' . $layerFilename; 
+            $layer->storeAs('media_assets', $layerStamp); 
+            $objLayer = Layer::create([
+                'filename'=>$layerStamp,
+                'mimetype'=>$layer->getMimeType(),
+                'listing_id' => $listing->id,
+                'user_id' => $listing->user_id,
+                'item_id' => $item->id
+            ]); 
+        } 
 
         $item->load(['layers']);
         $itemLayers = [];
@@ -215,7 +218,7 @@ class ItemController extends Controller
                 "file_url" => env('APP_URL').'/'.$folderUrl.'/presentations/'.$item->filename,
                 "thumbnail_url" => $thumb
             ),
-            'layers' => $itemLayers
+            'media_assets' => $itemLayers
         ), 201);
     }
 
@@ -231,7 +234,9 @@ class ItemController extends Controller
             ], 401);
         }  
 
-        $item->load(['editedItem', 'layers']);
+        $item->load(['editedItem', 'layers', 'template'=>function($t){
+            $t->select('id', 'name', 'category', 'type');
+        }]);
 
         $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
         $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/presentations/150/150/'.$item->filename : null;
@@ -285,7 +290,8 @@ class ItemController extends Controller
                 "hash" => $listing->hash,
                 "slug" => $listing->slug,
             ),
-            "layers" => $itemLayers
+            "media_assets" => $itemLayers,
+            "template" => $item->template
         ));
     }
 

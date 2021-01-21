@@ -48,7 +48,7 @@ class ItemController extends Controller
      */
     public function edit(Listing $listing, Item $item)
     {
-        $item->load(['editedItem']); 
+        $item->load(['editedItem', 'layers', 'template']);  
         return view('items.edit', compact('listing', 'item'));
     }
 
@@ -89,7 +89,7 @@ class ItemController extends Controller
         {
             $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
             $file_stamp = $listing->hash . time() . '_file_' . $filename; 
-            $request->file->storeAs('rooms', $file_stamp); 
+            $request->file->storeAs('presentations', $file_stamp); 
             $item->update([
                 'filename'=>$file_stamp,
                 'mimetype'=>$request->file->getMimeType(),
@@ -111,7 +111,7 @@ class ItemController extends Controller
         {
             $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
             $file_stamp = $listing->hash . time() . '_file_' . $filename; 
-            $request->file->storeAs('rooms', $file_stamp); 
+            $request->file->storeAs('presentations', $file_stamp); 
             $item->update([
                 'filename'=>$file_stamp,
                 'mimetype'=>$request->file->getMimeType(),
@@ -123,7 +123,7 @@ class ItemController extends Controller
 
     public function api_destroy(Listing $listing, Item $item)
     {
-        Storage::delete('rooms/'.$item->filename);
+        Storage::delete('presentations/'.$item->filename);
         $item->delete();
         return response()->json(null, 204);
     }
@@ -151,7 +151,7 @@ class ItemController extends Controller
         {
             $filename = Str::slug($request->file->getClientOriginalName(), '-') . '.' .$request->file->extension(); 
             $file_stamp = $item->hash . time() . '_file_' . $filename; 
-            $request->file->storeAs('editedrooms', $file_stamp);  
+            $request->file->storeAs('editedpresentations', $file_stamp);  
             $filename = $file_stamp;
             $mimetype = $request->file->getMimeType();
         } 

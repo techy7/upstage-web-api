@@ -51,4 +51,7 @@ Route::middleware(['api'])->group(function () {
 	Route::post('projects/{listing}/presentations/{item}/media-assets', 'Api\ItemController@layer_store');
 	Route::get('projects/{listing}/presentations/{item}/media-assets/{layer}', 'Api\ItemController@layer_show');
 	Route::delete('projects/{listing}/presentations/{item}/media-assets/{layer}', 'Api\ItemController@layer_delete');
+
+	Route::get('templates', 'Api\TemplateController@index');
+	Route::get('templates/{template}', 'Api\TemplateController@show');
 });

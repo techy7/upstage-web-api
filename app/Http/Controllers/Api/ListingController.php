@@ -50,16 +50,16 @@ class ListingController extends Controller
                 $objFile = array(
                     "filename" => $list->first_item->filename,
                     "mimetype" => $list->first_item->mimetype,
-                    "file_url" => env('APP_URL').'/image/rooms/'.$list->first_item->filename,
-                    "thumbnail_url" => env('APP_URL').'/image/rooms/150/150/'.$list->first_item->filename
+                    "file_url" => env('APP_URL').'/image/presentations/'.$list->first_item->filename,
+                    "thumbnail_url" => env('APP_URL').'/image/presentations/150/150/'.$list->first_item->filename
                 );
 
                 if($list->first_item->editedItem) { 
                     $objFile = array(
                         "filename" => $list->first_item->editedItem->filename,
                         "mimetype" => $list->first_item->editedItem->mimetype,
-                        "file_url" => env('APP_URL').'/image/editedrooms/'.$list->first_item->editedItem->filename,
-                        "thumbnail_url" => env('APP_URL').'/image/editedrooms/150/150/'.$list->first_item->editedItem->filename
+                        "file_url" => env('APP_URL').'/image/editedpresentations/'.$list->first_item->editedItem->filename,
+                        "thumbnail_url" => env('APP_URL').'/image/editedpresentations/150/150/'.$list->first_item->editedItem->filename
                     );
                 }
 
@@ -94,24 +94,24 @@ class ListingController extends Controller
 
             foreach ($list->items->sortByDesc('id')->take(4) as $key => $item) {
                 $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-                $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
+                $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/presentations/150/150/'.$item->filename : null;
 
                 $objFile = array(
                     "filename" => $item->filename,
                     "mimetype" => $item->mimetype,
-                    "file_url" => env('APP_URL').'/'.$folderUrl.'/rooms/'.$item->filename,
+                    "file_url" => env('APP_URL').'/'.$folderUrl.'/presentations/'.$item->filename,
                     "thumbnail_url" => $thumb
                 );
 
                 if($item->editedItem) { 
                     $folderUrl = strpos($item->editedItem->mimetype, 'image') !== false ? 'image' : 'video';
                     $thumb = strpos($item->editedItem->mimetype, 'image') !== false ?
-                                 env('APP_URL').'/image/editedrooms/150/150/'.$item->editedItem->filename : null;
+                                 env('APP_URL').'/image/editedpresentations/150/150/'.$item->editedItem->filename : null;
 
                     $objFile = array(
                         "filename" => $item->editedItem->filename,
                         "mimetype" => $item->editedItem->mimetype,
-                        "file_url" => env('APP_URL').'/'.$folderUrl.'/editedrooms/'.$item->editedItem->filename,
+                        "file_url" => env('APP_URL').'/'.$folderUrl.'/editedpresentations/'.$item->editedItem->filename,
                         "thumbnail_url" => $thumb
                     );
                 }
@@ -176,8 +176,7 @@ class ListingController extends Controller
         $validator = Validator::make($request->all(), [ 
             'name' => 'required',
             'address' => 'required',
-            'state' => 'required',
-            'num_of_presentations' => 'required|min:1|max:10|integer'
+            'state' => 'required', 
         ]);
 
         if ($validator->fails()) {  
@@ -231,8 +230,7 @@ class ListingController extends Controller
             "name" => $listing->name,
             "description" => $listing->description,
             "address" => $listing->address,
-            "state" => $listing->state,
-            "num_of_rooms" => $listing->num_of_rooms,
+            "state" => $listing->state, 
             "hash" => $listing->hash,
             "slug" => $listing->slug,
             "created_at" => $listing->created_at,
@@ -264,7 +262,7 @@ class ListingController extends Controller
 
         foreach ($listing->items as $key => $item) {
             $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
-            $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/rooms/150/150/'.$item->filename : null;
+            $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/presentations/150/150/'.$item->filename : null;
 
             $objFile = array(
                 "filename" => $item->filename,
@@ -276,12 +274,12 @@ class ListingController extends Controller
             if($item->editedItem) { 
                 $folderUrl = strpos($item->editedItem->mimetype, 'image') !== false ? 'image' : 'video';
                 $thumb = strpos($item->editedItem->mimetype, 'image') !== false ?
-                             env('APP_URL').'/image/editedrooms/150/150/'.$item->editedItem->filename : null;
+                             env('APP_URL').'/image/editedpresentations/150/150/'.$item->editedItem->filename : null;
 
                 $objFile = array(
                     "filename" => $item->editedItem->filename,
                     "mimetype" => $item->editedItem->mimetype,
-                    "file_url" => env('APP_URL').'/'.$folderUrl.'/editedrooms/'.$item->editedItem->filename,
+                    "file_url" => env('APP_URL').'/'.$folderUrl.'/editedpresentations/'.$item->editedItem->filename,
                     "thumbnail_url" => $thumb
                 );
             }
@@ -317,8 +315,7 @@ class ListingController extends Controller
             "name" => $listing->name,
             "description" => $listing->description,
             "address" => $listing->address,
-            "state" => $listing->state,
-            "num_of_presentations" => $listing->num_of_rooms,
+            "state" => $listing->state, 
             "hash" => $listing->hash,
             "slug" => $listing->slug,
             "created_at" => $listing->created_at,

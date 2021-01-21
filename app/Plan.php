@@ -19,9 +19,7 @@ class Plan extends Model
         }
 
         return $query;
-    }
-
-    
+    } 
 
     public function getRouteKeyName()
     {

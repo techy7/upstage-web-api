@@ -23,7 +23,7 @@ class Listing extends Model
 
     public function rawItems() 
     {
-        return $this->hasMany(\App\Item::class)->where('status', 'raw');
+        return $this->hasMany(\App\Item::class)->where('status', 'pending'); // used to be raw
     }
 
     public function first_item() 
@@ -36,7 +36,7 @@ class Listing extends Model
 
     public function items() 
     {
-        return $this->hasMany(\App\Item::class)->where('status', 'raw');
+        return $this->hasMany(\App\Item::class, 'listing_id', 'id');
     }
 
     public function scopeOfKeywords($query, $strKeywords)

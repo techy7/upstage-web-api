@@ -25,5 +25,10 @@ require('./components/items/show');
 require('./components/items/form'); 
 require('./components/items/delete'); 
 
+require('./components/templates/list'); 
+require('./components/templates/show'); 
+require('./components/templates/form'); 
+require('./components/templates/delete'); 
+
 require('./components/notifications'); 
 

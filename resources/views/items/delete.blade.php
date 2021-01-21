@@ -4,7 +4,7 @@
 <items-delete 
     :objitem="{{$item}}"
     listing_hash="{{$listing->hash}}"
-    redirect_url="{{url('/listings/'.$listing->hash)}}"
+    redirect_url="{{url('/projects/'.$listing->hash)}}"
     inline-template
 >
 
@@ -18,7 +18,7 @@
                 </h3>
             </div>
             <div>
-                <a href="{{url('/listings/'.$listing->hash)}}" 
+                <a href="{{url('/projects/'.$listing->hash)}}" 
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
                     <span> 

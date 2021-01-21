@@ -191,9 +191,9 @@
                         </div> 
                     </div>
                     <div class="m-portlet__body">
-                        @if($listing->rawItems->count()) 
+                        @if($listing->items->count()) 
                             <div class="m-widget4" >
-                            @foreach($listing->rawItems as $raw)
+                            @foreach($listing->items as $raw)
                                 <div class="m-widget4__item"> 
                                     <div class="m-widget4__img m-widget4__img">
                                         @if($raw->editedItem) 
@@ -201,7 +201,7 @@
                                                 <div class="editor-upload-box" 
                                                     @click="openEditorModal('{{url('/image/presentations/100/100/'.$raw->filename)}}', 'img', '{{$raw->hash}}')"
                                                 >
-                                                    <img src="{{url('/image/editedrooms/100/100/'.$raw->editedItem->filename)}}" class="w-50" alt="...">
+                                                    <img src="{{url('/image/editedpresentations/100/100/'.$raw->editedItem->filename)}}" class="w-50" alt="...">
                                                     <i class="upicon la la-upload"></i>
                                                 </div>
                                             @else
@@ -237,6 +237,42 @@
                                             {{$raw->mimetype}}
                                         </span>
                                     </div> 
+
+                                    <span class="m-widget4__info">
+                                        <span class="d-inline-block w-150 text-center"> 
+                                            <span class="m-widget4__title">
+                                                {{$raw->layers_count}}
+                                            </span>
+                                            <br class="">
+                                            <span class="m-widget4__sub ">
+                                                Media Assets 
+                                            </span>
+                                        </span> 
+                                    </span>
+
+                                    <span class="m-widget4__info">
+                                        <span class="d-inline-block w-150 text-center"> 
+                                            <span class="m-widget4__title">
+                                                {{$raw->template->name ?? 'N/A'}}
+                                            </span>
+                                            <br class="">
+                                            <span class="m-widget4__sub ">
+                                                Template 
+                                            </span>
+                                        </span> 
+                                    </span>
+
+                                    <span class="m-widget4__info">
+                                        <span class="d-inline-block w-150 text-center"> 
+                                            <span class="m-widget4__title">
+                                                {{$raw->status}}
+                                            </span>
+                                            <br class="">
+                                            <span class="m-widget4__sub ">
+                                                Status 
+                                            </span>
+                                        </span> 
+                                    </span>
 
                                     <span class="m-widget4__ext w-150 d-inline-block text-right">
                                         @if(strpos($raw->mimetype, 'image') !== false)
@@ -291,7 +327,7 @@
                                 @change='addEditorImage($event, "img_upload_editor", "file")' 
                                 v-if="uploadReady" ref="fileupload"
                                 id='img_upload_editor'
-                                class="float-left mt-2 w-200" 
+                                class="float-left mt-2 w-200 ovh" 
                                 accept="image/*, video/*"
                             > 
                         </div>

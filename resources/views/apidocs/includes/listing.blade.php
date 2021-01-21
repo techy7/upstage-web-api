@@ -1,9 +1,12 @@
 <div class="card-header">
-  <h4 class="m-0">Projects API</h4>
+  <h4 class="m-0 clearfix">
+    Projects API
+  </h4>
 </div>
 
 
 <div class="card-body">
+    <p><i class="fa fa-exclamation-triangle text-danger"></i> Note: this is the old <strong class="text-danger">Listing</strong> module</p>
     <div class="accordion" id="accordionListing">
       <div class="card">
         <div class="card-header px-2 py-1" id="headingListing">
@@ -202,14 +205,7 @@
                     <td>String</td>
                     <td></td>
                     <td>New York</td>
-                  </tr>
-                  <tr> 
-                    <td>num_of_presentations</td>
-                    <td>required</td>
-                    <td>Number of presentations between <strong>1</strong> to <strong>10</strong></td>
-                    <td></td>
-                    <td>5</td>
-                  </tr>
+                  </tr> 
                 </tbody>
               </table>
             </div>
@@ -221,8 +217,7 @@
     "name": "Beach House",
     "description": "Big house near the beach",
     "address": "Brooklyn 99",
-    "state": "New York",
-    "num_of_presentations": 9,
+    "state": "New York", 
     "hash": "xy08g71j",
     "slug": "beach-house-xy08g71j",
     "created_at": "2020-08-20T14:23:54.000000Z",
@@ -288,10 +283,7 @@
               <p class="mb-1">Endpoint for retrieving project details where <strong class="text-primary">{project_hash}</strong> is the HASH of the project that you want to view.</p>
               <p>This also includes <strong class="text-primary">presentations/gallery</strong> of the projects. Refer to Presentations section of this doc for more item/gallery info</p>
 
-              <ul>
-                <li>
-                  <strong>num_of_presentations</strong> is the limit of presentations to be added.
-                </li>
+              <ul> 
                 <li>
                   <strong>presentations_count</strong> is the current number of uploaded presentations
                 </li>
@@ -315,8 +307,7 @@
     "name": "Beach House",
     "description": "Big house near the beach",
     "address": "Brooklyn 99",
-    "state": "New York",
-    "num_of_presentations": 9,
+    "state": "New York", 
     "hash": "xy08g71j",
     "slug": "beach-house-xy08g71j",
     "created_at": "2020-08-20T14:23:54.000000Z",

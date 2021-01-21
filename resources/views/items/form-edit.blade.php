@@ -30,7 +30,7 @@
                     <div class="col-md-12 mb-3">
                         <label class='clearfix d-block'>
                             <small class='float-right'>* required</small>
-                            Label
+                            Name
                         </label>
                         <input type='text' 
                             v-model='item.label' 
@@ -59,6 +59,24 @@
                             v-for='err in errors.description'
                         >@{{err}}</small>
                     </div> 
+
+                    @if($item->template)
+                    <div class="col-md-12 mb-3">
+                        <label class='clearfix d-block'>
+                            <small> 
+                                <a class='float-right' href="{{url('/templates/'.$item->template->hash)}}" target="_new">
+                                    view template
+                                </a>
+                            </small>
+                            Template
+                        </label>
+                        <input type='text' 
+                            value="{{$item->template->name}}" 
+                            class='form-control' 
+                            disabled 
+                        > 
+                    </div>
+                    @endif
 
                     <div class="col-md-12 mb-3">
                         <label class='clearfix d-block'>
@@ -109,18 +127,37 @@
                             <div class="col-md-12"> 
                                 @if(strpos($item->mimetype, 'image') !== false)
                                     <label class='clearfix d-block'> 
-                                        Image File
+                                        Original Image File
+                                        @if($item->layers->count())
+                                            <small class="float-right text-primary">
+                                                Added media assets below
+                                            </small>
+                                        @else
+                                            <small class="float-right text-muted">
+                                                No media assets
+                                            </small>
+                                        @endif
                                     </label>
-                                    <img src="{{url('/image/items/'.$item->filename)}}" class="w-100" />
+                                    <img src="{{url('/image/presentations/'.$item->filename)}}" class="w-100" />
                                 @endif
 
                                 @if(strpos($item->mimetype, 'video') !== false)
                                     <label class='clearfix d-block'> 
-                                        Video File
+                                        Original Video File
+
+                                        @if($item->layers->count())
+                                            <small class="float-right text-primary">
+                                                Added media assets below
+                                            </small>
+                                        @else
+                                            <small class="float-right text-muted">
+                                                No media assets
+                                            </small>
+                                        @endif
                                     </label>
                                     <video controls width="250" class="w-100">
 
-                                        <source src="{{url('/video/items/'.$item->filename.'/watch')}}"
+                                        <source src="{{url('/video/presentations/'.$item->filename.'/watch')}}"
                                                 type="{{$item->mimetype}}"> 
 
                                         Sorry, your browser doesn't support embedded videos.
@@ -128,6 +165,46 @@
                                 @endif
                             </div>   
                                   
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </div> 
+
+        <div class="m-portlet"> 
+            <div class="m-portlet__body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12"> 
+                                <label class='clearfix d-block'> 
+                                    <strong>Media Assets</strong>
+                                </label>
+
+                                @if($item->layers->count())
+                                <div class="row">  
+                                    @foreach($item->layers as $asset)
+                                        <div class="col-md-3">
+                                            @if(strpos($asset->mimetype, 'image') !== false) 
+                                                <img src="{{url('/image/media_assets/'.$asset->filename)}}" class="w-100" />
+                                            @endif
+
+                                            @if(strpos($asset->mimetype, 'video') !== false) 
+                                                <video controls width="250" class="w-100">
+
+                                                    <source src="{{url('/video/media_assets/'.$asset->filename.'/watch')}}"
+                                                            type="{{$asset->mimetype}}"> 
+
+                                                    Sorry, your browser doesn't support embedded videos.
+                                                </video>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                                @else
+                                    <p>No added media assets</p>
+                                @endif
+                            </div>   
                         </div> 
                     </div> 
                 </div>

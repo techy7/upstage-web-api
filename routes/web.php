@@ -69,6 +69,12 @@ Route::prefix('/')->middleware(['auth', 'isNotUser'])->group(function () {
 	Route::get('notifications/unread', 'NotificationController@unreadnotifications');
 	Route::get('notifications/all', 'NotificationController@allnotifications');
 	Route::get('notifications/index', 'NotificationController@indexnotifications');
+
+	Route::get('templates', 'TemplateController@index'); 
+	Route::get('templates/new', 'TemplateController@create'); 
+	Route::get('templates/{template}', 'TemplateController@show'); 
+	Route::get('templates/{template}/edit', 'TemplateController@edit'); 
+	Route::get('templates/{template}/delete', 'TemplateController@delete'); 
 });
 
 // psuedo API for admin purposes so web auth session can be used
@@ -105,4 +111,11 @@ Route::prefix('/admin_api')->middleware(['auth', 'isNotUser'])->group(function (
 	Route::post('listings/{listing}/items/{item}', 'ItemController@api_update'); 
 	Route::delete('listings/{listing}/items/{item}', 'ItemController@api_destroy'); 
 	Route::post('listings/{listing}/items/{item}/edited', 'ItemController@api_store_edited'); 
+
+	Route::get('templates', 'TemplateController@api_index'); 
+	Route::get('templates/all', 'TemplateController@all'); 
+	Route::post('templates', 'TemplateController@api_store'); 
+	Route::get('templates/{template}', 'TemplateController@api_show'); 
+	Route::put('templates/{template}', 'TemplateController@api_update'); 
+	Route::delete('templates/{template}', 'TemplateController@api_destroy'); 
 });

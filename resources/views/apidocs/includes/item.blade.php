@@ -4,6 +4,7 @@
 
 
 <div class="card-body">
+  <p><i class="fa fa-exclamation-triangle text-danger"></i> Note: this is the old <strong class="text-danger">Item</strong> then changed again to <strong class="text-danger">Room</strong> module</p>
     <div class="accordion" id="accordionListingItem">
       <div class="card">
         <div class="card-header px-2 py-1" id="headingItemAll">
@@ -98,7 +99,7 @@
         "instruction": "this is just a basic instruction",
         "hash": "6qlw4xmy",
         "slug": "move-6qlw4xmy",
-        "layers_count" => 3,
+        "media_assets_count" => 3,
         "created_at": "2020-08-21T15:21:40.000000Z",
         "updated_at": "2020-08-21T15:21:40.000000Z",
         "file": {
@@ -121,7 +122,7 @@
           "status": "raw",
           "hash": "9do1kxm5",
           "slug": "item-2-9do1kxm5",
-          "layers_count" => 3,
+          "media_assets_count" => 3,
           "created_at": "2020-08-21T15:03:50.000000Z",
           "updated_at": "2020-08-21T15:03:50.000000Z",
           "file": {

@@ -1,9 +1,13 @@
 <div class="card-header">
-  <h4 class="m-0">Virtual Staging Media Assets</h4>
+  <h4 class="m-0">Media Assets</h4>
 </div>
 
 
 <div class="card-body">
+
+    <p>
+      <i class="fa fa-exclamation-triangle text-danger"></i>
+      Note: This is used to be the <strong class="text-danger">Layers</strong> which is available only for <strong class="text-danger">Virtual Staging</strong> type. But now it applies to all types - photo, video, virtual_staging</p>
     <div class="accordion" id="accordionLayerAPIs">
       <div class="card">
         <div class="card-header px-2 py-1" id="headingLayerIndex">

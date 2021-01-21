@@ -52,6 +52,20 @@
 					</span>
 				</a>
 			</li>
+			<li class="m-menu__item @if(Request::is('templates', 'templates/*')) m-menu__item--active @endif" 
+				aria-haspopup="true" 
+			>
+				<a  href="{{url('/templates')}}" class="m-menu__link ">
+					<i class="m-menu__link-icon flaticon-interface-8"></i>
+					<span class="m-menu__link-title">
+						<span class="m-menu__link-wrap">
+							<span class="m-menu__link-text">
+								Templates
+							</span> 
+						</span>
+					</span>
+				</a>
+			</li> 
 			<li class="m-menu__item @if(Request::is('plans', 'plans/*')) m-menu__item--active @endif" 
 				aria-haspopup="true" 
 			>

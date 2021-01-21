@@ -29,6 +29,7 @@
 		<link rel="shortcut icon" href="{{ asset('img/icon.png') }}" />
 
 		<style>
+			.ovh { overflow: hidden;  }
 			.w-30 { width: 30px !important; }
 			.w-50 { width: 50px !important; }
 			.w-99 { width: 99px !important; }
