@@ -24,6 +24,10 @@
             </div>
 
             <div class="card mb-5">
+                @include('apidocs.includes.registrationv2')
+            </div>
+
+            <div class="card mb-5">
                 @include('apidocs.includes.profile')
             </div>
 

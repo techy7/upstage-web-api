@@ -99,8 +99,7 @@ class ProfileController extends Controller
 
         // validate form inputs 
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required', 
-            'last_name' => 'required', 
+            'name' => 'required',  
             'type' => 'required|in:'."home_owner,agent", 
             'agent_state' => "required_if:type,==,agent",
             'agent_license' => "required_if:type,==,agent"
@@ -117,8 +116,7 @@ class ProfileController extends Controller
 
         // update user 
         $user->update([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'first_name' => $request->name, 
             'contact_num' => $request->contact_num,
             'type' => $request->type, 
             'agent_state' => $request->agent_state, 

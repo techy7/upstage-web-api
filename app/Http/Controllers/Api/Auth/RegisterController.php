@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+use App\ActivationCode;
 use App\User; 
 use App\Notifications\VerifyAccountWithCode;
 use App\Notifications\UserNewSignup;
@@ -35,11 +36,11 @@ class RegisterController extends Controller
                 // })
             ],
             'password' => 'required|string|min:6|confirmed',
-            'first_name' => 'required', 
-            'last_name' => 'required', 
-            'type' => 'required|in:'."home_owner,agent", 
-            'agent_state' => "required_if:type,==,agent",
-            'agent_license' => "required_if:type,==,agent"
+            'name' => 'required', 
+            // 'last_name' => 'required', 
+            // 'type' => 'required|in:'."home_owner,agent", 
+            // 'agent_state' => "required_if:type,==,agent",
+            // 'agent_license' => "required_if:type,==,agent"
         ]);
 
         if ($validator->fails()) {  
@@ -54,8 +55,8 @@ class RegisterController extends Controller
         try {   
             $user = User::create([
                 'email' => $request->email, 
-                'first_name' => $request->first_name,  
-                'last_name' => $request->last_name,  
+                'first_name' => $request->name,  
+                // 'last_name' => $request->last_name,  
                 'contact_num' => $request->contact_num,  
                 'password' => bcrypt($request->password),
                 'plan_id' => 1,
@@ -221,5 +222,166 @@ class RegisterController extends Controller
             'message' => 'Code sent! Check your email and verify your account',
             'status' => 'success'
         ]);
+    }
+
+
+    // VERSION 2
+
+    public function check_email(Request $request) 
+    {  
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255'
+            ]
+        ]);
+
+        if ($validator->fails()) {  
+            return response()->json([
+                'message' => 'Could not check email.',
+                'errors' => $validator->errors(),
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }
+
+        $exist = User::where('email', $request->email)->exists();
+
+        // if email exist, return success
+        if($exist) {
+            return response()->json([
+                'message' => 'Email found', 
+                'status' => 'success',
+                'status_code' => 200
+            ], 200); 
+        } 
+
+        $activation = ActivationCode::create(['email'=>$request->email]); 
+
+        Notification::route('mail', $request->email) 
+                ->notify(new VerifyAccountWithCode(Str::upper($activation->code), $request->email));
+
+        // if not, send activation code and return 404
+        return response()->json([
+            'message' => 'Email not found. Activation code was sent to email', 
+            'status' => 'not_found',
+            'status_code' => 404
+        ], 404);   
+    }
+
+    public function check_code(Request $request) 
+    {   
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255'
+            ],
+            'code' => 'required', 
+        ]);
+
+        if ($validator->fails()) {  
+            return response()->json([
+                'message' => 'Could not code.',
+                'errors' => $validator->errors(),
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }
+
+        $exist = ActivationCode::where(['email' => $request->email, 'code' => $request->code])->exists();
+
+        // if code exist, return success
+        if($exist) {
+            return response()->json([
+                'message' => 'Code found', 
+                'status' => 'success',
+                'status_code' => 200
+            ], 200); 
+        }  
+
+        // if not, return 404
+        return response()->json([
+            'message' => 'Invalid email and code combination', 
+            'status' => 'error',
+            'status_code' => 404
+        ], 404);   
+    }
+
+    public function registerv2(Request $request) 
+    {  
+        // validate form inputs 
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users'
+                // Rule::unique('users')->where(function ($query) use($app) {
+                //     return $query->where('app_id', $app->id);
+                // })
+            ],
+            'password' => 'required|string|min:6|confirmed',
+            'name' => 'required', 
+        ]);
+
+        if ($validator->fails()) {  
+            return response()->json([
+                'message' => 'Could not register.',
+                'errors' => $validator->errors(),
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }
+
+        try {   
+            $user = User::create([
+                'email' => $request->email, 
+                'first_name' => $request->name,
+                'password' => bcrypt($request->password),
+                'plan_id' => 1,
+                'type' => $request->type, 
+                'agent_state' => $request->agent_state, 
+                'agent_license' => $request->agent_license, 
+                'email_verified_at' => now()
+            ]); 
+        } catch (Exception $e) {
+            return Response::json(['message' => 'Something went wrong.'], 422); 
+        }
+
+        // delete activation code
+        ActivationCode::where('email', $user->email)->delete();
+ 
+         
+        // get admin and notify
+        $admins = User::where('role', 'admin')->get();
+        Notification::send($admins, new UserNewSignup($user)); 
+
+        $token = JWTAuth::fromUser($user); 
+
+        return response()->json([
+            "message" => "Account Created!",
+            "status" => "success",
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'profile' => [
+                'hash' => $user->hash,
+                'full_name' => $user->full_name, 
+                'email' => $user->email,
+                'contact_num' => $user->contact_num,
+                'avatar' => $user->avatar,
+                'slug' => $user->slug,
+                'is_verified' => $user->email_verified_at ? true : false,
+                'fb_profile' => null,
+                'type' => $user->type,
+                'agent_state' => $user->agent_state,
+                'agent_license' => $user->agent_license,
+            ]
+        ]); 
     }
 }

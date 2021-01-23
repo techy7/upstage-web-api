@@ -135,19 +135,12 @@
                 </thead>
                 <tbody>
                   <tr> 
-                    <td>first_name</td>
+                    <td>name</td>
                     <td>required</td>
                     <td>String</td>
                     <td></td>
                     <td>John</td>
-                  </tr>
-                  <tr> 
-                    <td>last_name</td>
-                    <td>required</td>
-                    <td>String</td>
-                    <td></td>
-                    <td>Doe</td>
-                  </tr>
+                  </tr> 
                   <tr> 
                     <td>contact_num</td>
                     <td>optional</td>
@@ -178,21 +171,21 @@
                   </tr>
                   <tr> 
                     <td>type</td>
-                    <td>required</td>
+                    <td>optional</td>
                     <td>Choose from <strong>home_owner</strong> or <strong>agent</strong></td>
                     <td></td>
                     <td>home_owner</td>
                   </tr>
                   <tr> 
                     <td>agent_state</td>
-                    <td>required</td>
+                    <td>optional</td>
                     <td>This is <strong>required</strong> only if <strong>type = agent</strong></td>
                     <td></td>
                     <td>Texas</td>
                   </tr>
                   <tr> 
                     <td>agent_license</td>
-                    <td>required</td>
+                    <td>optional</td>
                     <td>This is <strong>required</strong> only if <strong>type = agent</strong></td>
                     <td></td>
                     <td>asdf1234-zxcv-09876</td>

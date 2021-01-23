@@ -24,6 +24,10 @@ Route::post('/password/email', 'Api\Auth\ForgotPasswordController@index');
 Route::post('/password/reset', 'Api\Auth\ResetPasswordController@index'); 
 Route::post('/login/facebook', 'Api\Auth\SocialController@facebook');  
 
+Route::post('/v2/login/check_email', 'Api\Auth\RegisterController@check_email');
+Route::post('/v2/login/check_code', 'Api\Auth\RegisterController@check_code');
+Route::post('/v2/register', 'Api\Auth\RegisterController@registerv2');
+
 Route::middleware(['api'])->group(function () {
 	Route::post('/register/verify', 'Api\Auth\RegisterController@verify'); 
 	Route::post('/register/verify/resend', 'Api\Auth\RegisterController@reverify'); 
