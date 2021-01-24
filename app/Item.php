@@ -25,6 +25,11 @@ class Item extends Model
         return $this->belongsTo(\App\Template::class);
     }
 
+    public function listing() 
+    {
+        return $this->belongsTo(\App\Listing::class);
+    }
+
     public function editedItem() 
     {
         return $this->hasOne(\App\EditedItem::class, 'item_id')->orderBy('id', 'desc');

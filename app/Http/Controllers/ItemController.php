@@ -53,6 +53,18 @@ class ItemController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Plan  $plan
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Listing $listing, Item $item)
+    {
+        $item->load(['editedItem', 'layers', 'template', 'listing']);  
+        return view('items.show', compact('listing', 'item'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Plan  $plan
@@ -173,5 +185,30 @@ class ItemController extends Controller
         ]);
 
         return response()->json($editedItem, 201);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Plan  $plan
+     * @return \Illuminate\Http\Response
+     */
+    public function api_status(Listing $listing, Item $item, Request $request)
+    {
+        if(!in_array($request->status, array('pending', 'processing', 'done'))) {
+            return response()->json([
+                'error'   =>'Invalid status',
+                'status_code' => 401
+            ], 401);
+        }
+
+        $item->update(['status'=>$request->status]);
+        $item->refresh();
+
+        return response()->json([
+            'item' => $item,
+            'status' =>'success',
+            'status_code' => 200
+        ], 200);
     }
 }

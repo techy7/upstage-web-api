@@ -111,6 +111,7 @@ Route::prefix('/admin_api')->middleware(['auth', 'isNotUser'])->group(function (
 	Route::post('listings/{listing}/items/{item}', 'ItemController@api_update'); 
 	Route::delete('listings/{listing}/items/{item}', 'ItemController@api_destroy'); 
 	Route::post('listings/{listing}/items/{item}/edited', 'ItemController@api_store_edited'); 
+	Route::post('listings/{listing}/items/{item}/status', 'ItemController@api_status');
 
 	Route::get('templates', 'TemplateController@api_index'); 
 	Route::get('templates/all', 'TemplateController@all'); 

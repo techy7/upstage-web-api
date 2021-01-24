@@ -284,7 +284,7 @@
                                             <i class="la la-download"></i>
                                         </a>  
                                         @endif
-                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " href="{{url('projects/'.$listing->hash.'/presentations/'.$raw->hash.'/edit')}}"> 
+                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " href="{{url('projects/'.$listing->hash.'/presentations/'.$raw->hash)}}"> 
                                             <i class="la la-pencil-square"></i>
                                         </a>  
                                         <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" href="{{url('projects/'.$listing->hash.'/presentations/'.$raw->hash.'/delete')}}"> 
