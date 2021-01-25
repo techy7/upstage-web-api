@@ -100,9 +100,9 @@ class ProfileController extends Controller
         // validate form inputs 
         $validator = Validator::make($request->all(), [
             'name' => 'required',  
-            'type' => 'required|in:'."home_owner,agent", 
-            'agent_state' => "required_if:type,==,agent",
-            'agent_license' => "required_if:type,==,agent"
+            // 'type' => 'required|in:'."home_owner,agent", 
+            // 'agent_state' => "required_if:type,==,agent",
+            // 'agent_license' => "required_if:type,==,agent"
         ]);
 
         if ($validator->fails()) {  

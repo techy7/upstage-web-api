@@ -36,8 +36,8 @@ class RegisterController extends Controller
                 // })
             ],
             'password' => 'required|string|min:6|confirmed',
-            'name' => 'required', 
-            // 'last_name' => 'required', 
+            'first_name' => 'required', 
+            'last_name' => 'required', 
             // 'type' => 'required|in:'."home_owner,agent", 
             // 'agent_state' => "required_if:type,==,agent",
             // 'agent_license' => "required_if:type,==,agent"
@@ -56,7 +56,7 @@ class RegisterController extends Controller
             $user = User::create([
                 'email' => $request->email, 
                 'first_name' => $request->name,  
-                // 'last_name' => $request->last_name,  
+                'last_name' => $request->last_name,  
                 'contact_num' => $request->contact_num,  
                 'password' => bcrypt($request->password),
                 'plan_id' => 1,
@@ -327,7 +327,8 @@ class RegisterController extends Controller
                 // })
             ],
             'password' => 'required|string|min:6|confirmed',
-            'name' => 'required', 
+            'first_name' => 'required', 
+            'last_name' => 'required', 
         ]);
 
         if ($validator->fails()) {  
@@ -342,7 +343,7 @@ class RegisterController extends Controller
         try {   
             $user = User::create([
                 'email' => $request->email, 
-                'first_name' => $request->name,
+                'first_name' => $request->first_name,
                 'password' => bcrypt($request->password),
                 'plan_id' => 1,
                 'type' => $request->type, 
