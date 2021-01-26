@@ -74,6 +74,9 @@ class LoginController extends Controller
                 'slug' => $user->slug,
                 'is_verified' => $user->email_verified_at ? true : false,
                 'fb_profile' => $fb_profile,
+                'type' => $user->type,
+                'agent_state' => $user->agent_state,
+                'agent_license' => $user->agent_license,
             ]
         ]);
     }
