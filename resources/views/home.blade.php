@@ -64,7 +64,7 @@
                               <div class="m-widget24">
                                  <div class="m-widget24__item">
                                     <h4 class="m-widget24__title">
-                                       New Listings
+                                       New Projects
                                     </h4>
                                     <br>
                                     <span class="m-widget24__desc">
@@ -164,15 +164,15 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    New Listings
+                                    New Projects
                                 </h3>
                             </div>
                         </div>
                         <div class="m-portlet__head-tools">
                             <ul class="nav nav-pills nav-pills--danger m-nav-pills--align-right m-nav-pills--btn-pill m-nav-pills--btn-sm" role="tablist">
                                 <li class="nav-item m-tabs__item">
-                                    <a class="nav-link m-tabs__link active" href="{{url('listings')}}" >
-                                    View All Listings
+                                    <a class="nav-link m-tabs__link active" href="{{url('projects')}}" >
+                                    View All Projects
                                     </a>
                                 </li> 
                             </ul>
@@ -194,14 +194,14 @@
                                             </span>
                                         </div>
                                         <div class="m-widget4__ext">
-                                            <a href="{{url('/listings/'.$list->hash)}}" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary">
+                                            <a href="{{url('/projects/'.$list->hash)}}" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary">
                                             View
                                             </a>
                                         </div>
                                     </div>
                                 @endforeach
                             @else
-                                <div class="p-5 text-center">No new listings</div>
+                                <div class="p-5 text-center">No new projects</div>
                             @endif
                             <!--end::Widget 14 Item--> 
                         </div>

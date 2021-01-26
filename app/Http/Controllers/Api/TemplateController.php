@@ -30,12 +30,12 @@ class TemplateController extends Controller
 
         $templates->transform(function ($template) {
             $folderUrl = strpos($template->mimetype, 'image') !== false ? 'image' : 'video';
-            $thumb = strpos($template->mimetype, 'image') !== false ? env('APP_URL').'/image/presentations/150/150/'.$template->filename : null;
+            $thumb = strpos($template->mimetype, 'image') !== false ? env('APP_URL').'/image/templates/150/150/'.$template->filename : null;
 
             $objFile = array(
                 "filename" => $template->filename,
                 "mimetype" => $template->mimetype,
-                "file_url" => env('APP_URL').'/'.$folderUrl.'/presentations/'.$template->filename,
+                "file_url" => env('APP_URL').'/'.$folderUrl.'/templates/'.$template->filename,
                 "thumbnail_url" => $thumb
             );
 
@@ -64,15 +64,24 @@ class TemplateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Template $template)
+    public function show($template)
     { 
+        $template = Template::find($template);
+
+        if(!$template) {
+            return response()->json([
+                'error'   =>'Not Found',
+                'status_code' => 404
+            ], 404);
+        }
+
         $folderUrl = strpos($template->mimetype, 'image') !== false ? 'image' : 'video';
-        $thumb = strpos($template->mimetype, 'image') !== false ? env('APP_URL').'/image/presentations/150/150/'.$template->filename : null;
+        $thumb = strpos($template->mimetype, 'image') !== false ? env('APP_URL').'/image/templates/150/150/'.$template->filename : null;
 
         $objFile = array(
             "filename" => $template->filename,
             "mimetype" => $template->mimetype,
-            "file_url" => env('APP_URL').'/'.$folderUrl.'/presentations/'.$template->filename,
+            "file_url" => env('APP_URL').'/'.$folderUrl.'/templates/'.$template->filename,
             "thumbnail_url" => $thumb
         );
         
