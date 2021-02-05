@@ -133,6 +133,27 @@
                     <td>+639235410000 or 02-1111-2222</td>
                   </tr>
                   <tr> 
+                    <td>type</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>home_owner | agent</td>
+                  </tr> 
+                  <tr> 
+                    <td>agent_state</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>Texas</td>
+                  </tr> 
+                  <tr> 
+                    <td>agent_license</td>
+                    <td>required</td>
+                    <td>String</td>
+                    <td></td>
+                    <td>absc123</td>
+                  </tr> 
+                  <tr> 
                     <td>avatar</td>
                     <td>optional</td>
                     <td>File Image</td>
