@@ -174,18 +174,21 @@ class ItemController extends Controller
         } 
         
         // all types can have layers/media_assets
-        foreach ($request->file('media_assets') as $layer) { 
-            $layerFilename = Str::slug($layer->getClientOriginalName(), '-') . '.' .$layer->extension(); 
-            $layerStamp = $item->hash . time() . '_file_' . $layerFilename; 
-            $layer->storeAs('media_assets', $layerStamp); 
-            $objLayer = Layer::create([
-                'filename'=>$layerStamp,
-                'mimetype'=>$layer->getMimeType(),
-                'listing_id' => $listing->id,
-                'user_id' => $listing->user_id,
-                'item_id' => $item->id
-            ]); 
-        } 
+        if($request->file('media_assets'))
+        {
+            foreach ($request->file('media_assets') as $layer) { 
+                $layerFilename = Str::slug($layer->getClientOriginalName(), '-') . '.' .$layer->extension(); 
+                $layerStamp = $item->hash . time() . '_file_' . $layerFilename; 
+                $layer->storeAs('media_assets', $layerStamp); 
+                $objLayer = Layer::create([
+                    'filename'=>$layerStamp,
+                    'mimetype'=>$layer->getMimeType(),
+                    'listing_id' => $listing->id,
+                    'user_id' => $listing->user_id,
+                    'item_id' => $item->id
+                ]); 
+            } 
+        }
 
         $item->load(['layers']);
         $itemLayers = [];
