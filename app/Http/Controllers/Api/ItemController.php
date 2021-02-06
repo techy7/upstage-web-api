@@ -11,6 +11,8 @@ use App\Http\Requests\ListingRequest;
 use App\Listing;
 use App\Item;
 use App\Layer;
+use App\Template;
+use App\Chat;
 use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
@@ -107,7 +109,7 @@ class ItemController extends Controller
             'name' => 'required',
             'type' => 'required|in:'."photo,video,virtual_staging",
             'file' => 'required|file',
-            'template_id' => 'required'
+            'template_id' => 'required|int'
         ]);
 
         if ($validator->fails()) {  
@@ -134,21 +136,22 @@ class ItemController extends Controller
             }
         } 
 
-        $listing->loadCount(['items']);
+        $listing->loadCount(['items']); 
 
-        // removed number of presentations/rooms
-        // if($listing->items_count >= $listing->num_of_rooms) {
-        //     return response()->json([
-        //         'message' => 'Reached maximum number of presentations for this project.',
-        //         'errors' => array(
-        //             'num_of_presentations'=>[ "Reached maximum number of presentations for this project" ]
-        //         ),
-        //         'status' => 'error',
-        //         'status_code' => 422,
-        //         'num_of_presentations' => $listing->num_of_rooms,
-        //         'presentations_count' => $listing->items_count
-        //     ], 422); 
-        // }
+        // check if template ID exists
+        $template = Template::find($request->template_id);
+
+        if(!$template) {
+            return response()->json([
+                'message' => 'Could not add new room.',
+                'errors' => array(
+                    'template_id'=>[ "Invalid template ID" ]
+                ),
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }
+
 
         $item = Item::create([
             'label' => $request->name,
@@ -190,6 +193,7 @@ class ItemController extends Controller
             } 
         }
 
+        // load media assets
         $item->load(['layers']);
         $itemLayers = [];
 
@@ -201,6 +205,13 @@ class ItemController extends Controller
                 'file_url' => env('APP_URL').'/image/media_assets/150/150/'.$objLayer->filename
             ));
         }
+
+        // create chat
+        $chat = Chat::create([
+            'item_id' => $item->id,
+            'user_id' => $listing->user_id,
+            'user_status' => 'seen'
+        ]);
 
         $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
         $thumb = strpos($item->mimetype, 'image') !== false ? env('APP_URL').'/image/presentations/150/150/'.$item->filename : null;
@@ -221,7 +232,8 @@ class ItemController extends Controller
                 "file_url" => env('APP_URL').'/'.$folderUrl.'/presentations/'.$item->filename,
                 "thumbnail_url" => $thumb
             ),
-            'media_assets' => $itemLayers
+            'media_assets' => $itemLayers,
+            'chat' => $chat->only(['hash', 'user_status'])
         ), 201);
     }
 

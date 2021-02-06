@@ -27,7 +27,7 @@
                     </span>
                 </a> 
 
-                <a :href="'/presentations/'+item.listing.hash+'/edit'"
+                <a :href="'/projects/'+item.listing.hash+'/presentations/'+item.hash+'/edit'"
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
                     <span> 
@@ -37,7 +37,7 @@
                         </span> 
                     </span>
                 </a> 
-                <a :href="'/presentations/'+item.hash+'/delete'" 
+                <a :href="'/projects/'+item.listing.hash+'/presentations/'+item.hash+'/delete'" 
                     class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2"
                 >
                     <span> 
@@ -139,6 +139,7 @@
                                         <span class="m-widget1__desc">
                                             Template: 
                                         </span> 
+                                        @if($item->template)
                                         <h3 class="m-widget1__title" v-if="item.template">
                                             @{{item.template.name}}
                                             <small class="text-muted font-size-12">
@@ -147,6 +148,7 @@
                                                 </a>
                                             </small>
                                         </h3> 
+                                        @endif
                                     </div> 
                                 </div>
                             </div>

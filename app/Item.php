@@ -35,6 +35,11 @@ class Item extends Model
         return $this->hasOne(\App\EditedItem::class, 'item_id')->orderBy('id', 'desc');
     }
 
+    public function chat() 
+    {
+        return $this->hasOne(\App\Chat::class)->orderBy('updated', 'desc');
+    }
+
     public function layers() 
     {
         return $this->hasMany(\App\Layer::class);

@@ -58,4 +58,9 @@ Route::middleware(['api'])->group(function () {
 
 	Route::get('templates', 'Api\TemplateController@index');
 	Route::get('templates/{template}', 'Api\TemplateController@show');
+
+	Route::get('chats', 'Api\ChatController@index');
+	Route::get('chats/{chat}', 'Api\ChatController@show');
+	Route::get('chats/{chat}/messages', 'Api\ChatController@message_index');
+	Route::post('chats/{chat}/messages', 'Api\ChatController@message_store');
 });

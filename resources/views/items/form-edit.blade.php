@@ -12,7 +12,7 @@
                             <input type='text' 
                                 class='form-control' 
                                 disabled 
-                                value="{{$listing->user->name}} ({{$listing->user->email}})"
+                                value="{{$listing->user->full_name}} ({{$listing->user->email}})"
                             >
                         </div>
                         <div class="mb-3">
