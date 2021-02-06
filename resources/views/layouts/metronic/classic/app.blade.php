@@ -38,6 +38,8 @@
 			.w-101 { width: 100px !important; }
 			.h-0 { height: 0px !important; }
 			.p-30 { padding: 30px !important; }
+			.px-10 { padding-left: 10px !important; padding-right: 10px !important; }
+			.px-20 { padding-left: 20px !important; padding-right: 20px !important; }
 			.px-30 { padding-left: 30px !important; padding-right: 30px !important; }
 			.py-30 { padding-top: 30px !important; padding-bottom: 30px !important; }
 			[v-cloak] { display: none !important; }
@@ -55,6 +57,29 @@
 			.editor-upload-box:hover img { opacity: 0.5 }
 			.editor-uploadform {position: relative; padding-left: 60px; }
 			.editor-uploadform-preview { position: absolute; top: 5px; left: 0px; }
+
+			.mr-40 { margin-right: 40px; }
+			.ml-40 { margin-left: 40px; }
+
+			/* chat */
+			#chatWrap {
+
+			}
+			#chatBox {
+
+			}
+			#chatList {
+				max-height: 500px;
+				overflow-y: auto;
+				margin-bottom: 20px;
+			}
+			#chatItem {
+
+			}
+
+			#chatForm textarea {
+				margin-bottom: 10px;
+			}
 
 			/*.responsive visibility */
 			@media (max-width: 1600px) {

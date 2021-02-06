@@ -37,7 +37,7 @@ class Item extends Model
 
     public function chat() 
     {
-        return $this->hasOne(\App\Chat::class)->orderBy('updated', 'desc');
+        return $this->hasOne(\App\Chat::class)->orderBy('updated_at', 'desc');
     }
 
     public function layers() 

@@ -176,6 +176,7 @@
                                     </span>
                                 </h2>
                                 <div class="m-portlet--creative-buttons">
+                                    {{--
                                     <a :href="'/projects/'+listing.hash+'/presentations/new'"
                                         class="btn m-btn--pill btn-secondary btn--icon m-btn--pill py-2 pr-2 m-btn--air"
                                     >
@@ -186,6 +187,7 @@
                                             </span> 
                                         </span>
                                     </a> 
+                                    --}}
                                 </div> 
                             </div>
                         </div> 
@@ -234,12 +236,14 @@
                                         </span>
                                         <br class="">
                                         <span class="m-widget4__sub ">
-                                            {{$raw->mimetype}}
+                                           <span> {{$raw->type}}</span>
+                                           <span class="mx-10">&bull;</span>
+                                           <span> {{$raw->status}}</span>
                                         </span>
                                     </div> 
 
                                     <span class="m-widget4__info">
-                                        <span class="d-inline-block w-150 text-center"> 
+                                        <span class="d-inline-block w-99 text-center"> 
                                             <span class="m-widget4__title">
                                                 {{$raw->layers_count}}
                                             </span>
@@ -251,28 +255,28 @@
                                     </span>
 
                                     <span class="m-widget4__info">
-                                        <span class="d-inline-block w-150 text-center"> 
+                                        <span class="d-inline-block w-99 text-center"> 
                                             <span class="m-widget4__title">
-                                                {{$raw->template->name ?? 'N/A'}}
+                                                {{$raw->chat->messages_count ?? 0}}
+                                            </span>
+                                            <br class="">
+                                            <span class="m-widget4__sub ">
+                                                Chat 
+                                            </span>
+                                        </span> 
+                                    </span>
+
+                                    <span class="m-widget4__info">
+                                        <span class="d-inline-block w-150 text-center text-truncate"> 
+                                            <span class="m-widget4__title">
+                                                {{$raw->template->name ?? 'N/A'}} asdsadadasda asdasd asdsad
                                             </span>
                                             <br class="">
                                             <span class="m-widget4__sub ">
                                                 Template 
                                             </span>
                                         </span> 
-                                    </span>
-
-                                    <span class="m-widget4__info">
-                                        <span class="d-inline-block w-150 text-center"> 
-                                            <span class="m-widget4__title">
-                                                {{$raw->status}}
-                                            </span>
-                                            <br class="">
-                                            <span class="m-widget4__sub ">
-                                                Status 
-                                            </span>
-                                        </span> 
-                                    </span>
+                                    </span> 
 
                                     <span class="m-widget4__ext w-150 d-inline-block text-right">
                                         @if(strpos($raw->mimetype, 'image') !== false)
@@ -285,7 +289,7 @@
                                         </a>  
                                         @endif
                                         <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " href="{{url('projects/'.$listing->hash.'/presentations/'.$raw->hash)}}"> 
-                                            <i class="la la-pencil-square"></i>
+                                            <i class="la la-external-link-square"></i>
                                         </a>  
                                         <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" href="{{url('projects/'.$listing->hash.'/presentations/'.$raw->hash.'/delete')}}"> 
                                             <i class="la la-trash"></i>

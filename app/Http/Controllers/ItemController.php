@@ -60,7 +60,8 @@ class ItemController extends Controller
      */
     public function show(Listing $listing, Item $item)
     {
-        $item->load(['editedItem', 'layers', 'template', 'listing']);  
+        $item->load(['editedItem', 'layers', 'template', 'listing', 'chat.messages_asc', 'user']);
+
         return view('items.show', compact('listing', 'item'));
     }
 

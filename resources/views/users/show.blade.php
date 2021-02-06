@@ -230,13 +230,13 @@
                                     </div> 
 
                                     <span class="m-widget4__ext w-150 d-inline-block text-right">
-                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="Download " href="{{url('/listings/'.$list->hash)}}" target="_blank"> 
+                                        <a class="m-portlet__nav-link m--font-success btn m-btn m-btn--hover-focus m-btn--icon m-btn--icon-only m-btn--pill" title="Download " href="{{url('/projects/'.$list->hash)}}" target="_blank"> 
                                             <i class="la la-external-link-square"></i>
                                         </a>   
-                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " href="{{url('/listings/'.$list->hash.'/edit')}}"> 
+                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill" title="Edit " href="{{url('/projects/'.$list->hash.'/edit')}}"> 
                                             <i class="la la-pencil-square"></i>
                                         </a>  
-                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" href="{{url('listings/'.$list->hash.'/delete')}}"> 
+                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" href="{{url('projects/'.$list->hash.'/delete')}}"> 
                                             <i class="la la-trash"></i>
                                         </a>   
                                     </span>

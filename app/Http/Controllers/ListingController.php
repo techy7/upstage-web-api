@@ -79,9 +79,11 @@ class ListingController extends Controller
             ->update(['read_at' => now()]); 
             
         $listing->load(['user', 'editor', 'items'=>function($i){
-            $i->with(['editedItem', 'template'])
+            $i->with(['editedItem', 'template', 'chat'=>function($c){
+                $c->withCount('messages');
+            }])
                 ->withCount(['layers']);
-        }]);  
+        }]);   
 
         return view('listings.show', compact('listing'));
     }

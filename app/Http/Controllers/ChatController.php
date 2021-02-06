@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Chat;
+use App\ChatMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ChatController extends Controller
 {
@@ -78,8 +81,33 @@ class ChatController extends Controller
      * @param  \App\Chat  $chat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Chat $chat)
-    {
-        //
+    public function message_store(Request $request, Chat $chat)
+    { 
+        $validator = Validator::make($request->all(), [ 
+            'msg' => 'required'
+        ]);
+
+        if ($validator->fails()) {  
+            return response()->json([
+                'message' => 'Could not send message.',
+                'errors' => $validator->errors(),
+                'status' => 'error',
+                'status_code' => 422
+            ], 422); 
+        }
+
+        $message = ChatMessage::create([
+            'body' => $request->msg,
+            'item_id' => $chat->item_id,
+            'chat_id' => $chat->id,
+            'user_id' => Auth::user()->id,
+            'sender' => 'editor'
+        ]); 
+
+        return response()->json([
+            'message' => $message->only(['body', 'hash', 'sender', 'updated_at', 'created_at', 'date']), 
+            'status' =>'success',
+            'status_code' => 200
+        ], 200);
     }
 }

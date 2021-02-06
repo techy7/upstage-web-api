@@ -119,4 +119,6 @@ Route::prefix('/admin_api')->middleware(['auth', 'isNotUser'])->group(function (
 	Route::get('templates/{template}', 'TemplateController@api_show'); 
 	Route::put('templates/{template}', 'TemplateController@api_update'); 
 	Route::delete('templates/{template}', 'TemplateController@api_destroy'); 
+
+	Route::post('chats/{chat}/messages', 'ChatController@message_store');
 });

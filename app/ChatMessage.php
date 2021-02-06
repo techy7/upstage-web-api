@@ -10,6 +10,10 @@ class ChatMessage extends Model
 {
     protected $guarded = ['id'];
 
+    protected $appends = [
+        'date'
+    ];
+
     public function user() 
     {
         return $this->belongsTo(\App\User::class);
@@ -23,6 +27,11 @@ class ChatMessage extends Model
     public function chat() 
     {
         return $this->belongsTo(\App\Chat::class);
+    }
+
+    public function getDateAttribute()
+    {
+        return $this->created_at->format('M d, Y h:i a');
     }
 
     public function getRouteKeyName()

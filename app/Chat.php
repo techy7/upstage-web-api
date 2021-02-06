@@ -25,6 +25,12 @@ class Chat extends Model
         return $this->hasMany(\App\ChatMessage::class)->orderBy('created_at', 'desc');
     }
 
+    public function messages_asc() 
+    {
+        return $this->hasMany(ChatMessage::class)
+            ->orderBy('created_at', 'asc');
+    }
+
     public function getRouteKeyName()
     {
         return 'hash';
