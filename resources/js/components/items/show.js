@@ -17,7 +17,10 @@ Vue.component('items-show', {
     mounted() {   
         console.log(this.objitem);
         this.item = this.objitem;
-        this.messages = this.objitem.chat.messages_asc;
+
+        if(this.objitem.chat) {
+            this.messages = this.objitem.chat.messages_asc;
+        }
 
         console.log(this.messages)
         
