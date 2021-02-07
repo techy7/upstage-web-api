@@ -42,7 +42,9 @@ class ItemController extends Controller
             ->where('listing_id', $listing->id)
             ->withCount(['layers'])
             ->ofStatus($strStatus) 
-            ->with(['editedItem'])
+            ->with(['editedItem', 'chat'=>function($c){
+                $c->withCount(['messages']);
+            }])
             ->orderBy('created_at', 'desc')
             ->paginate(20); 
 
@@ -70,6 +72,11 @@ class ItemController extends Controller
                 );
             }
 
+            $objChat = array(
+                'hash' => data_get($item, 'chat.hash', null),
+                'messages_count' => data_get($item, 'chat.messages_count', 0)
+            );
+
             return array(
                 "name" => $item->label,
                 "description" => $item->description, 
@@ -86,7 +93,8 @@ class ItemController extends Controller
                     "name" => $listing->name, 
                     "hash" => $listing->hash,
                     "slug" => $listing->slug,
-                )
+                ),
+                'chat' => $objChat
             ); 
         }); 
             
@@ -251,6 +259,8 @@ class ItemController extends Controller
 
         $item->load(['editedItem', 'layers', 'template'=>function($t){
             $t->select('id', 'name', 'category', 'type');
+        }, 'chat'=>function($c){
+            $c->withCount(['messages']);
         }]);
 
         $folderUrl = strpos($item->mimetype, 'image') !== false ? 'image' : 'video';
@@ -288,6 +298,13 @@ class ItemController extends Controller
                 'file_url' => env('APP_URL').'/image/media_assets/150/150/'.$objLayer->filename
             ));
         }
+
+        $objChat = array(
+                'hash' => data_get($item, 'chat.hash', null),
+                'messages_count' => data_get($item, 'chat.messages_count', 0),
+                "user_status" => data_get($item, 'chat.user_status', 'seen'),
+            );
+
         
         return response()->json(array(
             "name" => $item->label,
@@ -306,7 +323,8 @@ class ItemController extends Controller
                 "slug" => $listing->slug,
             ),
             "media_assets" => $itemLayers,
-            "template" => $item->template
+            "template" => $item->template,
+            'chat' => $objChat
         ));
     }
 

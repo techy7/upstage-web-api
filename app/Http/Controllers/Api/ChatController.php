@@ -35,7 +35,7 @@ class ChatController extends Controller
             ->with(['item'=>function($i){
                 $i->with(['listing', 'editedItem'])
                     ->withCount(['layers']);
-            }])
+            }, 'messageLast'])
             ->orderBy('updated_at', 'desc')
             ->paginate(20);
 
@@ -66,11 +66,17 @@ class ChatController extends Controller
                 );
             } 
 
+            $objLastMsg = array(
+                'body' => data_get($chat, 'messageLast.body'),
+                'sender' => data_get($chat, 'messageLast.sender')
+            );
+
             return array(
                 "user_status" => $chat->user_status,
                 "hash" => $chat->hash,
                 "created_at" => $chat->created_at,
                 "updated_at" => $chat->updated_at,
+                "last_message" => $objLastMsg,
                 'presentation' => array(
                     "name" => $item->label,
                     "description" => $item->description, 
@@ -189,6 +195,10 @@ class ChatController extends Controller
             ], 401);
         }
 
+        $chat->timestamps = false;
+        $chat->user_status = 'seen';
+        $chat->save();
+
         $messages = ChatMessage::where('chat_id', $chat->id)
             ->select('sender', 'hash', 'body', 'created_at', 'updated_at')
             ->orderBy('created_at', 'desc')
@@ -230,6 +240,25 @@ class ChatController extends Controller
             'sender' => 'user'
         ]);
 
-        return response()->json($message->only(['body', 'hash', 'sender', 'updated_at', 'created_at']));
+        $chat->update([
+            'updated_at'=>now(),
+            'user_status' => 'seen',
+            'editor_status' => 'new'
+        ]);
+
+        return response()->json($message->only(['body', 'hash', 'sender', 'updated_at', 'created_at', 'date']));
+    }
+
+    public function seen(Chat $chat)
+    {
+        $chat->timestamps = false;
+        $chat->user_status = 'seen';
+        $chat->save();
+
+        return response()->json([
+            "message" => "Chat status for user was set to seen",
+            "status" => "success",
+            "status_code" => 200
+        ], 200);
     }
 }

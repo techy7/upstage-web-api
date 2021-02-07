@@ -46,6 +46,10 @@
             <div class="card mb-5">
                 @include('apidocs.includes.template')
             </div>
+
+            <div class="card mb-5">
+                @include('apidocs.includes.chat')
+            </div>
         </div>
     </div>
 </div>

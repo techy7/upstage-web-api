@@ -81,7 +81,7 @@ Vue.component('items-show', {
             setTimeout(()=>{  
                 var elChatArea = $('#chatList');
                 elChatArea.scrollTop(elChatArea.prop("scrollHeight"));
-            }, 1000);
+            }, 500);
         },
 
         getChatClass(sender) {

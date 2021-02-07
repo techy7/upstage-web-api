@@ -112,6 +112,10 @@
             "name": "Alice had been to the end of the court. (As that is.",
             "hash": "m806w1pg",
             "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
+        },
+        "chat": {
+            "hash": "q6rqoz94",
+            "messages_count": 40
         }
       },
       {
@@ -135,6 +139,10 @@
               "name": "Alice had been to the end of the court. (As that is.",
               "hash": "m806w1pg",
               "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
+          }
+          "chat": {
+              "hash": "q6rqozxx",
+              "messages_count": 0
           }
       },
       ....
@@ -393,7 +401,18 @@
             "hash": "5r4ox4pw",
             "file_url": "http://upstage.test/image/media_assets/150/150/30x2wrxy1603638172_file_layer_one_photo.png"
         }
-    ]
+    ],
+    "template": {
+        "id": 1,
+        "name": "one template",
+        "category": "Img One",
+        "type": "Image"
+    },
+    "chat": {
+        "hash": "q6rqoz94",
+        "messages_count": 37,
+        "user_status": "seen"
+    }
 }
 </pre> 
 
@@ -419,6 +438,17 @@
         "name": "Alice had been to the end of the court. (As that is.",
         "hash": "m806w1pg",
         "slug": "alice-had-been-to-the-end-of-the-court-as-that-is-m806w1pg"
+    },
+    "template": {
+        "id": 1,
+        "name": "one template",
+        "category": "Img One",
+        "type": "Image"
+    },
+    "chat": {
+        "hash": "q6rqoz94",
+        "messages_count": 37,
+        "user_status": "seen"
     }
 },
 </pre> 

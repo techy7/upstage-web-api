@@ -63,4 +63,5 @@ Route::middleware(['api'])->group(function () {
 	Route::get('chats/{chat}', 'Api\ChatController@show');
 	Route::get('chats/{chat}/messages', 'Api\ChatController@message_index');
 	Route::post('chats/{chat}/messages', 'Api\ChatController@message_store');
+	Route::post('chats/{chat}/seen', 'Api\ChatController@seen');
 });

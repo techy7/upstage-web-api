@@ -104,6 +104,12 @@ class ChatController extends Controller
             'sender' => 'editor'
         ]); 
 
+        $chat->update([
+            'updated_at'=>now(),
+            'user_status' => 'new',
+            'editor_status' => 'seen'
+        ]);
+
         return response()->json([
             'message' => $message->only(['body', 'hash', 'sender', 'updated_at', 'created_at', 'date']), 
             'status' =>'success',

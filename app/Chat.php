@@ -25,6 +25,11 @@ class Chat extends Model
         return $this->hasMany(\App\ChatMessage::class)->orderBy('created_at', 'desc');
     }
 
+    public function messageLast() 
+    {
+        return $this->hasOne(\App\ChatMessage::class)->orderBy('created_at', 'desc');
+    }
+
     public function messages_asc() 
     {
         return $this->hasMany(ChatMessage::class)
