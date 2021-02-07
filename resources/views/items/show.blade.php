@@ -179,149 +179,151 @@
                 </div> 
             </div>
 
-            <div class="row"> 
-                <div class="col-lg-6"> 
-                    <div class="col-md-12">
-                        <div class="m-portlet"> 
-                            <div class="m-portlet__body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-md-12"> 
-                                                @if(strpos($item->mimetype, 'image') !== false)
-                                                    <label class='clearfix d-block'> 
-                                                        Original Image File
-                                                        @if($item->layers->count())
-                                                            <small class="float-right text-primary">
-                                                                Added media assets below
-                                                            </small>
-                                                        @else
-                                                            <small class="float-right text-muted">
-                                                                No media assets
-                                                            </small>
-                                                        @endif
-                                                    </label>
-                                                    <img src="{{url('/image/presentations/'.$item->filename)}}" class="w-100" />
-                                                @endif
-
-                                                @if(strpos($item->mimetype, 'video') !== false)
-                                                    <label class='clearfix d-block'> 
-                                                        Original Video File
-
-                                                        @if($item->layers->count())
-                                                            <small class="float-right text-primary">
-                                                                Added media assets below
-                                                            </small>
-                                                        @else
-                                                            <small class="float-right text-muted">
-                                                                No media assets
-                                                            </small>
-                                                        @endif
-                                                    </label>
-                                                    <video controls width="250" class="w-100">
-
-                                                        <source src="{{url('/video/presentations/'.$item->filename.'/watch')}}"
-                                                                type="{{$item->mimetype}}"> 
-
-                                                        Sorry, your browser doesn't support embedded videos.
-                                                    </video>
-                                                @endif
-                                            </div>   
-                                                  
-                                        </div> 
-                                    </div> 
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="m-portlet"> 
-                            <div class="m-portlet__body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-md-12"> 
-                                                <label class='clearfix d-block'> 
-                                                    <strong>Media Assets</strong>
-                                                </label>
-
-                                                @if($item->layers->count())
-                                                <div class="row">  
-                                                    @foreach($item->layers as $asset)
-                                                        <div class="col-md-6">
-                                                            @if(strpos($asset->mimetype, 'image') !== false) 
-                                                                <img src="{{url('/image/media_assets/'.$asset->filename)}}" class="w-100" />
+            <div class="col-md-12">
+                <div class="row"> 
+                    <div class="col-lg-6"> 
+                        <div class="col-md-12">
+                            <div class="m-portlet"> 
+                                <div class="m-portlet__body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12"> 
+                                                    @if(strpos($item->mimetype, 'image') !== false)
+                                                        <label class='clearfix d-block'> 
+                                                            Original Image File
+                                                            @if($item->layers->count())
+                                                                <small class="float-right text-primary">
+                                                                    Added media assets below
+                                                                </small>
+                                                            @else
+                                                                <small class="float-right text-muted">
+                                                                    No media assets
+                                                                </small>
                                                             @endif
+                                                        </label>
+                                                        <img src="{{url('/image/presentations/'.$item->filename)}}" class="w-100" />
+                                                    @endif
 
-                                                            @if(strpos($asset->mimetype, 'video') !== false) 
-                                                                <video controls width="250" class="w-100">
+                                                    @if(strpos($item->mimetype, 'video') !== false)
+                                                        <label class='clearfix d-block'> 
+                                                            Original Video File
 
-                                                                    <source src="{{url('/video/media_assets/'.$asset->filename.'/watch')}}"
-                                                                            type="{{$asset->mimetype}}"> 
-
-                                                                    Sorry, your browser doesn't support embedded videos.
-                                                                </video>
+                                                            @if($item->layers->count())
+                                                                <small class="float-right text-primary">
+                                                                    Added media assets below
+                                                                </small>
+                                                            @else
+                                                                <small class="float-right text-muted">
+                                                                    No media assets
+                                                                </small>
                                                             @endif
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                @else
-                                                    <p>No added media assets</p>
-                                                @endif
-                                            </div>   
-                                        </div> 
-                                    </div> 
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
-                </div>
+                                                        </label>
+                                                        <video controls width="250" class="w-100">
 
-                <div class="col-lg-6">
-                    <div class="m-portlet"> 
-                        <div class="m-portlet__body">
-                            <h5>Chat Messages</h5>
-                            <div id="chatWrap">
-                                <div id="chatBox">
-                                    <div id="chatList">
-                                        <div id="chatItem">
-                                            <div class="alert "
-                                                v-for="(msg, index) in messages" 
-                                                :class="getChatClass(msg.sender)"
-                                            >
-                                                <p v-html="msg.body || ''"></p>
-                                                <p class="clearfix m-0"> 
-                                                    <small>
-                                                        <span v-if="msg.sender == 'user'">
-                                                            @{{item.user.full_name}}
-                                                        </span>
-                                                        <span v-else>Editor</span>
-                                                        <span class="px-10">&bull;</span>
-                                                        @{{msg.date}}
-                                                    </small>
-                                                </p>
+                                                            <source src="{{url('/video/presentations/'.$item->filename.'/watch')}}"
+                                                                    type="{{$item->mimetype}}"> 
+
+                                                            Sorry, your browser doesn't support embedded videos.
+                                                        </video>
+                                                    @endif
+                                                </div>   
+                                                      
                                             </div> 
-                                            
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="m-portlet"> 
+                                <div class="m-portlet__body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12"> 
+                                                    <label class='clearfix d-block'> 
+                                                        <strong>Media Assets</strong>
+                                                    </label>
+
+                                                    @if($item->layers->count())
+                                                    <div class="row">  
+                                                        @foreach($item->layers as $asset)
+                                                            <div class="col-md-6">
+                                                                @if(strpos($asset->mimetype, 'image') !== false) 
+                                                                    <img src="{{url('/image/media_assets/'.$asset->filename)}}" class="w-100" />
+                                                                @endif
+
+                                                                @if(strpos($asset->mimetype, 'video') !== false) 
+                                                                    <video controls width="250" class="w-100">
+
+                                                                        <source src="{{url('/video/media_assets/'.$asset->filename.'/watch')}}"
+                                                                                type="{{$asset->mimetype}}"> 
+
+                                                                        Sorry, your browser doesn't support embedded videos.
+                                                                    </video>
+                                                                @endif
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    @else
+                                                        <p>No added media assets</p>
+                                                    @endif
+                                                </div>   
+                                            </div> 
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="m-portlet"> 
+                            <div class="m-portlet__body">
+                                <h5>Chat Messages</h5>
+                                <div id="chatWrap">
+                                    <div id="chatBox">
+                                        <div id="chatList">
+                                            <div id="chatItem">
+                                                <div class="alert "
+                                                    v-for="(msg, index) in messages" 
+                                                    :class="getChatClass(msg.sender)"
+                                                >
+                                                    <p v-html="msg.body || ''"></p>
+                                                    <p class="clearfix m-0"> 
+                                                        <small>
+                                                            <span v-if="msg.sender == 'user'">
+                                                                @{{item.user.full_name}}
+                                                            </span>
+                                                            <span v-else>Editor</span>
+                                                            <span class="px-10">&bull;</span>
+                                                            @{{msg.date}}
+                                                        </small>
+                                                    </p>
+                                                </div> 
+                                                
+                                            </div>
+                                        </div>
+                                        <div id="chatForm">
+                                            <textarea rows="5" v-model="chatBody" 
+                                                placeholder="Type message here..." 
+                                                class="form-control"
+                                            ></textarea>
+
+                                            <p class="text-center">
+                                                <button @click="submitChat" 
+                                                    class="btn btn-primary btn-block"
+                                                    :disabled="!chatBody" 
+                                                >Send</button>
+                                            </p>
                                         </div>
                                     </div>
-                                    <div id="chatForm">
-                                        <textarea rows="5" v-model="chatBody" 
-                                            placeholder="Type message here..." 
-                                            class="form-control"
-                                        ></textarea>
-
-                                        <p class="text-center">
-                                            <button @click="submitChat" 
-                                                class="btn btn-primary btn-block"
-                                                :disabled="!chatBody" 
-                                            >Send</button>
-                                        </p>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div> 
+                        </div> 
+                    </div>
                 </div>
             </div>
         </div>
