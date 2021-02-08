@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str; 
 use App\Chat; 
 use App\ChatMessage; 
+use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
@@ -198,6 +199,14 @@ class ChatController extends Controller
         $chat->timestamps = false;
         $chat->user_status = 'seen';
         $chat->save();
+
+        // mark notification for this user if any
+        DB::table('notifications')
+            ->where('notifiable_id', $user->id)
+            ->where('type', 'App\Notifications\MessageUser')
+            ->where('data', 'like', '%"chat_hash":"'.$chat->hash.'"%') 
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]); 
 
         $messages = ChatMessage::where('chat_id', $chat->id)
             ->select('sender', 'hash', 'body', 'created_at', 'updated_at')

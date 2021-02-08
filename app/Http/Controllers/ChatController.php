@@ -7,6 +7,9 @@ use App\ChatMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\MessageUser;
+use Notification;
+use App\User;
 
 class ChatController extends Controller
 {
@@ -110,9 +113,28 @@ class ChatController extends Controller
             'editor_status' => 'seen'
         ]);
 
+        $chat->load('item.listing');
+
+        $user = User::find($chat->user_id);
+
+        if($user) {
+            $objMsg = array(
+                "body" => $request->msg,
+                "message_hash" => $message->hash,
+                "project_hash" => $chat->item->listing->hash,
+                "presentation_hash" => $chat->item->hash,
+                "project_name" => $chat->item->listing->name,
+                "presentation_name" => $chat->item->label,
+                "chat_hash" => $chat->hash,
+            );
+
+            $user->notify(new MessageUser($objMsg));
+        }
+
         return response()->json([
             'message' => $message->only(['body', 'hash', 'sender', 'updated_at', 'created_at', 'date']), 
             'status' =>'success',
+            "user" => $objMsg,
             'status_code' => 200
         ], 200);
     }

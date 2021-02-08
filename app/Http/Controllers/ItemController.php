@@ -12,6 +12,10 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Auth;
+use App\Notifications\ItemStarted;
+use App\Notifications\ItemDone;
+use Notification;
+use App\User;
 
 class ItemController extends Controller
 {
@@ -205,6 +209,28 @@ class ItemController extends Controller
 
         $item->update(['status'=>$request->status]);
         $item->refresh();
+
+        $user = User::find($item->user_id);
+
+        if($user) {
+            $item->load(['listing']);
+
+            $objMsg = array(
+                "new_status" => $item->status,
+                "project_hash" => $item->listing->hash,
+                "presentation_hash" => $item->hash,
+                "project_name" => $item->listing->name,
+                "presentation_name" => $item->label
+            );
+
+            if($item->status == 'processing') {
+                $user->notify(new ItemStarted($objMsg));
+            }
+
+            if($item->status == 'done') {
+                $user->notify(new ItemDone($objMsg));
+            }
+        }
 
         return response()->json([
             'item' => $item,

@@ -50,6 +50,10 @@
             <div class="card mb-5">
                 @include('apidocs.includes.chat')
             </div>
+
+            <div class="card mb-5">
+                @include('apidocs.includes.notifications')
+            </div>
         </div>
     </div>
 </div>

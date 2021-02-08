@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\DatabaseNotification;
 
 use Illuminate\Support\Str;
 use Hashids\Hashids;
@@ -13,6 +14,14 @@ use Hashids\Hashids;
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+
+    public function sortedNotification()
+    {
+        // Return sorted notifications
+        return $this->morphMany(DatabaseNotification::class, "notifiable") 
+                     ->orderBy("read_at", "asc")
+                     ->orderBy("created_at", "desc");
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

@@ -14,6 +14,7 @@ use App\Layer;
 use App\Template;
 use App\Chat;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
@@ -256,6 +257,23 @@ class ItemController extends Controller
                 'status_code' => 401
             ], 401);
         }  
+
+        // mark notification for this user if any
+        DB::table('notifications')
+            ->where('notifiable_id', $user->id)
+            ->where('type', 'App\Notifications\ItemStarted')
+            ->where('data', 'like', '%"presentation_hash":"'.$item->hash.'"%') 
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]); 
+
+        // mark notification for this user if any
+        DB::table('notifications')
+            ->where('notifiable_id', $user->id)
+            ->where('type', 'App\Notifications\ItemDone')
+            ->where('data', 'like', '%"presentation_hash":"'.$item->hash.'"%') 
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]); 
+
 
         $item->load(['editedItem', 'layers', 'template'=>function($t){
             $t->select('id', 'name', 'category', 'type');
