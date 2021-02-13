@@ -11,8 +11,18 @@ use App\Notifications\MessageUser;
 use Notification;
 use App\User;
 
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use LaravelFCM\Message\Topics;
+use FCM;
+
 class ChatController extends Controller
 {
+    private $chatMessage;
+    private $chat;
+    private $user;
+
     /**
      * Display a listing of the resource.
      *
@@ -116,6 +126,7 @@ class ChatController extends Controller
         $chat->load('item.listing');
 
         $user = User::find($chat->user_id);
+        $chatSuccess = null;
 
         if($user) {
             $objMsg = array(
@@ -129,13 +140,91 @@ class ChatController extends Controller
             );
 
             $user->notify(new MessageUser($objMsg));
+
+            $this->chatMessage = $message;
+            $this->chat = $chat;
+            $this->user = $user;
+            $chatSuccess = $this->notifWithFcmTopic();
         }
 
         return response()->json([
             'message' => $message->only(['body', 'hash', 'sender', 'updated_at', 'created_at', 'date']), 
             'status' =>'success',
             "user" => $objMsg,
-            'status_code' => 200
+            'status_code' => 200,
+            'chatSuccess' => $chatSuccess
         ], 200);
+    }
+
+    protected function notifyWithFCM() {
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(60*20);
+
+        $notificationBuilder = new PayloadNotificationBuilder('New Chat Message');
+        $notificationBuilder->setBody($this->chatMessage->body)
+                            ->setSound('default');
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData(['a_data' => 'my_data']);
+
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+
+        $downstreamResponse = FCM::sendTo($this->user->hash, $option, $notification, $data);
+
+        $downstreamResponse->numberSuccess();
+        $downstreamResponse->numberFailure();
+        $downstreamResponse->numberModification();
+
+        // return Array - you must remove all this tokens in your database
+        $downstreamResponse->tokensToDelete();
+
+        // return Array (key : oldToken, value : new token - you must change the token in your database)
+        $downstreamResponse->tokensToModify();
+
+        // return Array - you should try to resend the message to the tokens in the array
+        $downstreamResponse->tokensToRetry();
+
+        // return Array (key:token, value:error) - in production you should remove from your database the tokens
+        $downstreamResponse->tokensWithError();
+
+        return $downstreamResponse->numberSuccess();
+    }
+
+
+    protected function notifWithFcmTopic() {
+        $notificationBuilder = new PayloadNotificationBuilder('New Chat Message');
+        $notificationBuilder->setBody($this->chatMessage->body)
+                            ->setSound('default');
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData([
+            "body" => $this->chatMessage->body,
+            "message_hash" => $this->chatMessage->hash,
+            "project_hash" => $this->chat->item->listing->hash,
+            "presentation_hash" => $this->chat->item->hash,
+            "project_name" => $this->chat->item->listing->name,
+            "presentation_name" => $this->chat->item->label,
+            "chat_hash" => $this->chat->hash,
+            "module"=>'new_chat_message'
+        ]);
+
+        // $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+
+        // $notification = $notificationBuilder->build();
+
+        $topic = new Topics();
+        $topic->topic($this->user->hash);
+
+        $topicResponse = FCM::sendToTopic($topic, null, $notification, $data);
+
+        $topicResponse->isSuccess();
+        $topicResponse->shouldRetry();
+        $topicResponse->error();
+
+        return $topicResponse->isSuccess();
     }
 }

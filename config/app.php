@@ -177,6 +177,7 @@ return [
 
         Intervention\Image\ImageServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        LaravelFCM\FCMServiceProvider::class,
 
     ],
 
@@ -233,7 +234,9 @@ return [
         'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
         'InterImage' => Intervention\Image\Facades\Image::class,
 
-        'HelpNotif' => App\Helpers\Notifications::class
+        'HelpNotif' => App\Helpers\Notifications::class,
+        'FCM'      => LaravelFCM\Facades\FCM::class,
+        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class, // Optional
 
     ],
 
