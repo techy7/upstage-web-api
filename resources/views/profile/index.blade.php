@@ -33,12 +33,12 @@
                                         <div class="listing-wrap">
                                             @if($list->first_item)
                                                 @if($list->first_item->editedItem)
-                                                    <img src='{{url("/image/editeditems/300/300/".$list->first_item->editedItem->filename)}}' 
+                                                    <img src='{{url("/image/editedpresentations/300/300/".$list->first_item->editedItem->filename)}}' 
                                                         class="w-100" 
                                                         alt="..."
                                                     >
                                                 @else
-                                                    <img src='{{url("/image/rooms/300/300/".$list->first_item->filename)}}' 
+                                                    <img src='{{url("/image/presentations/300/300/".$list->first_item->filename)}}' 
                                                         class="w-100" 
                                                         alt="..."
                                                     >

@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "firebase": "^8.2.9",
         "laravel-vue-pagination": "^2.3.1"
     }
 }

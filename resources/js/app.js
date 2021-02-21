@@ -9,6 +9,20 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.component('pagination', require('laravel-vue-pagination'));
 
+// var firebase = require('firebase/app');
+
+// firebase.initializeApp({
+// 	apiKey: "AIzaSyDzmCiE8xQV7bnrcfdBJi5h55DDddX56vc",
+// 	authDomain: "apertr-upstage.firebaseapp.com",
+// 	databaseURL: "https://apertr-upstage.firebaseio.com",
+// 	projectId: "apertr-upstage",
+// 	storageBucket: "apertr-upstage.appspot.com",
+// 	messagingSenderId: "77943000085",
+// 	appId: "1:77943000085:web:7bfae79c05cc665277921c",
+// 	measurementId: "G-M6248ND222"
+// });
+// firebase.analytics();
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

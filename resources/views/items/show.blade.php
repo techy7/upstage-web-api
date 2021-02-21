@@ -1,5 +1,40 @@
 @extends('layouts.metronic.classic.app')
 
+@section('page-scripts')
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+
+    <script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyDzmCiE8xQV7bnrcfdBJi5h55DDddX56vc",
+        authDomain: "apertr-upstage.firebaseapp.com",
+        databaseURL: "https://apertr-upstage.firebaseio.com",
+        projectId: "apertr-upstage",
+        storageBucket: "apertr-upstage.appspot.com",
+        messagingSenderId: "77943000085",
+        appId: "1:77943000085:web:7bfae79c05cc665277921c",
+        measurementId: "G-M6248ND222"
+    };
+    // Initialize Firebase
+    console.log(firebase)
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    const messaging = firebase.messaging();
+
+    messaging.onMessage(function(payload) {
+        console.log(payload)
+    });
+</script>
+
+@endsection
+
 @section('content')
 <items-show 
     :objitem="{{$item}}"

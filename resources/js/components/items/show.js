@@ -14,17 +14,22 @@ Vue.component('items-show', {
         }
     }, 
 
-    mounted() {   
-        console.log(this.objitem);
+    mounted() {
         this.item = this.objitem;
 
         if(this.objitem.chat) {
             this.messages = this.objitem.chat.messages_asc;
         }
-
-        console.log(this.messages)
         
         this.scrollChat(); 
+
+        setTimeout(()=>{
+            // const messaging = firebase.messaging();
+
+            // messaging.onMessage(function(payload) {
+            //     console.log(payload)
+            // });
+        }, 1000)
     },  
 
     computed: {
@@ -75,9 +80,7 @@ Vue.component('items-show', {
 
                 }).catch((error)=>{ 
                     console.log(error)
-                }); 
-
-            console.log(msg)
+                });
         },
 
         scrollChat() {
