@@ -12,12 +12,12 @@
 		<!--begin::Web font -->
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 		<script>
-          WebFont.load({
-            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-          });
+		  WebFont.load({
+			google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		  });
 		</script>
 		<!--end::Web font -->
 		<!--begin::Base Styles -->
@@ -83,21 +83,49 @@
 
 			/*.responsive visibility */
 			@media (max-width: 1600px) {
-			     
+				 
 			}
 			@media (max-width: 1200px) {
-			    .lg-none {display: none !important;}
+				.lg-none {display: none !important;}
 			}
 			@media (max-width: 992px) {
-			    .md-none {display: none !important;}
+				.md-none {display: none !important;}
 			}
 			@media (max-width: 768px) {
-			    .sm-none {display: none !important;}
+				.sm-none {display: none !important;}
 			}
 			@media (max-width: 480px) {
-			    .xs-none {display: none !important;}
+				.xs-none {display: none !important;}
 			}
 		</style>
+
+		@yield('scripts', '')
+		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-messaging.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+
+		<script> 
+			// var firebaseConfig = {
+			// 	apiKey: "AIzaSyDzmCiE8xQV7bnrcfdBJi5h55DDddX56vc",
+			// 	authDomain: "apertr-upstage.firebaseapp.com",
+			// 	databaseURL: "https://apertr-upstage.firebaseio.com",
+			// 	projectId: "apertr-upstage",
+			// 	storageBucket: "apertr-upstage.appspot.com",
+			// 	messagingSenderId: "77943000085",
+			// 	appId: "1:77943000085:web:7bfae79c05cc665277921c",
+			// 	measurementId: "G-M6248ND222"
+			// };
+
+			// // Initialize Firebase 
+			// firebase.initializeApp(firebaseConfig);
+			// firebase.analytics();
+
+			// const messaging = firebase.messaging();
+
+			// messaging.onMessage(function(payload) {
+			//     console.log(payload)
+			// });
+		</script>
 	</head>
 	<!-- end::Head -->
 	<!-- end::Body -->
@@ -142,17 +170,17 @@
 			if($('#city_select2')) {
 
 
-		        // $('#city_select2').on('select2:clear', function (e) {
-		        //     console.log(11)
-		        // });	
+				// $('#city_select2').on('select2:clear', function (e) {
+				//     console.log(11)
+				// });	
 
-		        // $('#city_select2').on('select2:unselect', function (e) {
-		        //     console.log(22)
-		        // });	
+				// $('#city_select2').on('select2:unselect', function (e) {
+				//     console.log(22)
+				// });	
 
-		        // $('#city_select2').on('select2:clearing', function (e) {
-		        //     console.log(33)
-		        // });	
+				// $('#city_select2').on('select2:clearing', function (e) {
+				//     console.log(33)
+				// });	
 			}
 			
 		</script>
